@@ -1,0 +1,63 @@
+On branch dev
+Your branch is up to date with 'origin/dev'.
+
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   .env.example
+	modified:   .gitignore
+	modified:   .styleci.yml
+	modified:   README.md
+	modified:   app/Exceptions/Handler.php
+	modified:   app/Http/Kernel.php
+	deleted:    app/Http/Middleware/PreventRequestsDuringMaintenance.php
+	modified:   app/Http/Middleware/RedirectIfAuthenticated.php
+	modified:   app/Http/Middleware/TrimStrings.php
+	modified:   app/Http/Middleware/TrustProxies.php
+	modified:   app/Providers/AuthServiceProvider.php
+	modified:   app/Providers/EventServiceProvider.php
+	modified:   app/Providers/RouteServiceProvider.php
+	modified:   artisan
+	modified:   composer.json
+	modified:   config/app.php
+	modified:   config/auth.php
+	modified:   config/broadcasting.php
+	modified:   config/cache.php
+	modified:   config/cors.php
+	modified:   config/database.php
+	modified:   config/filesystems.php
+	modified:   config/hashing.php
+	modified:   config/logging.php
+	modified:   config/mail.php
+	modified:   config/queue.php
+	modified:   config/services.php
+	modified:   config/session.php
+	modified:   config/view.php
+	modified:   database/factories/UserFactory.php
+	modified:   database/migrations/2019_08_19_000000_create_failed_jobs_table.php
+	deleted:    database/seeders/DatabaseSeeder.php
+	modified:   package.json
+	modified:   phpunit.xml
+	modified:   public/index.php
+	modified:   public/web.config
+	modified:   resources/lang/en/auth.php
+	modified:   resources/lang/en/validation.php
+	modified:   routes/api.php
+	modified:   routes/channels.php
+	modified:   routes/console.php
+	modified:   routes/web.php
+	modified:   webpack.mix.js
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	app/Http/Controllers/Logistic/
+	app/Http/DTO/
+	app/Http/Middleware/CheckForMaintenanceMode.php
+	composer.lock
+	config/soap.php
+	database/seeds/
+	gitStatus.txt
+	resources/WSDL/
+	resources/sass/
+
+no changes added to commit (use "git add" and/or "git commit -a")
