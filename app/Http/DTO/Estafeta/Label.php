@@ -33,7 +33,7 @@ class Label extends DataTransferObject
     /** @var int */
     public $labelDescriptionListCount = 1;    
 
-    public LabelDescription $labelDescriptionList ; 
+    public $labelDescriptionList = null ; 
 
     
 }

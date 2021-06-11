@@ -22,23 +22,20 @@ class EstafetaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+
+        #$data = \Input::all();
+        $data = $request->all();
+        
 
         try{
           
             $path_to_wsdl = sprintf("%s%s",resource_path(), config('soap.estafeta') );
-            $client = new \SoapClient($path_to_wsdl, array('trace' => 1));
+            $client = new \SoapClient($path_to_wsdl, array('trace' => 0));
             ini_set("soap.wsdl_cache_enabled", "0");
 
-            $originInfoDTO = new OriginInfo();
-            $destinationInfoDTO = new DestinationInfo();
-            $dRAlternativeInfoDTO  = new DrAlternativeInfo();
-
-            $labelDescriptionDTO = new LabelDescription();
-
-            $labelDTO = new Label();
-
+            $labelDTO = new Label($data);
             $response =$client->createLabel($labelDTO);
 
             $salida = sprintf("Codigo %s, Descripcion %s",$response->globalResult->resultCode,$response->globalResult->resultDescription ); 
@@ -53,7 +50,7 @@ class EstafetaController extends Controller
         } catch (DataTransferObjectError $exception) {
 
                  return response()->json([
-                    'name' => "ulalala",
+                    'name' => "ulalalaFail",
                     'state' => $exception->getMessage()
                     ,'pdf'  => null
                 ]);
