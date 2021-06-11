@@ -35,18 +35,9 @@ class EstafetaController extends Controller
             $destinationInfoDTO = new DestinationInfo();
             $dRAlternativeInfoDTO  = new DrAlternativeInfo();
 
-            $labelDescriptionDTO = new LabelDescription(
-                                [
-                                "numberOfLabels"    => 1
-                                ,"destinationInfo"   => $destinationInfoDTO
-                                ,"originInfo"       => $originInfoDTO
-                                ,"DRAlternativeInfo"=> $dRAlternativeInfoDTO
-                                ]);
+            $labelDescriptionDTO = new LabelDescription();
 
-            $labelDTO = new Label( ["suscriberId"=>"28"
-                                ,"labelDescriptionList" => $labelDescriptionDTO
-                               # ,"quadrant" => "error"
-                                ]);
+            $labelDTO = new Label();
 
             $response =$client->createLabel($labelDTO);
 
