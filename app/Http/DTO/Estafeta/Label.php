@@ -2,13 +2,17 @@
 namespace App\Http\DTO\Estafeta;
 
 use Spatie\DataTransferObject\DataTransferObject;
-use App\Http\DTO\Estafeta\LabelDescription;
+
+use App\Http\DTO\Estafeta\LabelDescriptionList;
 
 use Spatie\DataTransferObject\FieldValidator as Validator;
 
 
 class Label extends DataTransferObject 
 {
+
+    public string $apiToken ="md5"
+    ;    
     /** @var string */
     public $suscriberId = "28";
     
@@ -33,7 +37,7 @@ class Label extends DataTransferObject
     /** @var int */
     public $labelDescriptionListCount = 1;    
 
-    public $labelDescriptionList = null ; 
+    public LabelDescriptionList $labelDescriptionList ; 
 
     
 }

@@ -7,7 +7,7 @@ use App\Http\DTO\Estafeta\OriginInfo;
 use App\Http\DTO\Estafeta\DestinationInfo;
 use App\Http\DTO\Estafeta\DrAlternativeInfo;
 
-class LabelDescription extends DataTransferObject 
+class LabelDescriptionList extends DataTransferObject 
 {
     public string $aditionalInfo = "string";
     public string $content ="string";
@@ -24,11 +24,12 @@ class LabelDescription extends DataTransferObject
     public bool $returnDocument = false;
     public string $serviceTypeId = "70";
     public string $serviceTypeIdDocRet = "50";
-    public bool $valid = true;
+     /** @var boolean */
+    public $valid = true;
     public float $weight = 1.1;
 
     public OriginInfo $originInfo ;
     public DestinationInfo $destinationInfo ;
     public DrAlternativeInfo $DRAlternativeInfo;
-    
+
 }
