@@ -35,3 +35,7 @@ Route::middleware(['auth'])->group(function () {
     });
 #});
 
+Route::name('logistic.')->prefix('logistic')->group(function () {
+    Route::post('estafeta', 'Logistic\EstafetaController@index')->name('index');
+    Route::get('estafeta', 'Logistic\EstafetaController@index')->name('index');
+});
