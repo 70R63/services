@@ -14,28 +14,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 /*
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
 
-Route::middleware(['auth'])->group(function () {
-    Route::name('infra.')->group(function () {
-        Route::prefix('infra')->group(function () {
-            Route::resource('dcs','Infra\DataCenterController');
-        });
-    });
+Route::middleware('auth:api')->get('/', function (Request $request) { 
+     return $request->user(); 
 });
-
 */
 
-#Route::middleware(['auth'])->group(function () {
-    Route::name('logistic.')->prefix('logistic')->group(function () {
-        Route::post('estafeta_dev', 'Logistic\EstafetaController@index')->name('index');
-        Route::get('estafeta_dev', 'Logistic\EstafetaController@index')->name('index');
-    });
-#});
+
+
+Route::get('/', 'HomeController@index')->name('homeApi');
+
+Route::name('dev.logistic.')->prefix('logistic')->group(function () {
+    
+    Route::post('estafeta_dev', 'Logistic\Dev\EstafetaController@index')->name('index');
+});
+
 
 Route::name('logistic.')->prefix('logistic')->group(function () {
-    Route::post('estafeta', 'Logistic\EstafetaController@index')->name('index');
-    Route::get('estafeta', 'Logistic\EstafetaController@index')->name('index');
+    Route::post('estafeta', 'Logistic\Prd\EstafetaController@index')->name('index');
+
 });
+

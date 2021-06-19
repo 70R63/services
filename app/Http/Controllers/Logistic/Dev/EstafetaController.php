@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\logistic;
+namespace App\Http\Controllers\logistic\Dev;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 use App\Http\DTO\Estafeta\Label;
 use Spatie\DataTransferObject\DataTransferObjectError;
+use \Log;
 
 use App\Http\DTO\Estafeta\LabelDescription;
 use App\Http\DTO\Estafeta\OriginInfo;
@@ -25,10 +26,14 @@ class EstafetaController extends Controller
     public function index(Request $request)
     {
         $data = $request->all();
-        
+
         try{
-          
-            $path_to_wsdl = sprintf("%s%s",resource_path(), config('soap.estafeta') );
+
+            /* Se inicializa el WS para DEV*/
+            $wsdl = config('soap.estafeta_dev');
+
+            $path_to_wsdl = sprintf("%s%s",resource_path(), $wsdl );
+            Log::debug($path_to_wsdl);
             $client = new \SoapClient($path_to_wsdl, array('trace' => 0));
             ini_set("soap.wsdl_cache_enabled", "0");
             $tmp = new Label($data);

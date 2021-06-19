@@ -17,7 +17,7 @@ class LabelDescriptionList extends DataTransferObject
     public string $destinationCountryId = "MX";
     public string $effectiveDate = "20210608";
     public int $numberOfLabels = 1;
-    public string $officeNum = "130";
+    public string $officeNum = "595";
     public string $originZipCodeForRouting = "62250";
     public int $parcelTypeId = 4;
     public string $reference = "string";
