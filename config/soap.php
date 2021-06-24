@@ -13,8 +13,9 @@ return [
     |
     */
 
-    'estafeta_dev'  => env('WSDL_ESTAFETA_DEV', 'Laravel'),
     'estafeta'      => env('WSDL_ESTAFETA', 'Laravel'),
-    'hostname'      => env('HOSTNAME'), 'localhost'
+    
+    'estafeta_dev'  => env('WSDL_ESTAFETA_DEV', 'Laravel'),
+    'estafeta_tracking_dev' => env('WSDL_ESTAFETA_TRACKING_DEV', 'tracking'),
 
     ];

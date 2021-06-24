@@ -2,11 +2,9 @@
 namespace App\Http\DTO\Estafeta;
 
 use Spatie\DataTransferObject\DataTransferObject;
-
-use App\Http\DTO\Estafeta\LabelDescriptionList;
-
 use Spatie\DataTransferObject\FieldValidator as Validator;
 
+use App\Http\DTO\Estafeta\LabelDescriptionList;
 
 class Label extends DataTransferObject 
 {

@@ -7,14 +7,18 @@ use Illuminate\Http\Request;
 
 /* Inico de configuracion personalizada*/
 
-use App\Http\DTO\Estafeta\Label;
 use Spatie\DataTransferObject\DataTransferObjectError;
 use \Log;
 
+use App\Http\DTO\Estafeta\Label;
 use App\Http\DTO\Estafeta\LabelDescription;
 use App\Http\DTO\Estafeta\OriginInfo;
 use App\Http\DTO\Estafeta\DestinationInfo;
 use App\Http\DTO\Estafeta\DrAlternativeInfo;
+
+use App\Http\DTO\Estafeta\Tracking\ExecuteQuery;
+use App\Http\DTO\Estafeta\Tracking\SearchType;
+use App\Http\DTO\Estafeta\Tracking\SearchConfiguration;
 
 class EstafetaController extends Controller
 {
@@ -36,11 +40,15 @@ class EstafetaController extends Controller
             Log::debug($path_to_wsdl);
             $client = new \SoapClient($path_to_wsdl, array('trace' => 0));
             ini_set("soap.wsdl_cache_enabled", "0");
-            $tmp = new Label($data);
             $labelDTO = new Label($data);
 
             $response =$client->createLabel($labelDTO);
-          
+            /*
+            file_put_contents("/home/javier/Documents/JorgeRomero/estafeta/label.pdf", $response->labelPDF);
+            $response->labelPDF= base64_encode($response->labelPDF);
+            #dd($response);
+            return response()->json($response);
+            */
             return response()->json([
                 'codigo' => $response->globalResult->resultCode,
                 'descripcion' => $response->globalResult->resultDescription
@@ -54,19 +62,35 @@ class EstafetaController extends Controller
                 'codigo' => "11",
                 'descripcion' => $exception->getMessage()
                 ,'pdf'  => null
-            ]);
+                ]);
 
         }
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Valida el estado del servicio.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function seguimiento( Request $request )
     {
-        //
+        try{
+            /* Se inicializa el WS para DEV*/
+            $wsdl = config('soap.estafeta_tracking_dev');
+            
+            $path_to_wsdl = sprintf("%s%s",resource_path(), $wsdl );
+            Log::debug($path_to_wsdl);
+            $client = new \SoapClient($path_to_wsdl, array('trace' => 0));
+            ini_set("soap.wsdl_cache_enabled", "0");
+            $data = $request -> all();
+            $executeDTO = new ExecuteQuery($data);
+            $response =$client->executeQuery($executeDTO);
+
+            return response()->json($response);
+
+        } catch (Exception $e) {
+            Log::debug($e->getMessage());
+        }
     }
 
     /**
