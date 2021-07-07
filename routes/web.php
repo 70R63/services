@@ -13,4 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'HomeController@index')->name('home');
+Route::get('/inicio', 'HomeController@index')->name('index');
+Route::get('/menus', 'HomeController@menu')->name('menu');
+
+Route::get('/envios/creacion', 'HomeController@creacion')->name('creacion');
