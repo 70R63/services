@@ -16,7 +16,22 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('welcome');
+        return view('app');
+    }
+
+    /**
+     * Muestra el menu en desarrollo.
+     *
+     * @return View base
+     */
+    public function menu()
+    {
+        return view('app');
+    }
+
+    public function creacion()
+    {
+        return view('envios/creacion');
     }
 
    
