@@ -1,7 +1,7 @@
 $(function() {
 	'use strict'
 	
-	$('#wizard1').steps({
+	$('#form').steps({
 		headerTag: 'h3',
 		bodyTag: 'section',
 		autoFocus: true,
@@ -27,5 +27,6 @@ $(function() {
 		  return true;
 		}
 	}
-	$( "#form" ).accWizard(options);
-});
+	
+	$("#form").accWizard(options);
+});	
