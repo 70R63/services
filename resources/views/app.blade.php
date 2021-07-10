@@ -77,19 +77,78 @@
 			<!-- Main Header-->
 			<div class="main-header side-header sticky">
 				<div class="container-fluid">
-					<div class="main-header-center">
-						@yield('content')
-
+					<div class="main-header-left">
+						<a class="main-header-menu-icon" href="#" id="mainSidebarToggle"><span></span></a>
 					</div>
+
+					<div class="main-header-center">
+						test
+					</div>
+
 					<div class="main-header-right">
+						@include('perfil/index')
+					</div>
+				</div>
+			</div>
+			<!--End  Main Header-->
+
+			<!-- Mobile-header -->
+			<div class="mobile-main-header">
+				<div class="mb-1 navbar navbar-expand-lg  nav nav-item  navbar-nav-right responsive-navbar navbar-dark  ">
+					<div class="collapse navbar-collapse" id="navbarSupportedContent-4">
 						<div class="dropdown main-profile-menu">
-							@include('perfil/index')
+							<a class="d-flex" href="#">
+								<span class="main-img-user" ><img alt="avatar" src="{{  url('public/img/users/1.jpg')}}"></span>
+							</a>
+							<div class="dropdown-menu">
+								<div class="header-navheading">
+									<h6 class="main-notification-title">Sonia Taylor 1</h6>
+									<p class="main-notification-text">Web Designer</p>
+								</div>
+								<a class="dropdown-item border-top" href="profile.html">
+									<i class="fe fe-user"></i> My Profile
+								</a>
+								<a class="dropdown-item" href="profile.html">
+									<i class="fe fe-edit"></i> Edit Profile
+								</a>
+								<a class="dropdown-item" href="profile.html">
+									<i class="fe fe-settings"></i> Account Settings
+								</a>
+								<a class="dropdown-item" href="profile.html">
+									<i class="fe fe-settings"></i> Support
+								</a>
+								<a class="dropdown-item" href="profile.html">
+									<i class="fe fe-compass"></i> Activity
+								</a>
+								<a class="dropdown-item" href="signin.html">
+									<i class="fe fe-power"></i> Sign Out
+								</a>
+							</div>
+
+							
 						</div>
 					</div>
 				</div>
-
 			</div>
-			<!--End  Main Header-->
+
+			<!-- End Mobile-header -->
+
+			<!-- Main Content-->
+			<div class="main-content side-content pt-0">
+				<div class="container-fluid">
+					<div class="inner-body">
+
+						<!-- Page Header -->
+						<div class="page-header">
+						</div>
+						<!-- End Page Header -->
+						
+						@yield('content')
+		
+					</div>
+				</div>
+			</div>
+			<!-- End Main Content-->
 
 			<!-- Main Footer-->
 			<div class="main-footer text-center">
@@ -135,18 +194,28 @@
 		<script src="{{ url('public/spruha/plugins/raphael/raphael.min.js') }}"></script>
 		<script src="{{ url('public/spruha/plugins/morris.js/morris.min.js') }}"></script>
 
-		<!-- Circle Progress js
-		<script src="{{ asset('spruha/js/circle-progress.min.js') }}"></script>
-		<script src="{{ asset('spruha/js/chart-circle.js') }}"></script>
-		-->
-		<!-- Internal Dashboard js 
-		<script src="{{ asset('spruha/js/index.js') }}"></script>
-		-->
 		<!-- Sticky js -->
 		<script src="{{ url('public/spruha/js/sticky.js') }}"></script>
 		
+		<!-- Internal Jquery-steps js-->
+		<script src="{{ url('public/spruha/plugins/jquery-steps/jquery.steps.min.js') }}"></script>
+
+		<!-- Internal Accordion-Wizard-Form js-->
+		<script src="{{ url('public/spruha/plugins/accordion-Wizard-Form/jquery.accordion-wizard.min.js') }}"></script>
+
+		<!-- Internal Form-wizard js-->
+		<script src="{{ url('public/spruha/js/form-wizard.js') }}"></script>
+
+		<!-- Internal Dashboard js
+		<script src="{{ url('public/spruha/js/index.js') }}"></script>
+-->
+		<!-- Sticky js -->
+		<script src="{{ url('public/spruha/js/sticky.js') }}"></script>
+
 		<!-- Custom js -->
 		<script src="{{ url('public/spruha/js/custom.js') }}"></script>
+
+
 
 	</body>
 </html>
