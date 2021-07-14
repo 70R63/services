@@ -15,6 +15,7 @@
         "laravel/framework": "^7.29",
         "laravel/tinker": "^2.5"
         ,"spatie/data-transfer-object" : "2.*"
+        ,"laravelcollective/html": "~6.0"
     },
     "require-dev": {
         "facade/ignition": "^2.0",
