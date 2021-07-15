@@ -205,7 +205,7 @@ class EnviosController extends Controller
      */
     public function guia_creada()
     {
-        return view('envios/guia')
+        return view('envios/guia');
     }
 }
 
