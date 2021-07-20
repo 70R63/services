@@ -11,11 +11,6 @@ use Illuminate\Http\Response;
 use Spatie\DataTransferObject\DataTransferObjectError;
 use \Log;
 
-use App\Http\DTO\Estafeta\Label;
-use App\Http\DTO\Estafeta\LabelDescription;
-use App\Http\DTO\Estafeta\OriginInfo;
-use App\Http\DTO\Estafeta\DestinationInfo;
-use App\Http\DTO\Estafeta\DrAlternativeInfo;
 
 use App\Http\DTO\Estafeta\Tracking\ExecuteQuery;
 use App\Http\DTO\Estafeta\Tracking\SearchType;
@@ -97,7 +92,7 @@ class EnviosController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Crea una solicitud de guia hacia el broker del servicio
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -106,41 +101,17 @@ class EnviosController extends Controller
     {
         try {        
             
-            /* Se inicializa el WS para DEV*/
-            $wsdl = config('soap.estafeta_dev');
-
-            $path_to_wsdl = sprintf("%s%s",resource_path(), $wsdl );
-            Log::debug($path_to_wsdl);
-            $client = new \SoapClient($path_to_wsdl, array('trace' => 0));
-            ini_set("soap.wsdl_cache_enabled", "0");
             
-            $data = $request -> all();
-
             $solicitud = new Solicitud();
-            $solicitud -> procesar($data);
-            $labelDTO = new Label([
-                "labelDescriptionList" => $solicitud -> labelDescriptionList
-            ]);
-
-            $response =$client->createLabel($labelDTO);
-
-            $headers = array(
-              'Content-Type: application/pdf',
-            );
-            file_put_contents("/home/javier/Documents/JorgeRomero/estafeta/label.pdf", $response->labelPDF);
-            /*
-            return response()
-                #->view('envios/guia')
-                #->header('Content-Type','application/pdf' )
-                ->download( url('public/pdf/label1.pdf'), "Mi_pdf.pdf", $headers)
-                
-                ;
-            */
-            #return \Redirect::route('guia');
-            #return view('guia', compact('rack', 'equipo'));
-            return view('envios/guia');
-            #dd($response);
-
+            $solicitud -> procesarDatos($request -> all());
+            $solicitud -> cargarDTO();
+            $solicitud -> enviar();
+            
+            
+            
+            
+            return \Redirect::route('dev.envios.creacion')
+                ->with();
 
         } catch (Exception $e) {
             dd($e);

@@ -98,7 +98,7 @@
 				['class' 		=> 'form-control'
 				,'placeholder'	=> 'contenido'
 				,'required'	=> ''
-				,'pattern'	=> '\d{5}'
+				
 				])
 			!!}
 			
@@ -108,12 +108,13 @@
 			<div class="input-group-prepend">
 				<span class="input-group-text" id="basic-addon1"> Seguro para el Envio <span class="tx-danger">*</span></span>
 			</div>
-			{!! Form::text('seguro', null,
-				['class' 		=> 'form-control'
-				,'placeholder'	=> 'Seguro'
-				,'required'	=> ''
-				])
-			!!}
+			<div class="col-lg-3">
+				<label class="rdiobox"><input name="rdio" type="radio"> <span>SI</span></label>
+			</div>
+			<div class="col-lg-3 mg-t-20 mg-lg-t-0">
+				<label class="rdiobox"><input checked name="rdio" type="radio"> <span>NO</span></label>
+			</div>
+
 		</div>							
 
 		<div class="input-group mb-3">
@@ -126,6 +127,15 @@
 				,'required'	=> ''
 				])
 			!!}
+		</div>
+		<div class="input-group mb-3">
+			<label class="ckbox"><input type="checkbox"><span>Crear Perfil</span></label>
+			<div class="input-group-prepend">
+				
+				<div class="col-lg-3">
+					
+				</div>
+			</div>
 		</div>
 
 		
