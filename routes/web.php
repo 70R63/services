@@ -24,10 +24,13 @@ Route::middleware(['throttle:30,1'])->group(function () {
             
         	Route::resource('envios', 'Web\Dev\EnviosController');
             Route::get('envios/guias/creada', 'Web\Dev\EnviosController@guia_creada')->name('envios.creacion');
-            #Route::post('seguimiento', 'Web\Dev\EstafetaController@seguimiento')->name('seguimiento');
+            Route::post('envios/guias/salvacion', 'Web\Dev\EnviosController@storeAs')->name('envios.salvacion');
         
     });
 });
 
 /* Ambiente de PRD */
+
+
+
 

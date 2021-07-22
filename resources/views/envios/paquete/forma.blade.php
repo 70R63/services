@@ -98,7 +98,7 @@
 				['class' 		=> 'form-control'
 				,'placeholder'	=> 'contenido'
 				,'required'	=> ''
-				
+					
 				])
 			!!}
 			
@@ -109,10 +109,10 @@
 				<span class="input-group-text" id="basic-addon1"> Seguro para el Envio <span class="tx-danger">*</span></span>
 			</div>
 			<div class="col-lg-3">
-				<label class="rdiobox"><input name="rdio" type="radio"> <span>SI</span></label>
+				<label class="rdiobox"><input name="seguro" value="1" type="radio"> <span>SI</span></label>
 			</div>
 			<div class="col-lg-3 mg-t-20 mg-lg-t-0">
-				<label class="rdiobox"><input checked name="rdio" type="radio"> <span>NO</span></label>
+				<label class="rdiobox"><input checked name="seguro" value="0"type="radio"> <span>NO</span></label>
 			</div>
 
 		</div>							

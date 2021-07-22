@@ -9,7 +9,7 @@ use Illuminate\Http\Response;
 /* Inico de configuracion personalizada*/
 
 use Spatie\DataTransferObject\DataTransferObjectError;
-use \Log;
+use Log;
 
 
 use App\Http\DTO\Estafeta\Tracking\ExecuteQuery;
@@ -107,12 +107,44 @@ class EnviosController extends Controller
             $solicitud -> cargarDTO();
             $solicitud -> enviar();
             
+            $parameters=Array(
+                'idGuia'=>$solicitud -> idGuia,
+                'alert_msg'=>"No telah dibuang",
+            );
             
-            
-            
+             $notices = array("Carga exitosa");
             return \Redirect::route('dev.envios.creacion')
-                ->with();
+                ->with ('notices',$notices)
+                ->with($parameters);
 
+
+        } catch (Exception $e) {
+            dd($e);
+        }
+
+    }
+
+
+    /**
+     * Guarda la solicitud de guia hacia el broker del servicio de forma temporal o incompleta
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeAs(Request $request)
+    {
+        try {        
+            
+            
+
+            $solicitud = new Solicitud();
+            $solicitud -> procesarDatos($request -> all());
+            $solicitud -> cargarDTO();
+            $solicitud -> enviar();
+            
+            return response()->json( $request -> all());
+            
+           
         } catch (Exception $e) {
             dd($e);
         }
@@ -172,11 +204,14 @@ class EnviosController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @route  dev.envios.creacion
+     * @return view
      */
-    public function guia_creada()
+    public function guia_creada(Request $request)
     {
-        return view('envios/guia');
+        Log::debug($request->all());
+        $leyenda = "llegue";
+        return view('envios/guia', compact('leyenda') );
     }
 }
 

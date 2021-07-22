@@ -49,7 +49,7 @@
 		<div class="col-lg-12 col-md-12">
 			<div class="form-group row justify-content-center mb-0">								
 				<button type="submit" class="btn btn-success" >Enviar </button>
-				<a href="{{ url()->previous() }}" class="btn btn-primary" >Guardar</a>
+				<a id="guardar" href="" class="btn btn-primary" >Guardar</a>
 				<a href="{{ url()->previous() }}" class="btn btn-danger" >Cancelar</a>
 			</div>			
 		</div>
@@ -57,4 +57,8 @@
 	<!-- Row Botones-->
 
 {!! Form::close() !!}
+
+
+
+
 @endsection

@@ -193,7 +193,39 @@
 
 		<!-- Internal Form-validation js-->
 		<script src="{{ url('public/spruha/js/form-validation.js') }}"></script>
+		<!-- Internal salvado temporal de los envios -->
+		<script type="text/javascript">
+			$(function(){
+				$("#guardar").click(function (e) { 
+					e.preventDefault();
+					console.log("ajax");
+					var token = '{{csrf_token()}}';
+					var nombre = "nombre";
+					var data= $("#selectForm").serialize();
 
+					$.ajax({
+	                    /* Usar el route  */
+	                    url: "{{route('dev.envios.salvacion')}}",
+	                    type: 'POST',
+	                    /* send the csrf-token and the input to the controller */
+	                    data: data,
+	                    dataType: 'JSON',
+	                    /* remind that 'data' is the response of the AjaxController */
+	                    }).done(function( data) {
+						  	console.log("done");
+						  	console.log(data);
+						  	$('div.flash-message-ajax').append(data.nombre);
+						  	alert("Salvado Exitoso");
+
+						}).fail( function( jqXHR, textStatus, errorThrown ) {
+						    console.log( "error" );
+						    console.log(jqXHR);
+						}).always(function() {
+							console.log( "complete" );
+						});
+				});
+			});
+		</script>	
 		
 	</body>
 </html>

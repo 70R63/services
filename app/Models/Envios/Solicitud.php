@@ -2,13 +2,12 @@
 
 namespace App\Models\Envios;
 
-use App\Http\DTO\Estafeta\OriginInfo;
-use App\Http\DTO\Estafeta\DestinationInfo;
-use App\Http\DTO\Estafeta\DrAlternativeInfo;
-use App\Http\DTO\Estafeta\LabelDescriptionList;
+use Log;
+use Storage;
 
 use App\Http\DTO\Estafeta\Label;
 use App\Http\DTO\Estafeta\LabelDescription;
+use App\Http\DTO\Estafeta\LabelDescriptionList;
 use App\Http\DTO\Estafeta\OriginInfo;
 use App\Http\DTO\Estafeta\DestinationInfo;
 use App\Http\DTO\Estafeta\DrAlternativeInfo;
@@ -21,6 +20,8 @@ final class Solicitud
     private $labelDTO;
     private $clienteSOAP;
 
+    public $idGuia = 000000000000000;
+
 	
     /**
      * Constructor para incializar activdad de la solicitud de envios.
@@ -29,7 +30,7 @@ final class Solicitud
      * 
      * @return void
      */
-    public function __construct() : void
+    public function __construct() 
     {
          /* Se inicializa el WS para DEV*/
             $wsdl = config('soap.estafeta_dev');
@@ -123,12 +124,29 @@ final class Solicitud
      */
     public function enviar() : void
     {
-        $response = $this -> clienteSOAP -> createLabel($this -> labelDTO);
+        try {
+            $response = $this -> clienteSOAP -> createLabel($this -> labelDTO);
+            Log::debug(print_r($response->globalResult->resultSpanishDescription,true));
+            Log::debug(print_r($response->globalResult->resultCode,true));
+            
+            foreach ($response -> labelResultList as $key => $list) {
+                // code...
+                Log::debug(print_r($list->resultCode,true));    
+                Log::debug(print_r($list->resultSpanishDescription,true));
+                $namePDF = sprintf("%s.pdf",$list->resultSpanishDescription);
 
-        
+                $this -> idGuia = $list->resultSpanishDescription;
+                Log::debug(print_r($namePDF,true));
+                Log::debug(print_r(config('filesystems.disks' ),true));   
+                Storage::disk('public')->put($namePDF, $response->labelPDF);             
+                #file_put_contents($namePDF, $response->labelPDF);
+            }
 
-        file_put_contents("/home/javier/Documents/JorgeRomero/estafeta/label.pdf", $response->labelPDF);
-        
+                
+        } catch (Exception $e) {
+            
+        }
+
     }
 
 
