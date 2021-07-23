@@ -9,15 +9,15 @@ use App\Http\DTO\Estafeta\DrAlternativeInfo;
 
 class LabelDescriptionList extends DataTransferObject 
 {
-    public string $aditionalInfo = "string";
+    public string $aditionalInfo = "28";
     public string $content ="string";
     public string $contentDescription = "string";
     public string $costCenter = "string";
-    public bool $deliveryToEstafetaOffice = false;
+    public bool $deliveryToEstafetaOffice = true;
     public string $destinationCountryId = "MX";
     public string $effectiveDate = "20210608";
     public int $numberOfLabels = 1;
-    public string $officeNum = "595";
+    public string $officeNum = "130";
     public string $originZipCodeForRouting = "62250";
     public int $parcelTypeId = 4;
     public string $reference = "string";
