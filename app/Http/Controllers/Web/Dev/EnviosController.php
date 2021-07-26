@@ -41,12 +41,7 @@ class EnviosController extends Controller
             $labelDTO = new Label($data);
 
             $response =$client->createLabel($labelDTO);
-            /*
-            file_put_contents("/home/javier/Documents/JorgeRomero/estafeta/label.pdf", $response->labelPDF);
-            $response->labelPDF= base64_encode($response->labelPDF);
-            #dd($response);
-            return response()->json($response);
-            */
+            
             return response()->json([
                 'codigo' => $response->globalResult->resultCode,
                 'descripcion' => $response->globalResult->resultDescription
@@ -109,12 +104,11 @@ class EnviosController extends Controller
             
             $parameters=Array(
                 'idGuia'=>$solicitud -> idGuia,
-                'alert_msg'=>"No telah dibuang",
+                'remitente' => $solicitud -> remitenteResumen,
+                'destinatario' => $solicitud -> destinatarioResumen,
             );
             
-             $notices = array("Carga exitosa");
             return \Redirect::route('dev.envios.creacion')
-                ->with ('notices',$notices)
                 ->with($parameters);
 
 

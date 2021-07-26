@@ -6,20 +6,15 @@
 		<div class="card custom-card">
 			Resumen 
 		</br>
-			Remitene :
-			{{ asset('storage/7050000000130700837640.pdf') }} 
-				a ombre de asdfas</br>
-				asfasdfasd</br>
-				asdfasdfasdf</br>
-</br>
-				aasdfasf</br>
 		</br>
-			Destinatario
-							a ombre de asdfas</br>
-				asfasdfasd</br>
-				asdfasdfasdf</br>
-</br>
-				aasdfasf</br>
+			Remitene : </br>
+			Nombre : {{ Session::get('remitente')['nombre'] }}</br>
+			Compania : {{ Session::get('remitente')['compania'] }}	</br>
+
+		</br>
+			Destinatario</br>
+			Nombre : {{ Session::get('destinatario')['nombre'] }}</br>
+			Compania : {{ Session::get('destinatario')['compania'] }}	</br>
 		</div>
 
 	</div>
@@ -29,7 +24,7 @@
 		    
 
 		    <object type="application/pdf" width="100%" height="500px" data="{{  url('public/storage', sprintf('%s%s',Session::get('idGuia'),'.pdf') ) }}">
-		    			    <a rel="external" href="{{  url('public/pdf', sprintf('%s%s',Session::get('idGuia'),'.pdf') ) }}">Click here to download the PDF</a>
+		    	<a rel="external" href="{{  url('public/pdf', sprintf('%s%s',Session::get('idGuia'),'.pdf') ) }}">Click here to download the PDF</a>
 		    </object>
 		</div>
 	</div>

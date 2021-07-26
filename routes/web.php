@@ -18,7 +18,7 @@ Route::get('/inicio', 'HomeController@index')->name('index');
 Route::get('/envios/creacion', 'HomeController@creacion')->name('creacion');
 
 /* Ambiente de DEV */
-Route::middleware(['throttle:30,1'])->group(function () {
+Route::middleware(['throttle:30,1', 'Auth'])->group(function () {
     Route::name('dev.')->prefix('dev')->group(function () {
         
             
@@ -30,7 +30,6 @@ Route::middleware(['throttle:30,1'])->group(function () {
 });
 
 /* Ambiente de PRD */
-
 
 
 
