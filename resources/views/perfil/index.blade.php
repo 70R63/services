@@ -23,8 +23,8 @@
 		<a class="dropdown-item" href="profile.html">
 			<i class="fe fe-compass"></i> Activity
 		</a>
-		<a class="dropdown-item" href="signin.html">
-			<i class="fe fe-power"></i> Sign Out
+		<a class="dropdown-item" href="{{ route('dev.logout') }}">
+			<i class="fe fe-power"></i> Cerrar sesión
 		</a>
 	</div>
 </div>

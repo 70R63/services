@@ -17,11 +17,15 @@
         "laravel/tinker": "^2.5"
         ,"spatie/data-transfer-object" : "2.*"
         ,"laravelcollective/html": "~6.0"
+<<<<<<< HEAD
 =======
         "laravel/tinker": "^2.5",
         "laravel/ui": "2.4",
         "spatie/data-transfer-object": "2.*"
 >>>>>>> Stashed changes
+=======
+        ,"laravel/ui" : "2.4"
+>>>>>>> 2a4455cf7d9e73b85626e6cf479ff09357f2a5ec
     },
     "require-dev": {
         "facade/ignition": "^2.0",

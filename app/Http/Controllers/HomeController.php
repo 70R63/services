@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-
 class HomeController extends Controller
 {
     /**
@@ -15,7 +14,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        //$this->middleware('auth');
     }
 
     /**
@@ -28,23 +27,17 @@ class HomeController extends Controller
         return view('home');
     }
 
-  /***    
-    public function index()
-    {
-        return view('app');
-    }  */
-
     /**
-     * Muestra el menu en desarrollo.
+     * Show the application dashboard.
      *
-     * @return View base
+     * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function menu()
+    public function inicio()
     {
         return view('app');
     }
 
-    public function creacion()
+     public function creacion()
     {
         return view('envios/creacion');
     }
