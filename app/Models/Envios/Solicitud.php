@@ -14,14 +14,15 @@ use App\Http\DTO\Estafeta\DrAlternativeInfo;
 
 final class Solicitud 
 {
-	public $remitente;
-	public $destinatario;
+	private $remitente;
+	private $destinatario;
 	public $labelDescriptionList;
     private $labelDTO;
     private $clienteSOAP;
 
     public $idGuia = 000000000000000;
-
+    public $remitenteResumen = array();
+    public $destinatarioResumen = array();
 	
     /**
      * Constructor para incializar activdad de la solicitud de envios.
@@ -139,8 +140,18 @@ final class Solicitud
                 Log::debug(print_r($namePDF,true));
                 Log::debug(print_r(config('filesystems.disks' ),true));   
                 Storage::disk('public')->put($namePDF, $response->labelPDF);             
-                #file_put_contents($namePDF, $response->labelPDF);
+
             }
+
+            $this -> remitenteResumen = array(
+                "nombre" => "Nombre Resumen"
+                ,"compania" =>  "compania"
+            );
+
+            $this -> destinatarioResumen = array(
+                "nombre" => "Nombre Destinatario Resumen"
+                ,"compania" =>  "compania Destinatario"
+            );
 
                 
         } catch (Exception $e) {
