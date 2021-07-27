@@ -24,7 +24,7 @@
 		    
 
 		    <object type="application/pdf" width="100%" height="500px" data="{{  url('public/storage', sprintf('%s%s',Session::get('idGuia'),'.pdf') ) }}">
-		    	<a rel="external" href="{{  url('public/pdf', sprintf('%s%s',Session::get('idGuia'),'.pdf') ) }}">Click here to download the PDF</a>
+		    	<a rel="external" href="{{  url('public/storage', sprintf('%s%s',Session::get('idGuia'),'.pdf') ) }}">Click here to download the PDF</a>
 		    </object>
 		</div>
 	</div>

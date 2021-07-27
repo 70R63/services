@@ -2,37 +2,37 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-
-/* Inico de configuracion personalizada*/
-
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Create a new controller instance.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
-    public function index()
+    public function __construct()
     {
-        return view('app');
+        //$this->middleware('auth');
     }
 
     /**
-     * Muestra el menu en desarrollo.
+     * Show the application dashboard.
      *
-     * @return View base
+     * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function menu()
+    public function index()
+    {
+        return view('home');
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function inicio()
     {
         return view('app');
     }
-
-    public function creacion()
-    {
-        return view('envios/creacion');
-    }
-
-   
 }
