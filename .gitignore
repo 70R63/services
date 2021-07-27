@@ -16,3 +16,8 @@ envios/*
 services/
 servicesLimpio/
 homeblack
+composer.lock
+vendor
+.gitignore
+composer.lock
+.env

@@ -13,9 +13,15 @@
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^6.3.1|^7.0.1",
         "laravel/framework": "^7.29",
+<<<<<<< Updated upstream
         "laravel/tinker": "^2.5"
         ,"spatie/data-transfer-object" : "2.*"
         ,"laravelcollective/html": "~6.0"
+=======
+        "laravel/tinker": "^2.5",
+        "laravel/ui": "2.4",
+        "spatie/data-transfer-object": "2.*"
+>>>>>>> Stashed changes
     },
     "require-dev": {
         "facade/ignition": "^2.0",
