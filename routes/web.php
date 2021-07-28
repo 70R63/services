@@ -14,37 +14,27 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-
-Route::get('/envios/creacion', 'HomeController@creacion')->name('creacion');
-
 /* Ambiente de DEV */
-//Route::name('dev.')->prefix('dev')->group(function () {
-Route::middleware([ 'auth'])->group(function () {
-    Route::name('dev.')->prefix('dev')->group(function () {
-            
+
+Route::name('dev.')->prefix('dev')->group(function () {
+    Route::middleware([ 'auth'])->group(function () {            
             Route::get('/inicio', 'HomeController@inicio')->name('inicio');
             
         	Route::resource('envios', 'Web\Dev\EnviosController');
             Route::get('envios/guias/creada', 'Web\Dev\EnviosController@guia_creada')->name('envios.creacion');
             Route::post('envios/guias/salvacion', 'Web\Dev\EnviosController@storeAs')->name('envios.salvacion');
-            //Route::get('logout', 'Auth\LoginController@logout')->name('salir');       
+
+            Route::get('/envios/creacion', 'HomeController@creacion')->name('creacion');
+            Route::get('/home', 'HomeController@index')->name('home');
+
     }); 
-//Auth::routes();
+
 });
 
 Route::name('dev.')->prefix('dev')->group(function () {
     Auth::routes();
-    });
-
-
-Route::get('/home', 'HomeController@index')->name('home');
+});
 
 
 
 /* Ambiente de PRD */
-
-
-
-//Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
