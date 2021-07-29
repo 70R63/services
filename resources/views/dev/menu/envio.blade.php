@@ -11,7 +11,7 @@
 			<a class="nav-sub-link" href="#">Dashboard</a>
 		</li>
 		<li class="nav-sub-item">
-			<a class="nav-sub-link" href="{{ url('/envios/creacion') }}">Crear</a>
+			<a class="nav-sub-link" href="{{ url('dev/envios/creacion') }}">Crear</a>
 		</li>
 		<li class="nav-sub-item">
 			<a class="nav-sub-link" href="#">Cotizar</a>

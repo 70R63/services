@@ -17,18 +17,17 @@ use Illuminate\Support\Facades\Route;
 /* Ambiente de DEV */
 
 Route::name('dev.')->prefix('dev')->group(function () {
-    Route::middleware([ 'auth'])->group(function () {            
-            Route::get('/inicio', 'HomeController@inicio')->name('inicio');
-            
-        	
+    Route::middleware([ 'auth' ])->group(function () {            
+            Route::get('/inicio', 'HomeController@inicio')->name('inicio');      	
+             Route::get('/home', 'HomeController@index')->name('home');
+             
             Route::get('envios/guias/creada', 'Web\Dev\EnviosController@guia_creada')->name('envios.creacion');
             Route::post('envios/guias/salvacion', 'Web\Dev\EnviosController@storeAs')->name('envios.salvacion');
-            Route::get('/envios/creacion', 'HomeController@creacion')->name('creacion');
+            Route::get('/envios/creacion', 'Web\Dev\EnviosController@creacion')->name('creacion');
             Route::resource('envios', 'Web\Dev\EnviosController');
-            Route::get('/home', 'HomeController@index')->name('home');
-
+           
+      
     }); 
-
 });
 
 Route::name('dev.')->prefix('dev')->group(function () {

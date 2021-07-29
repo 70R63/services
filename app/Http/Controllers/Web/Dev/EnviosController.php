@@ -129,8 +129,7 @@ class EnviosController extends Controller
     {
         try {        
             
-            
-
+            Log::debug(print_r($request->all(),true));
             $solicitud = new Solicitud();
             $solicitud -> procesarDatos($request -> all());
             $solicitud -> cargarDTO();
@@ -205,7 +204,15 @@ class EnviosController extends Controller
     {
         Log::debug($request->all());
         $leyenda = "llegue";
-        return view('envios/guia', compact('leyenda') );
+        return view('dev/envios/guia', compact('leyenda') );
+    }
+
+
+     public function creacion()
+    {
+
+        Log::debug(__FUNCTION__);
+        return view('dev/envios/creacion');
     }
 }
 
