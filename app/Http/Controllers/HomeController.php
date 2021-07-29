@@ -37,8 +37,10 @@ class HomeController extends Controller
         return view('app');
     }
 
-     public function creacion()
+    public function creacion()
     {
         return view('envios/creacion');
     }
+
+   
 }

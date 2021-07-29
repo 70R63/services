@@ -20,11 +20,11 @@ Route::name('dev.')->prefix('dev')->group(function () {
     Route::middleware([ 'auth'])->group(function () {            
             Route::get('/inicio', 'HomeController@inicio')->name('inicio');
             
-        	Route::resource('envios', 'Web\Dev\EnviosController');
+        	
             Route::get('envios/guias/creada', 'Web\Dev\EnviosController@guia_creada')->name('envios.creacion');
             Route::post('envios/guias/salvacion', 'Web\Dev\EnviosController@storeAs')->name('envios.salvacion');
-
             Route::get('/envios/creacion', 'HomeController@creacion')->name('creacion');
+            Route::resource('envios', 'Web\Dev\EnviosController');
             Route::get('/home', 'HomeController@index')->name('home');
 
     }); 
