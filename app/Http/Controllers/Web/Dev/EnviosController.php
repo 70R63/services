@@ -108,12 +108,20 @@ class EnviosController extends Controller
                 'destinatario' => $solicitud -> destinatarioResumen,
             );
             
+            if(!$solicitud->estatus)
+                return \Redirect::route('dev.creacion')
+                    ->with('notices',array($solicitud -> mensaje_error))
+                    ->withInput();    
+            
             return \Redirect::route('dev.envios.creacion')
-                ->with($parameters);
-
-
+                ->with($parameters)
+                ->withSuccess(array("La solicitud fue exitosa"));
+            
         } catch (Exception $e) {
-            dd($e);
+            
+            return \Redirect::route('dev.creacion')
+                    ->withErrors(array($solicitud -> mensaje_error))
+                    ->withInput();
         }
 
     }
@@ -129,8 +137,7 @@ class EnviosController extends Controller
     {
         try {        
             
-            
-
+            Log::debug(print_r($request->all(),true));
             $solicitud = new Solicitud();
             $solicitud -> procesarDatos($request -> all());
             $solicitud -> cargarDTO();
@@ -205,7 +212,15 @@ class EnviosController extends Controller
     {
         Log::debug($request->all());
         $leyenda = "llegue";
-        return view('envios/guia', compact('leyenda') );
+        return view('dev/envios/guia', compact('leyenda') );
+    }
+
+
+     public function creacion()
+    {
+
+        Log::debug(__FUNCTION__);
+        return view('dev/envios/creacion');
     }
 }
 

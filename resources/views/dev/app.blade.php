@@ -64,29 +64,27 @@
 					<ul class="nav">
 						<li class="nav-header"><span class="nav-label">MENU</span></li>
 						<li class="nav-item ">
-							<a class="nav-link" href="{{ url('/inicio') }}"><span class="shape1"></span><span class="shape2"></span><i class="ti-home sidemenu-icon"></i><span class="sidemenu-label">DASHBOARD</span></a>
+							<a class="nav-link" href="{{ url('/dev/inicio') }}"><span class="shape1"></span><span class="shape2"></span><i class="ti-home sidemenu-icon"></i><span class="sidemenu-label">DASHBOARD</span></a>
 						</li>
-						@include('menu/envio')
-						@include('menu/facturacion') 
+						@include('dev.menu.envio')
+						@include('dev.menu.facturacion') 
 					</ul>
 				</div>
-
 			</div>
 			<!-- End Sidemenu -->
 
 			<!-- Main Header-->
 			<div class="main-header side-header sticky">
+
 				<div class="container-fluid">
 					<div class="main-header-left">
 						<a class="main-header-menu-icon" href="#" id="mainSidebarToggle"><span></span></a>
 					</div>
-
 					<div class="main-header-center">
 						test
 					</div>
-
 					<div class="main-header-right">
-						@include('perfil/index')
+						@include('dev.perfil.index')
 						<button class="navbar-toggler navresponsive-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4" aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
 							<i class="fe fe-more-vertical header-icons navbar-toggler-icon"></i>
 						</button><!-- Navresponsive closed -->
@@ -99,7 +97,7 @@
 			<div class="mobile-main-header">
 				<div class="mb-1 navbar navbar-expand-lg  nav nav-item  navbar-nav-right responsive-navbar navbar-dark  ">
 					<div class="collapse navbar-collapse" id="navbarSupportedContent-4">
-						@include('perfil/index')
+						@include('dev.perfil.index')
 						
 					</div>
 				</div>
@@ -110,14 +108,15 @@
 			<div class="main-content side-content pt-0">
 				<div class="container-fluid">
 					<div class="inner-body">
-
 						<!-- Page Header -->
 						<div class="page-header">
+							@include('dev.mensaje.error')
+							@include('dev.mensaje.notificacion')
+							@include('dev.mensaje.exitoso')							
 						</div>
-						<!-- End Page Header -->
 						
+						<!-- End Page Header -->
 						@yield('content')
-		
 					</div>
 				</div>
 			</div>
@@ -182,9 +181,6 @@
 		<!-- Internal Dashboard js
 		<script src="{{ url('public/spruha/js/index.js') }}"></script>
 -->
-		<!-- Sticky js -->
-		<script src="{{ url('public/spruha/js/sticky.js') }}"></script>
-
 		<!-- Custom js -->
 		<script src="{{ url('public/spruha/js/custom.js') }}"></script>
 
@@ -198,17 +194,16 @@
 			$(function(){
 				$("#guardar").click(function (e) { 
 					e.preventDefault();
-					console.log("ajax");
-					var token = '{{csrf_token()}}';
-					var nombre = "nombre";
-					var data= $("#selectForm").serialize();
+					var forma = $( "#selectForm" ).serialize();
+					
 
 					$.ajax({
 	                    /* Usar el route  */
 	                    url: "{{route('dev.envios.salvacion')}}",
 	                    type: 'POST',
 	                    /* send the csrf-token and the input to the controller */
-	                    data: data,
+	                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+	                    data: forma,
 	                    dataType: 'JSON',
 	                    /* remind that 'data' is the response of the AjaxController */
 	                    }).done(function( data) {
@@ -219,6 +214,7 @@
 
 						}).fail( function( jqXHR, textStatus, errorThrown ) {
 						    console.log( "error" );
+						    alert("No se puede guardar intente otra vez o Consulte con su proveedor");
 						    console.log(jqXHR);
 						}).always(function() {
 							console.log( "complete" );

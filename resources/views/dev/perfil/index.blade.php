@@ -29,6 +29,7 @@
 		<form id="submit-form" action="{{ route('dev.logout') }}" method="POST" class="hidden">
     		@csrf
     		@method('POST')
+    	</form>
 	</div>
 </div>
 

@@ -1,4 +1,4 @@
-@extends('app')
+@extends('dev.app')
 @section('content')
 
 {!! Form::open([ 'route' => 'dev.envios.store', 'method' => 'POST' , 'class'=>'parsley-style-1', 'id'=>'selectForm' ]) !!}
@@ -11,7 +11,7 @@
 				</div>
 				<div class="card-body">
 					<div class="border"> 
-						@include('envios/remitente/forma')
+						@include('dev.envios.remitente.forma')
 						
 					</div>
 				</div>
@@ -24,7 +24,7 @@
 				</div>
 				<div class="card-body">
 					<div class="border">
-						@include('envios/destinatario/forma')
+						@include('dev.envios.destinatario.forma')
 					</div>
 				</div>
 			</div>
@@ -36,7 +36,7 @@
 				</div>
 				<div class="card-body">
 					<div class="border">
-						@include('envios/paquete/forma')
+						@include('dev.envios/paquete/forma')
 					</div>
 				</div>
 			</div>
