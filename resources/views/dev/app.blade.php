@@ -70,21 +70,19 @@
 						@include('dev.menu.facturacion') 
 					</ul>
 				</div>
-
 			</div>
 			<!-- End Sidemenu -->
 
 			<!-- Main Header-->
 			<div class="main-header side-header sticky">
+
 				<div class="container-fluid">
 					<div class="main-header-left">
 						<a class="main-header-menu-icon" href="#" id="mainSidebarToggle"><span></span></a>
 					</div>
-
 					<div class="main-header-center">
 						test
 					</div>
-
 					<div class="main-header-right">
 						@include('dev.perfil.index')
 						<button class="navbar-toggler navresponsive-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4" aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
@@ -110,14 +108,15 @@
 			<div class="main-content side-content pt-0">
 				<div class="container-fluid">
 					<div class="inner-body">
-
 						<!-- Page Header -->
 						<div class="page-header">
+							@include('dev.mensaje.error')
+							@include('dev.mensaje.notificacion')
+							@include('dev.mensaje.exitoso')							
 						</div>
-						<!-- End Page Header -->
 						
+						<!-- End Page Header -->
 						@yield('content')
-		
 					</div>
 				</div>
 			</div>
@@ -182,9 +181,6 @@
 		<!-- Internal Dashboard js
 		<script src="{{ url('public/spruha/js/index.js') }}"></script>
 -->
-		<!-- Sticky js -->
-		<script src="{{ url('public/spruha/js/sticky.js') }}"></script>
-
 		<!-- Custom js -->
 		<script src="{{ url('public/spruha/js/custom.js') }}"></script>
 

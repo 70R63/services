@@ -4,6 +4,7 @@ namespace App\Models\Envios;
 
 use Log;
 use Storage;
+use Exception;
 
 use App\Http\DTO\Estafeta\Label;
 use App\Http\DTO\Estafeta\LabelDescription;
@@ -11,6 +12,7 @@ use App\Http\DTO\Estafeta\LabelDescriptionList;
 use App\Http\DTO\Estafeta\OriginInfo;
 use App\Http\DTO\Estafeta\DestinationInfo;
 use App\Http\DTO\Estafeta\DrAlternativeInfo;
+
 
 final class Solicitud 
 {
@@ -23,6 +25,8 @@ final class Solicitud
     public $idGuia = 000000000000000;
     public $remitenteResumen = array();
     public $destinatarioResumen = array();
+    public $mensaje_error = "";
+    public $estatus = false;
 	
     /**
      * Constructor para incializar activdad de la solicitud de envios.
@@ -127,9 +131,14 @@ final class Solicitud
     {
         try {
             $response = $this -> clienteSOAP -> createLabel($this -> labelDTO);
+            
             Log::debug(print_r($response->globalResult->resultSpanishDescription,true));
             Log::debug(print_r($response->globalResult->resultCode,true));
-            
+
+            if ( $response -> globalResult -> resultCode != 0 )
+                throw new Exception("Error en Broker", 1);
+     
+
             foreach ($response -> labelResultList as $key => $list) {
                 // code...
                 Log::debug(print_r($list->resultCode,true));    
@@ -153,13 +162,36 @@ final class Solicitud
                 ,"compania" =>  "compania Destinatario"
             );
 
-                
+            $this -> estatus = true;        
         } catch (Exception $e) {
+            Log::debug($e->getMessage());
+            $this -> mensaje_error($response);
+            #   throw new Exception("Error en Solicitud",1);
             
         }
 
     }
 
+    /**
+     * Captura el mensaje de error .
+     *
+     * @return void
+     */
 
+    private function mensaje_error($response){
+        Log::debug(__FUNCTION__);
+
+        Log::debug(print_r($response -> labelResultList,true));
+        $msj = ",";
+        foreach ($response -> labelResultList as $key => $value) {
+            $msj = sprintf("%s %s ",$msj, $value-> resultSpanishDescription);
+        }
+        $this -> mensaje_error = sprintf("COD%s - %s - BROKER %s",
+            $response->globalResult->resultCode
+            , $response->globalResult->resultSpanishDescription
+            , $msj
+        );
+    
+    }
 
 }

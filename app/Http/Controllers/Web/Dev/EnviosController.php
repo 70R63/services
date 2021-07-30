@@ -108,12 +108,20 @@ class EnviosController extends Controller
                 'destinatario' => $solicitud -> destinatarioResumen,
             );
             
+            if(!$solicitud->estatus)
+                return \Redirect::route('dev.creacion')
+                    ->with('notices',array($solicitud -> mensaje_error))
+                    ->withInput();    
+            
             return \Redirect::route('dev.envios.creacion')
-                ->with($parameters);
-
-
+                ->with($parameters)
+                ->withSuccess(array("La solicitud fue exitosa"));
+            
         } catch (Exception $e) {
-            dd($e);
+            
+            return \Redirect::route('dev.creacion')
+                    ->withErrors(array($solicitud -> mensaje_error))
+                    ->withInput();
         }
 
     }
