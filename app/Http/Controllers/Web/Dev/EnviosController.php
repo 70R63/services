@@ -109,17 +109,17 @@ class EnviosController extends Controller
             );
             
             if(!$solicitud->estatus)
-                return \Redirect::route('dev.creacion')
+                return \Redirect::route('creacion')
                     ->with('notices',array($solicitud -> mensaje_error))
                     ->withInput();    
             
-            return \Redirect::route('dev.envios.creacion')
+            return \Redirect::route('envios.creacion')
                 ->with($parameters)
                 ->withSuccess(array("La solicitud fue exitosa"));
             
         } catch (Exception $e) {
             
-            return \Redirect::route('dev.creacion')
+            return \Redirect::route('creacion')
                     ->withErrors(array($solicitud -> mensaje_error))
                     ->withInput();
         }
@@ -205,14 +205,14 @@ class EnviosController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @route  dev.envios.creacion
+     * @route  envios.creacion
      * @return view
      */
     public function guia_creada(Request $request)
     {
         Log::debug($request->all());
         $leyenda = "llegue";
-        return view('dev/envios/guia', compact('leyenda') );
+        return view('envios/guia', compact('leyenda') );
     }
 
 
@@ -220,7 +220,7 @@ class EnviosController extends Controller
     {
 
         Log::debug(__FUNCTION__);
-        return view('dev/envios/creacion');
+        return view('envios/creacion');
     }
 }
 

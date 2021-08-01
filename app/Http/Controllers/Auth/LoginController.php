@@ -28,7 +28,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/dev/inicio';#RouteServiceProvider::HOME;
+    protected $redirectTo = '/inicio';#RouteServiceProvider::HOME;
 
     /**
      * Create a new controller instance.
@@ -61,6 +61,6 @@ class LoginController extends Controller
 
         return $request->wantsJson()
             ? new JsonResponse([], 204)
-            : redirect('dev/login');
+            : redirect('login');
     }
 }

@@ -1,4 +1,4 @@
-@extends('dev.app')
+@extends('app')
 @section('content')
 <!-- Row Forma -->
 <div class="row row-sm">

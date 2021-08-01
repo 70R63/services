@@ -23,10 +23,10 @@
 		<a class="dropdown-item" href="profile.html">
 			<i class="fe fe-compass"></i> Activity
 		</a>
-		<a class="dropdown-item" href="{{ route('dev.logout') }}" onclick="event.preventDefault(); document.getElementById('submit-form').submit();">
+		<a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('submit-form').submit();">
 			<i class="fe fe-power"></i> Cerrar sesión
 		</a>
-		<form id="submit-form" action="{{ route('dev.logout') }}" method="POST" class="hidden">
+		<form id="submit-form" action="{{ route('logout') }}" method="POST" class="hidden">
     		@csrf
     		@method('POST')
     	</form>

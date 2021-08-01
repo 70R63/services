@@ -14,7 +14,7 @@
 	    <meta name="csrf-token" content="{{ csrf_token() }}">
 
 		<!-- Title -->
-		<title>ULALAXPRESS - Plataforma de envios</title>
+		<title>{{ config('app.name', 'Laravel') }} - Plataforma de envios</title>
 
 		<!-- Bootstrap css-->
 		<link href="{{ url('public/spruha/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet"/ type="text/css">
@@ -64,10 +64,10 @@
 					<ul class="nav">
 						<li class="nav-header"><span class="nav-label">MENU</span></li>
 						<li class="nav-item ">
-							<a class="nav-link" href="{{ url('/dev/inicio') }}"><span class="shape1"></span><span class="shape2"></span><i class="ti-home sidemenu-icon"></i><span class="sidemenu-label">DASHBOARD</span></a>
+							<a class="nav-link" href="{{ url('/inicio') }}"><span class="shape1"></span><span class="shape2"></span><i class="ti-home sidemenu-icon"></i><span class="sidemenu-label">DASHBOARD</span></a>
 						</li>
-						@include('dev.menu.envio')
-						@include('dev.menu.facturacion') 
+						@include('menu.envio')
+						@include('menu.facturacion') 
 					</ul>
 				</div>
 			</div>
@@ -84,7 +84,7 @@
 						test
 					</div>
 					<div class="main-header-right">
-						@include('dev.perfil.index')
+						@include('perfil.index')
 						<button class="navbar-toggler navresponsive-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4" aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
 							<i class="fe fe-more-vertical header-icons navbar-toggler-icon"></i>
 						</button><!-- Navresponsive closed -->
@@ -97,7 +97,7 @@
 			<div class="mobile-main-header">
 				<div class="mb-1 navbar navbar-expand-lg  nav nav-item  navbar-nav-right responsive-navbar navbar-dark  ">
 					<div class="collapse navbar-collapse" id="navbarSupportedContent-4">
-						@include('dev.perfil.index')
+						@include('perfil.index')
 						
 					</div>
 				</div>
@@ -110,9 +110,9 @@
 					<div class="inner-body">
 						<!-- Page Header -->
 						<div class="page-header">
-							@include('dev.mensaje.error')
-							@include('dev.mensaje.notificacion')
-							@include('dev.mensaje.exitoso')							
+							@include('mensaje.error')
+							@include('mensaje.notificacion')
+							@include('mensaje.exitoso')							
 						</div>
 						
 						<!-- End Page Header -->
@@ -199,7 +199,7 @@
 
 					$.ajax({
 	                    /* Usar el route  */
-	                    url: "{{route('dev.envios.salvacion')}}",
+	                    url: "{{route('envios.salvacion')}}",
 	                    type: 'POST',
 	                    /* send the csrf-token and the input to the controller */
 	                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},

@@ -1,7 +1,7 @@
-@extends('dev.app')
+@extends('app')
 @section('content')
 
-{!! Form::open([ 'route' => 'dev.envios.store', 'method' => 'POST' , 'class'=>'parsley-style-1', 'id'=>'selectForm' ]) !!}
+{!! Form::open([ 'route' => 'envios.store', 'method' => 'POST' , 'class'=>'parsley-style-1', 'id'=>'selectForm' ]) !!}
 	<!-- Row Forma -->
 	<div class="row row-sm">
 		<div class="col-sm-12 col-md-3"> 
@@ -11,7 +11,7 @@
 				</div>
 				<div class="card-body">
 					<div class="border"> 
-						@include('dev.envios.remitente.forma')
+						@include('envios.remitente.forma')
 						
 					</div>
 				</div>
@@ -24,7 +24,7 @@
 				</div>
 				<div class="card-body">
 					<div class="border">
-						@include('dev.envios.destinatario.forma')
+						@include('envios.destinatario.forma')
 					</div>
 				</div>
 			</div>
@@ -36,7 +36,7 @@
 				</div>
 				<div class="card-body">
 					<div class="border">
-						@include('dev.envios/paquete/forma')
+						@include('envios/paquete/forma')
 					</div>
 				</div>
 			</div>

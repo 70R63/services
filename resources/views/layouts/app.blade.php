@@ -30,7 +30,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <!-- Title -->
-        <title>ULALAXPRESS - Plataforma de envios</title>
+        <title>{{ config('app.name', 'Laravel') }} - Plataforma de envios</title>
 
         <!-- Bootstrap css-->
         <link href="{{ url('public/spruha/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet"/ type="text/css">
@@ -63,7 +63,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/dev/login') }}">
+                <a class="navbar-brand" href="{{ url('/login') }}">
                 <!--   {{ config('app.name', 'Laravel') }}-->
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -78,7 +78,7 @@
         </nav>
         <div class="container mt-5" >
             <div class="row justify-content-center">
-                <img src="{{ url('public/spruha/img/brand/ulalaPurpureLogo-134x49.png') }}" class="header-brand-img desktop-logo" alt="logo">
+                <img src="{{ url('public/spruha/img/brand/ulalaPurpureLogo-134x49.png') }}" class="header-brand-img desktop-logo" alt="logo"> {{ config('app.env', 'Ambiente') }}
             </div>
         </div>
         <main class="py-4">

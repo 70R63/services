@@ -25,5 +25,5 @@ class ForgotPasswordController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = "dev/login/"; //RouteServiceProvider::HOME;
+    protected $redirectTo = "login/"; //RouteServiceProvider::HOME;
 }

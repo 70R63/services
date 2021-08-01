@@ -34,12 +34,12 @@ class HomeController extends Controller
      */
     public function inicio()
     {
-        return view('dev/app');
+        return view('app');
     }
 
     public function creacion()
     {
-        return view('dev/envios/creacion');
+        return view('envios/creacion');
     }
 
 
