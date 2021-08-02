@@ -36,7 +36,7 @@
 				</div>
 				<div class="card-body">
 					<div class="border">
-						@include('envios/paquete/forma')
+						@include('envios.paquete.forma')
 					</div>
 				</div>
 			</div>

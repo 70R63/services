@@ -13,24 +13,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::group(array('domain' => env('APP_URL')), function() {
+  Route::middleware([ 'auth' ])->group(function () {            
+    Route::get('/inicio', 'HomeController@inicio')->name('inicio');      	
+    Route::get('/home', 'HomeController@index')->name('home');
 
-/* Ambiente de DEV */
+    Route::get('envios/guias/creada', 'Web\Dev\EnviosController@guia_creada')->name('envios.creacion');
+    Route::post('envios/guias/salvacion', 'Web\Dev\EnviosController@storeAs')->name('envios.salvacion');
+    Route::get('/envios/creacion', 'Web\Dev\EnviosController@creacion')->name('creacion');
+    Route::resource('envios', 'Web\Dev\EnviosController');    
+  });
 
-Route::middleware([ 'auth' ])->group(function () {            
-        Route::get('/inicio', 'HomeController@inicio')->name('inicio');      	
-         Route::get('/home', 'HomeController@index')->name('home');
-
-        Route::get('envios/guias/creada', 'Web\Dev\EnviosController@guia_creada')->name('envios.creacion');
-        Route::post('envios/guias/salvacion', 'Web\Dev\EnviosController@storeAs')->name('envios.salvacion');
-        Route::get('/envios/creacion', 'Web\Dev\EnviosController@creacion')->name('creacion');
-        Route::resource('envios', 'Web\Dev\EnviosController');
-       
-  
+  Auth::routes();
+  Auth::routes([
+    'register' => false // Register Routes...
+  ]);         
 }); 
-
-
-
-Auth::routes();
-Auth::routes([
-  'register' => false // Register Routes...
-    ]);

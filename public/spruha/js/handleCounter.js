@@ -102,6 +102,8 @@
                 $btnPlugs.prop('disabled', true)
                 onMaximize.call(this, num)
             }
+            calcularBascula(num)
+            calcularDimensional(num)
             onChange.call(this, num)
         }
         return $handleCounter
@@ -111,25 +113,39 @@
 	//  handleCounter
 	  var options = {
 			minimum: 1,
-			maximize: 10,
+			maximize: 28,
 			onChange: valChanged,
 			onMinimum: function(e) {
 				console.log('reached minimum: '+e)
+
 			},
 			onMaximize: function(e) {
 				console.log('reached maximize'+e)
 			}
 		}
-		$('#handleCounter').handleCounter(options)
-		$('#handleCounter1').handleCounter(options)
-		$('#handleCounter2').handleCounter(options)
-		$('#handleCounter3').handleCounter(options)
-		$('#handleCounter4').handleCounter(options)
-		$('#handleCounter5').handleCounter(options)
+		$('#handleCounterMax28').handleCounter(options)
+		//$('#handleCounter1').handleCounter(options)
+		//#$('#handleCounter2').handleCounter(options)
+		//$('#handleCounter3').handleCounter(options)
+		//$('#handleCounter4').handleCounter(options)
+		//$('#handleCounter5').handleCounter(options)
        
         function valChanged(d) {
          //   console.log(d)
         }
 		
+    function calcularBascula (num){
+        var peso = $("#peso").val()
+        $('#bascula').val(peso*num)  
+    }
+
+    function calcularDimensional (num){
+        var alto = $("#alto").val()
+        var ancho = $("#ancho").val()
+        var largo = $("#largo").val()
+        var dimensional = ((alto*ancho*largo)/5000)*num 
+        
+        $('#dimensional').val(dimensional)  
+    }
 		
 })(jQuery)

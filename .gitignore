@@ -20,3 +20,7 @@ composer.lock
 vendor
 composer.lock
 .env
+dev.ulala.sublime-project
+dev.ulala.sublime-workspace
+qas.sublime-project
+qas.sublime-workspace

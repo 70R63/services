@@ -150,9 +150,6 @@
 		<!-- Peity js-->
 		<script src="{{ url('public/spruha/plugins/peity/jquery.peity.min.js') }}"></script>
 
-		<!-- Select2 js-->
-		<script src="{{ url('public/spruha/plugins/select2/js/select2.min.js') }}"></script>
-
 		<!-- Perfect-scrollbar js -->
 		<script src="{{ url('public/spruha/plugins/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
 
@@ -161,6 +158,12 @@
 
 		<!-- Sidebar js -->
 		<script src="{{ url('public/spruha/plugins/sidebar/sidebar.js') }}"></script>
+
+		<!-- Internal HandleCounter js -->
+		<script src="{{ url('public/spruha/js/handleCounter.js') }}"></script>
+
+		<!-- Select2 js-->
+		<script src="{{ url('public/spruha/plugins/select2/js/select2.min.js') }}"></script>
 
 		<!-- Internal Morris js -->
 		<script src="{{ url('public/spruha/plugins/raphael/raphael.min.js') }}"></script>
@@ -189,6 +192,8 @@
 
 		<!-- Internal Form-validation js-->
 		<script src="{{ url('public/spruha/js/form-validation.js') }}"></script>
+		
+
 		<!-- Internal salvado temporal de los envios -->
 		<script type="text/javascript">
 			$(function(){
@@ -196,7 +201,7 @@
 					e.preventDefault();
 					var forma = $( "#selectForm" ).serialize();
 					
-
+					console.log(forma);
 					$.ajax({
 	                    /* Usar el route  */
 	                    url: "{{route('envios.salvacion')}}",
@@ -223,5 +228,68 @@
 			});
 		</script>	
 		
+		<!-- Personalizacion de UlalaExpress -->
+		<script type="text/javascript">
+
+			// Calculo de peso Bascula
+			function calculo(argument) {
+				var pieza = $("#pieza").val()
+				var peso = $("#peso").val()
+				var alto = $("#alto").val()
+		        var ancho = $("#ancho").val()
+		        var largo = $("#largo").val()
+
+		        var bascula = peso*pieza
+		        var dimensional = ((alto*ancho*largo)/5000)*pieza
+
+				$('#bascula').val(bascula)
+				$('#dimensional').val(dimensional)
+			}
+			$(function(){
+				$("#peso").on("change keyup paste", function (){
+					console.log( "Peso");
+					calculo();
+				});
+
+				$("#alto").on("change keyup paste", function (){
+					console.log("Alto");
+			        calculo();
+				});
+
+				$("#ancho").on("change keyup paste ", function (){
+					console.log("Ancho");
+					calculo();
+				});
+
+				$("#largo").on("change keyup paste", function (){
+					console.log("largo");
+					calculo();
+				});
+
+			});
+
+			$(function(){
+				$("#embalaje").on("change", function (){
+					var embalaje = $(this).val()
+					console.log(embalaje);
+					if (embalaje == 'sobre') {
+						$(".embalaje").hide()
+					} else {
+						$(".embalaje").show()
+					}
+				});
+
+			});
+
+			$(function() {
+				'use strict'
+				
+				// Toggle Switches
+				$('.main-toggle').on('click', function() {
+					$(this).toggleClass('on');
+				})
+			});
+
+		</script>
 	</body>
 </html>
