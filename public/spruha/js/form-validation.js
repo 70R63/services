@@ -5,6 +5,6 @@ $(function() {
 		placeholder: 'Choose one',
 		width: '100%'
 	});
-	$('#selectForm').parsley();
-	$('#selectForm2').parsley();
+	$('#selectForm1').parsley();
+	$('#selectForm21').parsley();
 });

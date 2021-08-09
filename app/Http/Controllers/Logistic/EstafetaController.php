@@ -1,20 +1,24 @@
 <?php
 
-namespace App\Http\Controllers\logistic\Prd;
+namespace App\Http\Controllers\logistic;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 /* Inico de configuracion personalizada*/
 
-use App\Http\DTO\Estafeta\Label;
 use Spatie\DataTransferObject\DataTransferObjectError;
 use \Log;
 
+use App\Http\DTO\Estafeta\Label;
 use App\Http\DTO\Estafeta\LabelDescription;
 use App\Http\DTO\Estafeta\OriginInfo;
 use App\Http\DTO\Estafeta\DestinationInfo;
 use App\Http\DTO\Estafeta\DrAlternativeInfo;
+
+use App\Http\DTO\Estafeta\Tracking\ExecuteQuery;
+use App\Http\DTO\Estafeta\Tracking\SearchType;
+use App\Http\DTO\Estafeta\Tracking\SearchConfiguration;
 
 class EstafetaController extends Controller
 {
@@ -32,37 +36,19 @@ class EstafetaController extends Controller
             /* Se inicializa el WS para DEV*/
             $wsdl = config('soap.estafeta');
 
-            Log::debug($_SERVER['SERVER_NAME']." - ".config('soap.hostname')."-" );
-
-            /* Validacion para acceder al WDSL Productivo con credenciales 
-            if ($_SERVER['SERVER_NAME'] === config('soap.hostname') ) {
-                $wsdl = config('soap.estafeta');
-                Log::info("PRD ".$wsdl);
-
-                /*  SuscriberId:GU
-                    Login:5436562
-                    Password:poMVPhi6j
-                    Número de cuenta: 5436562
-                    Organización de venta: 595
-                    
-
-
-                    $data['suscriberId'] = 'GU' ;
-                    $data['password']    = 'poMVPhi6j';
-                    $data['login'] = '5436562';
-                    $data['customerNumber'] = '5436562';
-                   
-            } 
-            */
             $path_to_wsdl = sprintf("%s%s",resource_path(), $wsdl );
             Log::debug($path_to_wsdl);
             $client = new \SoapClient($path_to_wsdl, array('trace' => 0));
             ini_set("soap.wsdl_cache_enabled", "0");
-            $tmp = new Label($data);
             $labelDTO = new Label($data);
 
             $response =$client->createLabel($labelDTO);
-          
+            /*
+            file_put_contents("/home/javier/Documents/JorgeRomero/estafeta/label.pdf", $response->labelPDF);
+            $response->labelPDF= base64_encode($response->labelPDF);
+            #dd($response);
+            return response()->json($response);
+            */
             return response()->json([
                 'codigo' => $response->globalResult->resultCode,
                 'descripcion' => $response->globalResult->resultDescription
@@ -76,19 +62,35 @@ class EstafetaController extends Controller
                 'codigo' => "11",
                 'descripcion' => $exception->getMessage()
                 ,'pdf'  => null
-            ]);
+                ]);
 
         }
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Valida el estado del servicio.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function seguimiento( Request $request )
     {
-        //
+        try{
+            /* Se inicializa el WS para DEV*/
+            $wsdl = config('soap.estafeta_tracking_dev');
+            
+            $path_to_wsdl = sprintf("%s%s",resource_path(), $wsdl );
+            Log::debug($path_to_wsdl);
+            $client = new \SoapClient($path_to_wsdl, array('trace' => 0));
+            ini_set("soap.wsdl_cache_enabled", "0");
+            $data = $request -> all();
+            $executeDTO = new ExecuteQuery($data);
+            $response =$client->executeQuery($executeDTO);
+
+            return response()->json($response);
+
+        } catch (Exception $e) {
+            Log::debug($e->getMessage());
+        }
     }
 
     /**

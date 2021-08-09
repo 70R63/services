@@ -245,6 +245,14 @@
 				$('#bascula').val(bascula)
 				$('#dimensional').val(dimensional)
 			}
+
+			function calculoSeguro () {
+				// EL seguro es el valor del envio sin I.V.A por el 20%
+				
+				var costoSeguro = ( $("#valorEnvio").val() *0.02);
+				$('#costoSeguro').val('$'+costoSeguro)
+			}
+
 			$(function(){
 				$("#peso").on("change keyup paste", function (){
 					console.log( "Peso");
@@ -281,13 +289,49 @@
 
 			});
 
+			// Seguro de envio
 			$(function() {
-				'use strict'
+				$('#checkSeguro').change(function() {
+					var checkSeguro = $(this).is( ":checked" )
+ 					console.log(checkSeguro)
+ 					$('#enviosForm').parsley('destroy');
+					
+					if ( checkSeguro ) {
+						$(".seguro").show()
+						$("#valorEnvio").attr("required","true");
+						$('#enviosForm').parsley('addItem', '#valorEnvio');
+					} else {
+						$(".seguro").hide()
+						$("#valorEnvio").attr("required","false");
+						$('#enviosForm').parsley('removeItem', '#valorEnvio');
+					}
+					$('#enviosForm').parsley();
+					$('#enviosForm').parsley().refresh();
+
+				  });
+			});
+
+			$("#valorEnvio").on("change keyup paste ", function (){
+				calculoSeguro();
+			});
+			//Envio un submit desde el modal
+			$("#envioAceptar").click(function(){
+    			$('#enviosForm').submit();
+			});
+
+			
+			$("#preSubmit").click(function() {
+				console.log("submit");
 				
-				// Toggle Switches
-				$('.main-toggle').on('click', function() {
-					$(this).toggleClass('on');
-				})
+				var form = $('#enviosForm').parsley().refresh();
+				console.log(form)
+				if ( form.validate() ){
+					$("#modalEnviar").modal("show");	
+				} else {
+					console.log( "enviosForm con errores" );
+					return false;
+				}
+	
 			});
 
 		</script>

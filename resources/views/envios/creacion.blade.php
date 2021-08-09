@@ -1,7 +1,7 @@
 @extends('app')
 @section('content')
 
-{!! Form::open([ 'route' => 'envios.store', 'method' => 'POST' , 'class'=>'parsley-style-1', 'id'=>'selectForm' ]) !!}
+{!! Form::open([ 'route' => 'envios.store', 'method' => 'POST' , 'class'=>'parsley-style-1', 'id'=>'enviosForm' ]) !!}
 	<!-- Row Forma -->
 	<div class="row row-sm">
 		<div class="col-sm-12 col-md-3"> 
@@ -44,21 +44,27 @@
 	</div>
 	<!-- End Row -->
 
-	<!-- Row Botones-->
+	<!-- Inicio Row Botones-->
 	<div class="row row-sm">
-		<div class="col-lg-12 col-md-12">
-			<div class="form-group row justify-content-center mb-0">								
-				<button type="submit" class="btn btn-success" >Enviar </button>
-				<a id="guardar" href="" class="btn btn-primary" >Guardar</a>
+		<div class="col-lg-12 col-md-6">
+			<div class="form-group row justify-content-around">		
+				<div></div>						
+				<div>
+				<a class="btn btn-success" data-toggle="modal" id="preSubmit" href="">		Enviar
+				</a>
 				<a href="{{ url()->previous() }}" class="btn btn-danger" >Cancelar</a>
-			</div>			
+				</div>
+				<a id="guardar" href="" class="btn btn-primary" >Guardar</a>	
+				
+			</div>	
 		</div>
 	</div>
-	<!-- Row Botones-->
+	<!-- Fin Row Botones-->
+
+	<!-- Terminos y Condiciones Modal -->
+	@include('envios.modals.submit')
+	<!-- End Basic modal -->
 
 {!! Form::close() !!}
-
-
-
 
 @endsection

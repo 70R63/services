@@ -24,23 +24,23 @@ Route::middleware('auth:api')->get('/', function (Request $request) {
 
 Route::get('/', 'HomeController@index')->name('homeApi');
 
+/*
 Route::name('dev.logistic.')->prefix('logistic')->group(function () {
-    Route::post('estafeta_dev', 'Logistic\Dev\EstafetaController@index')->name('index');
+    
     
 });
 
-/* Ambiente de DEV */
-Route::middleware(['throttle:100,1'])->group(function () {
-    Route::name('dev.')->prefix('dev')->group(function () {
-        Route::name('logistic.')->prefix('logistic')->group(function () {
-            Route::post('seguimiento', 'Logistic\Dev\EstafetaController@seguimiento')->name('seguimiento');
-        });
+*/
+
+Route::group(array('domain' => env('APP_URL')), function() {
+    Route::middleware(['throttle:100,1'])->group(function () {
+       
+            Route::name('logistic.')->prefix('logistic')->group(function () {
+                Route::post('estafeta', 'Logistic\EstafetaController@index')->name('index');
+                Route::post('seguimiento', 'Logistic\Dev\EstafetaController@seguimiento')->name('seguimiento');
+            });
+       
     });
-});
+}); 
 
-/* Ambiente de PRD */
-Route::name('logistic.')->prefix('logistic')->group(function () {
-    Route::post('estafeta', 'Logistic\Prd\EstafetaController@index')->name('index');
-
-});
 

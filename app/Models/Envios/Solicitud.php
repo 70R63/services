@@ -38,7 +38,7 @@ final class Solicitud
     public function __construct() 
     {
          /* Se inicializa el WS para DEV*/
-            $wsdl = config('soap.estafeta_dev');
+            $wsdl = config('soap.estafeta');
 
             $path_to_wsdl = sprintf("%s%s",resource_path(), $wsdl );
             Log::debug($path_to_wsdl);
