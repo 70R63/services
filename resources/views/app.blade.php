@@ -230,7 +230,7 @@
 		
 		<!-- Personalizacion de UlalaExpress -->
 		<script type="text/javascript">
-
+			var costoSeguroGlobal = 0;
 			// Calculo de peso Bascula
 			function calculo(argument) {
 				var pieza = $("#pieza").val()
@@ -248,9 +248,8 @@
 
 			function calculoSeguro () {
 				// EL seguro es el valor del envio sin I.V.A por el 20%
-				
-				var costoSeguro = ( $("#valorEnvio").val() *0.02);
-				$('#costoSeguro').val('$'+costoSeguro)
+				costoSeguroGlobal = ( $("#valorEnvio").val() *0.02);
+				$('#costoSeguro').val('$'+costoSeguroGlobal)
 			}
 
 			$(function(){
@@ -282,8 +281,16 @@
 					console.log(embalaje);
 					if (embalaje == 'sobre') {
 						$(".embalaje").hide()
+						$("#peso").removeAttr("required")
+						$("#alto").removeAttr("required")
+						$("#ancho").removeAttr("required")
+						$("#largo").removeAttr("required")
 					} else {
 						$(".embalaje").show()
+						$("#peso").attr("required","true");
+						$("#alto").attr("required","true");
+						$("#ancho").attr("required","true");
+						$("#largo").attr("required","true");
 					}
 				});
 
@@ -294,26 +301,20 @@
 				$('#checkSeguro').change(function() {
 					var checkSeguro = $(this).is( ":checked" )
  					console.log(checkSeguro)
- 					$('#enviosForm').parsley('destroy');
-					
 					if ( checkSeguro ) {
 						$(".seguro").show()
 						$("#valorEnvio").attr("required","true");
-						$('#enviosForm').parsley('addItem', '#valorEnvio');
 					} else {
 						$(".seguro").hide()
-						$("#valorEnvio").attr("required","false");
-						$('#enviosForm').parsley('removeItem', '#valorEnvio');
+						$("#valorEnvio").removeAttr("required")
 					}
-					$('#enviosForm').parsley();
-					$('#enviosForm').parsley().refresh();
-
 				  });
 			});
 
 			$("#valorEnvio").on("change keyup paste ", function (){
 				calculoSeguro();
 			});
+
 			//Envio un submit desde el modal
 			$("#envioAceptar").click(function(){
     			$('#enviosForm').submit();
@@ -321,17 +322,19 @@
 
 			
 			$("#preSubmit").click(function() {
-				console.log("submit");
-				
 				var form = $('#enviosForm').parsley().refresh();
-				console.log(form)
+
 				if ( form.validate() ){
-					$("#modalEnviar").modal("show");	
+					$("#spanServicio").text( $("#servicio option:selected").text() );
+					$("#spanEmbalaje").text( $("#embalaje option:selected").text() );
+					$("#spanPieza").text( $("#pieza").val() );
+					$("#spanSeguro").text("$"+costoSeguroGlobal);
+
+					$("#modalEnviar").modal("show");
 				} else {
 					console.log( "enviosForm con errores" );
 					return false;
 				}
-	
 			});
 
 		</script>

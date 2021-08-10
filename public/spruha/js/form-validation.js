@@ -7,4 +7,5 @@ $(function() {
 	});
 	$('#selectForm1').parsley();
 	$('#selectForm21').parsley();
+	$('#enviosForm').parsley();
 });

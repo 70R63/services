@@ -16,6 +16,7 @@
 						,'placeholder'	=> 'Seleccionar'
 						,'required'	=> ''
 						,'name'		=> 'servicio'
+						,'id'		=> 'servicio'
 					]);
 				!!}
 		
@@ -54,7 +55,6 @@
 					{!! Form::text('peso', null,
 						['class' 		=> 'form-control'
 						,'placeholder'	=> ' 0.1 Kg 1 Kg'
-						,'required'	=> ''
 						,'id'		=> 'peso'
 
 						])
@@ -79,7 +79,7 @@
 					['class' 		=> 'form-control'
 					,'id'			=> 'largo'
 					,'placeholder'	=> 'Largo '
-					,'required'	=> ''
+					
 					])
 				!!}
 
@@ -87,7 +87,7 @@
 					['class' 		=> 'form-control'
 					,'id'			=> 'ancho'
 					,'placeholder'	=> 'Ancho  '
-					,'required'	=> ''
+					
 					])
 				!!}
 
@@ -95,7 +95,7 @@
 					['class' 		=> 'form-control'
 					,'id'			=> 'alto'
 					,'placeholder'	=> 'Alto '
-					,'required'	=> ''
+					
 					])
 				!!}
 			</div>
@@ -108,7 +108,6 @@
 					['class' 		=> 'form-control'
 					 ,'id'			=> 'dimensional'
 					,'placeholder'	=> 'Peso Dimensional '
-					,'required'	=> ''
 					,'disabled'	=> ''
 					])
 				!!}
@@ -124,7 +123,6 @@
 				['class' 		=> 'form-control'
 				,'id'			=> 'contenido'
 				,'placeholder'	=> 'Breve descripcion del paquete'
-				,'required'	=> ''
 					
 				])
 			!!}

@@ -14,10 +14,10 @@
 					</div>
 					<div class="pricingContent2">
 						<ul>
-							<li><b>Envio:</b> Terrestre</li>
-							<li><b>Embalaje:</b> Sobre</li>
-							<li><b>Piezas:</b> 5</li>
-							<li><b>Seguro:</b> $20</li>
+							<li><b>Servicio:</b> <span id="spanServicio"> </span></li>
+							<li><b>Embalaje:</b> <span id="spanEmbalaje"> </span></li>
+							<li><b>Piezas:</b> <span id="spanPieza"> </span></li>
+							<li><b>Seguro:</b> <span id="spanSeguro"> </span></li>
 							
 						</ul>
 					</div>
