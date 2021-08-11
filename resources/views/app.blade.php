@@ -254,22 +254,18 @@
 
 			$(function(){
 				$("#peso").on("change keyup paste", function (){
-					console.log( "Peso");
 					calculo();
 				});
 
 				$("#alto").on("change keyup paste", function (){
-					console.log("Alto");
 			        calculo();
 				});
 
 				$("#ancho").on("change keyup paste ", function (){
-					console.log("Ancho");
 					calculo();
 				});
 
 				$("#largo").on("change keyup paste", function (){
-					console.log("largo");
 					calculo();
 				});
 
@@ -300,7 +296,6 @@
 			$(function() {
 				$('#checkSeguro').change(function() {
 					var checkSeguro = $(this).is( ":checked" )
- 					console.log(checkSeguro)
 					if ( checkSeguro ) {
 						$(".seguro").show()
 						$("#valorEnvio").attr("required","true");

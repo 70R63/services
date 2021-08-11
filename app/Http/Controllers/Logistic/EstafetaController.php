@@ -43,12 +43,6 @@ class EstafetaController extends Controller
             $labelDTO = new Label($data);
 
             $response =$client->createLabel($labelDTO);
-            /*
-            file_put_contents("/home/javier/Documents/JorgeRomero/estafeta/label.pdf", $response->labelPDF);
-            $response->labelPDF= base64_encode($response->labelPDF);
-            #dd($response);
-            return response()->json($response);
-            */
             return response()->json([
                 'codigo' => $response->globalResult->resultCode,
                 'descripcion' => $response->globalResult->resultDescription

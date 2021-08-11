@@ -108,6 +108,7 @@ class EnviosController extends Controller
                 'destinatario' => $solicitud -> destinatarioResumen,
             );
             
+            #dd($solicitud);
             if(!$solicitud->estatus)
                 return \Redirect::route('creacion')
                     ->with('notices',array($solicitud -> mensaje_error))
