@@ -37,7 +37,7 @@ Route::group(array('domain' => env('APP_URL')), function() {
        
             Route::name('logistic.')->prefix('logistic')->group(function () {
                 Route::post('estafeta', 'Logistic\EstafetaController@index')->name('index');
-                Route::post('seguimiento', 'Logistic\Dev\EstafetaController@seguimiento')->name('seguimiento');
+                Route::post('seguimiento', 'Logistic\EstafetaController@seguimiento')->name('seguimiento');
             });
        
     });
