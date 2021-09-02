@@ -6,13 +6,16 @@
 				
 			</div>
 			
-			{!! Form::text('pais', null,
-				['class' 		=> 'form-control'
-				,'placeholder'	=> 'Pais'
-				,'type'	=> 'text'
-				,'required'	=> ''
-
-				])
+			{!! Form::select('pais', array(
+			    'MEX' 	=> 'Mexico'
+			    )
+				,'MEX'
+				,['class' 		=> 'form-control'
+					,'placeholder'	=> 'Seleccionar'
+					,'required'	=> ''
+					,'name'		=> 'pais'
+					,'id'		=> 'pais'
+				]);
 			!!}
 		</div>
 		<div class="input-group mb-3">

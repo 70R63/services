@@ -2,7 +2,7 @@
 	<a class="nav-link with-sub" href="#">
 		<span class="shape1"></span>
 		<span class="shape2"></span>
-		<i class="ti-wallet sidemenu-icon"></i>
+		<i class="fe fe-truck sidemenu-icon"></i>
 		<span class="sidemenu-label">E N V I O S</span>
 		<i class="angle fe fe-chevron-right"></i>
 	</a>
@@ -14,7 +14,7 @@
 			<a class="nav-sub-link" href="{{ url('envios/creacion') }}">Crear</a>
 		</li>
 		<li class="nav-sub-item">
-			<a class="nav-sub-link" href="#">Cotizar</a>
+			<a class="nav-sub-link" href="{{ url('envios/cotizaciones') }}" >Cotizar</a>
 		</li>
 		<li class="nav-sub-item">
 			<a class="nav-sub-link" href="#">Rastrear</a>
@@ -25,7 +25,7 @@
 		<li class="nav-sub-item">
 			<a class="nav-link with-sub" href="perfil">
 				<span class="shape1"></span><span class="shape2"></span>
-					<i class="ti-menu sidemenu-icon"></i>
+					<i class="far fa-address-card"></i>
 				<span class="sidemenu-label">Perfil</span>
 					<i class="angle fe fe-chevron-right"></i>
 			</a>

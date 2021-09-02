@@ -42,6 +42,12 @@
 		<!-- Sidemenu css-->
 		<link href="{{ url('public/spruha/css/sidemenu/sidemenu.css') }}"  rel="stylesheet">
 
+		<!-- Internal DataTables css-->
+		<link href="{{ url('public/spruha/plugins/datatable/dataTables.bootstrap4.min.css') }}" rel="stylesheet" />
+		<link href="{{ url('public/spruha/plugins/datatable/responsivebootstrap4.min.css') }}" rel="stylesheet" />
+		<link href="{{ url('public/spruha/plugins/datatable/fileexport/buttons.bootstrap4.min.css') }}" rel="stylesheet" />
+
+
 	</head>
 
 
@@ -67,7 +73,10 @@
 							<a class="nav-link" href="{{ url('/inicio') }}"><span class="shape1"></span><span class="shape2"></span><i class="ti-home sidemenu-icon"></i><span class="sidemenu-label">DASHBOARD</span></a>
 						</li>
 						@include('menu.envio')
-						@include('menu.facturacion') 
+						@include('menu.facturacion')
+						@include('menu.configuracion')
+						@include('menu.usuario')
+						@include('menu.cliente') 
 					</ul>
 				</div>
 			</div>
@@ -110,9 +119,12 @@
 					<div class="inner-body">
 						<!-- Page Header -->
 						<div class="page-header">
-							@include('mensaje.error')
-							@include('mensaje.notificacion')
-							@include('mensaje.exitoso')							
+							<div></div>
+							<div class="d-flex">
+									@include('mensaje.error')
+									@include('mensaje.notificacion')
+									@include('mensaje.exitoso')
+							</div>							
 						</div>
 						
 						<!-- End Page Header -->
@@ -135,6 +147,9 @@
 			<!--End Footer-->
 		</div>
 		<!-- END Page -->
+		<!-- Terminos y Condiciones Modal -->
+		@include('envios.modals.cotizacion')
+		<!-- End Basic modal -->
 
 
 		<!-- Jquery js-->
@@ -193,6 +208,21 @@
 		<!-- Internal Form-validation js-->
 		<script src="{{ url('public/spruha/js/form-validation.js') }}"></script>
 		
+		<!-- Internal Data Table js -->
+		<script src="{{ url('public/spruha/plugins/datatable/jquery.dataTables.min.js') }}"></script>
+		<script src="{{ url('public/spruha/plugins/datatable/dataTables.bootstrap4.min.js') }}"></script>
+		<script src="{{ url('public/spruha/plugins/datatable/dataTables.responsive.min.js') }}"></script>
+		<script src="{{ url('public/spruha/plugins/datatable/fileexport/dataTables.buttons.min.js') }}"></script>
+		<script src="{{ url('public/spruha/plugins/datatable/fileexport/buttons.bootstrap4.min.js') }}"></script>
+		<script src="{{ url('public/spruha/plugins/datatable/fileexport/jszip.min.js') }}"></script>
+		<script src="{{ url('public/spruha/plugins/datatable/fileexport/pdfmake.min.js') }}"></script>
+		<script src="{{ url('public/spruha/plugins/datatable/fileexport/vfs_fonts.js') }}"></script>
+		<script src="{{ url('public/spruha/plugins/datatable/fileexport/buttons.html5.min.js') }}"></script>
+		<script src="{{ url('public/spruha/plugins/datatable/fileexport/buttons.print.min.js') }}"></script>
+		<script src="{{ url('public/spruha/plugins/datatable/fileexport/buttons.colVis.min.js') }}"></script>
+		<script src="{{ url('public/spruha/js/table-data.js') }}"></script>
+
+
 
 		<!-- Internal salvado temporal de los envios -->
 		<script type="text/javascript">
@@ -320,18 +350,52 @@
 				var form = $('#enviosForm').parsley().refresh();
 
 				if ( form.validate() ){
-					$("#spanServicio").text( $("#servicio option:selected").text() );
-					$("#spanEmbalaje").text( $("#embalaje option:selected").text() );
-					$("#spanPieza").text( $("#pieza").val() );
-					$("#spanSeguro").text("$"+costoSeguroGlobal);
+					console.log($('#enviosForm').serialize())
 
-					$("#modalEnviar").modal("show");
+					$.ajax({
+	                    /* Usar el route  */
+	                    url: "{{route('api.envios.precio')}}",
+	                    type: 'GET',
+	                    /* send the csrf-token and the input to the controller */
+	                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+	                    data: $('#enviosForm').serialize()
+	                   
+	                    /* remind that 'data' is the response of the AjaxController */
+	                    }).done(function( data) {
+						  	console.log("done");
+						  	
+						  	//$('div.flash-message-ajax').append(data.nombre);
+						  	//alert("Salvado Exitoso");
+						  	
+						  	$("#spanPrecio").text( data.precio );
+						  	$("#spanServicio").text( $("#servicio option:selected").text() );
+							$("#spanEmbalaje").text( $("#embalaje option:selected").text() );
+							$("#spanPieza").text( $("#pieza").val() );
+							$("#spanSeguro").text("$"+costoSeguroGlobal);
+							$("#modalEnviar").modal("show");
+
+						}).fail( function( jqXHR, textStatus, errorThrown ) {
+						    console.log( "error" );
+						    console.log(textStatus);
+						    alert("Consulte con su proveedor"+ textStatus);
+						    console.log(jqXHR);
+						}).always(function() {
+							console.log( "complete" );
+						});
+
+
+					
 				} else {
 					console.log( "enviosForm con errores" );
 					return false;
 				}
 			});
-
 		</script>
+		<!-- Fin Personalizacion de UlalaExpress -->
+
+		<!-- Modals -->
+		<script type="text/javascript">
+		</script>
+		<!-- Fin Modals -->
 	</body>
 </html>

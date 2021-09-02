@@ -16,7 +16,9 @@ use App\Http\DTO\Estafeta\Tracking\ExecuteQuery;
 use App\Http\DTO\Estafeta\Tracking\SearchType;
 use App\Http\DTO\Estafeta\Tracking\SearchConfiguration;
 
+//Modelos
 use App\Models\Envios\Solicitud;
+use App\Models\Envios\Cotizaciones;
 
 class EnviosController extends Controller
 {
@@ -124,7 +126,6 @@ class EnviosController extends Controller
                     ->withErrors(array($solicitud -> mensaje_error))
                     ->withInput();
         }
-
     }
 
 
@@ -217,11 +218,31 @@ class EnviosController extends Controller
     }
 
 
-     public function creacion()
+    public function creacion(Request $request)
     {
-
         Log::debug(__FUNCTION__);
+        Log::info( $request->all() );
+        Log::info( $request->get('mensajeria') );
+
         return view('envios/creacion');
+    }
+
+    /**
+     * Valida el precio del envio.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @route  api.envios.precio
+     * @return json
+     */
+    public function precio(Request $request)
+    {
+        Log::info($request->all());
+        $envio = new Cotizaciones();
+
+        $precio = $envio -> precio($request);
+        
+        return $precio;
     }
 }
 

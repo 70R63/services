@@ -54,9 +54,8 @@
 					</div>
 					{!! Form::text('peso', null,
 						['class' 		=> 'form-control'
-						,'placeholder'	=> ' 0.1 Kg 1 Kg'
+						,'placeholder'	=> 'Ejemplos 0.1, 1, 10, 12.5'
 						,'id'		=> 'peso'
-
 						])
 					!!}
 					<div class="input-group-prepend">
@@ -66,7 +65,7 @@
 						['class' 		=> 'form-control'
 						,'id'			=> 'bascula'
 						,'placeholder'	=> 'Bascula, 0.1 Kg 1 Kg'
-						,'disabled'	=> ''
+						,'readonly	'	=> 'true'
 						])
 					!!}
 				</div>
@@ -107,8 +106,9 @@
 				{!! Form::text('dimensional', null,
 					['class' 		=> 'form-control'
 					 ,'id'			=> 'dimensional'
+					 ,'name'			=> 'dimensional'
 					,'placeholder'	=> 'Peso Dimensional '
-					,'disabled'	=> ''
+					,'readonly	'	=> 'true'
 					])
 				!!}
 			</div>

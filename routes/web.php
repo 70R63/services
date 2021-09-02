@@ -21,11 +21,27 @@ Route::group(array('domain' => env('APP_URL')), function() {
     Route::get('envios/guias/creada', 'Web\Dev\EnviosController@guia_creada')->name('envios.creacion');
     Route::post('envios/guias/salvacion', 'Web\Dev\EnviosController@storeAs')->name('envios.salvacion');
     Route::get('/envios/creacion', 'Web\Dev\EnviosController@creacion')->name('creacion');
-    Route::resource('envios', 'Web\Dev\EnviosController');    
+    
+    
+    
+    Route::name('envios.')->group(function () {
+      Route::prefix('envios')->group(function () {
+        Route::resource('', 'Web\Dev\EnviosController');
+        //RECURSOS PARA COTIZACIONES
+        Route::resource('cotizaciones', 'Web\Envios\CotizacionesController');
+      });
+    });
+
+    //CONFIGURACION
+    Route::resource('configuracion','Web\ConfiguracionController');
+    //FIN CONFIGURACION
+
   });
+  //Fin del route->middleware->aut
 
   Auth::routes();
   Auth::routes([
     'register' => false // Register Routes...
   ]);         
-}); 
+});
+//Fin del route->group->domain 

@@ -3,7 +3,6 @@
         Options -MultiViews -Indexes
     </IfModule>
 
-    RewriteEngine On
 
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)/$ /$1 [L,R=301]
@@ -18,3 +17,6 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_URI} !^/public/
 RewriteRule ^(css|js|images)/(.*)$ public/$1/$2 [L,NC]
 </IfModule>
+
+
+

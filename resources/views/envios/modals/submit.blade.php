@@ -10,7 +10,9 @@
 						<h3>Envio</h3>
 					</div>
 					<div class="pricing-plans  bg-primary">
-						<span class="price-value1"><i class="fa fa-usd"></i><span>0.00</span></span>
+						<span class="price-value1"><i class="fa fa-usd"></i>
+							<span id="spanPrecio"></span>
+						</span>
 					</div>
 					<div class="pricingContent2">
 						<ul>
