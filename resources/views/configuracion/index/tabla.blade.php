@@ -14,7 +14,14 @@
 				<td>{{ $item['propiedad'] }}</td>
 				<td>{{ $item['valor'] }}</td>
 				<td>{{ $item['descripcion'] }}</td>
-				<td></td>	
+				
+					<td class="text-center">
+						
+						<a href="{{ route('configuracion.edit', $item['id']) }}" class="text-warning tx-28" >
+							<i class="pe-7s-note"></i>
+						</a>
+					</td>
+					
 			</tr>
 			@endforeach
 		</tbody>

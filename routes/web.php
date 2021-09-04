@@ -36,6 +36,14 @@ Route::group(array('domain' => env('APP_URL')), function() {
     Route::resource('configuracion','Web\ConfiguracionController');
     //FIN CONFIGURACION
 
+    //USUARIO
+    Route::resource('usuario','Web\UsuarioController');
+    //FIN USUARIO
+
+    //CLIENTE
+    Route::resource('cliente','Web\ClienteController');
+    //FIN CLIENTE
+
   });
   //Fin del route->middleware->aut
 
