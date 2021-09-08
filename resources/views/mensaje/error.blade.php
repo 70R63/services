@@ -4,7 +4,7 @@
 		<i class="ace-icon fa fa-times"></i>
 	</button>
 	<p>
-		Favor de corregir :
+		Error de sistema favor de contactar al administrador :
 	</p>
 	<ul>
 		@foreach($errors->all() as $error)

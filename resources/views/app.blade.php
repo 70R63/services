@@ -230,8 +230,6 @@
 				$("#guardar").click(function (e) { 
 					e.preventDefault();
 					var forma = $( "#selectForm" ).serialize();
-					
-					console.log(forma);
 					$.ajax({
 	                    /* Usar el route  */
 	                    url: "{{route('envios.salvacion')}}",
@@ -243,7 +241,6 @@
 	                    /* remind that 'data' is the response of the AjaxController */
 	                    }).done(function( data) {
 						  	console.log("done");
-						  	console.log(data);
 						  	$('div.flash-message-ajax').append(data.nombre);
 						  	alert("Salvado Exitoso");
 
@@ -304,7 +301,7 @@
 			$(function(){
 				$("#embalaje").on("change", function (){
 					var embalaje = $(this).val()
-					console.log(embalaje);
+					
 					if (embalaje == 'sobre') {
 						$(".embalaje").hide()
 						$("#peso").removeAttr("required")
@@ -397,5 +394,7 @@
 		<script type="text/javascript">
 		</script>
 		<!-- Fin Modals -->
+
+		
 	</body>
 </html>

@@ -5,8 +5,11 @@ $(function() {
 		placeholder: 'Choose one',
 		width: '100%'
 	});
-	$('#selectForm1').parsley();
-	$('#selectForm21').parsley();
+	
+	
 	$('#enviosForm').parsley();
 	$('#cotizacionesForm').parsley();
+	$('#clienteForm').parsley();
+	
+
 });

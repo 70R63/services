@@ -60,7 +60,7 @@
 		</div>
 	</div>
 	<!-- Fin Row Botones-->
-
+	
 	<!-- Terminos y Condiciones Modal -->
 	@include('envios.modals.submit')
 	<!-- End Basic modal -->

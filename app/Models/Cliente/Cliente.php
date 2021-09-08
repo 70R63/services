@@ -8,4 +8,8 @@ class Cliente extends Model
 {
     //
     protected $table = 'cliente';
+    
+    //Permite guardar de forma masiva
+    protected $guarded = [];
+
 }

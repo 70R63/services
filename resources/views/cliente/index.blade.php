@@ -10,16 +10,11 @@
 					<h6 class="main-content-label mb-0">C L I E N T E S </h6>
 					
 				</div>
-				<div class="col-sm-12 col-md-2">
-					<a class="btn btn-success" href="{{ route('cliente.index') }}" >
-						<i class="fe fe-download-cloud mr-2"></i> Nuevo
-					</a>
-				</div>
 			</div>
 
 			<div class="card-body">
 				<div class="border"> </div>
-				@include('cliente.index.tabla');
+				@include('cliente.index.tabla')
 			</div>
 		</div>
 	</div>

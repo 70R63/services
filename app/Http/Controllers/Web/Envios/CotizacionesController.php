@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Web\Envios;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Log;
+use Redirect;
+use Illuminate\Database\Eloquent\ModelNotFoundException;  
 
 
 use App\Models\Envios\Cotizaciones;
@@ -19,10 +21,13 @@ class CotizacionesController extends Controller
      */
     public function index(Request $request)
     {
-        $notices = array("La cotizacion no incluye iva ni seguro");
-        $request->session()->flash('notices',$notices);
+        //dd($request);
+        //$notices = array("La cotizacion no incluye iva ni seguros");
+        //$request->session()->flash('notices',$notices);
         $cotizacion  = array();
-        return view('envios/cotizacion/index', compact('cotizacion'));
+
+
+        return view('envios/cotizacion/index', compact('cotizacion') );
            
     }
 
@@ -33,17 +38,40 @@ class CotizacionesController extends Controller
      */
     public function create(Request $request)
     {
-        Log::info(__FUNCTION__);
-        Log::debug($request);
-        $cp_origen = $request->input('cp');
-        $cp_destino = $request->input('cp_d');
-        $pesoEstimado = $request->input('peso');
+        try {
+            Log::info(__FUNCTION__);
+            Log::debug($request);
+            $cp_origen = $request->input('cp');
+            $cp_destino = $request->input('cp_d');
+            $pesoEstimado = $request->input('peso');
 
-        $cotizaciones = new Cotizaciones();
-        $cotizaciones -> cotizacion($cp_origen, $cp_destino, $pesoEstimado);
+            $cotizaciones = new Cotizaciones();
+            $cotizaciones -> cotizacion($cp_origen, $cp_destino, $pesoEstimado);
 
-        $cotizacion = $cotizaciones -> cotizacion  ; 
-        Log::debug($cotizacion);
+            $cotizacion = $cotizaciones -> cotizacion  ; 
+            Log::debug($cotizacion);    
+        } catch (ModelNotFoundException $e) {
+            Log::info(__FUNCTION__);
+            Log::info("ModelNotFoundException");
+
+
+
+            //$request->session()->flash('notices',array("Notices"));
+            //$request->session()->flash('success',array("success"));
+
+            return Redirect::back()
+                ->with('notices',array($e->getMessage() ))
+                ->withInput();
+
+
+        } catch (Exception $e) {
+            return Redirect::back()
+                ->withErrors(array($e->getMessage() ))
+                ->withInput();
+
+            
+        }
+        
         return view('envios/cotizacion/index',compact('cotizacion') );
 
     }

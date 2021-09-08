@@ -5,10 +5,11 @@ namespace App\Models\Envios;
 use Illuminate\Database\Eloquent\Model;
 
 use Log;
+use Illuminate\Database\Eloquent\ModelNotFoundException;  
 
 use App\Models\Envios\EnvioGrupo;
 use App\Models\Envios\EnvioZona;
-use App\Models\Envios\Costo;
+use App\Models\Configuracion\Precio;
 
 class Cotizaciones extends Model
 {
@@ -49,25 +50,38 @@ class Cotizaciones extends Model
      */
     public function cotizacion($cp_origen, $cp_destino, $peso ){
 
+        Log::info(__FUNCTION__);
         $this -> origen = EnvioGrupo::whereRaw('(? between cp_inicial and cp_final)', [$cp_origen])
                ->first();
 
         $this -> destino = EnvioGrupo::whereRaw('(? between cp_inicial and cp_final)', [$cp_destino])
                ->first(); 
 
-        Log::info($this -> destino);
+        Log::info(is_null( $this -> origen ));
 
+        if ( is_null($this->origen) or is_null($this->destino) ) {
+            $tmp = sprintf("No se puede cotizar con los CP '%s' y '%s'",$cp_origen, $cp_destino );
+            throw new ModelNotFoundException($tmp);
+        }
+        Log::info("Origen - Destino");
+        Log::info($this -> origen->count()." ". $this -> destino->count() );
+        
+        Log::debug($this -> origen);
+        Log::debug($this -> destino);
+
+        Log::info("EnvioZona");
         $this -> zonas = EnvioZona::where('grupo_origen', '=', $this -> origen -> grupo)
                 -> where('grupo_destino', '=', $this -> destino -> grupo)
                 ->first('zona');
+        Log::debug($this -> zonas);
 
-        
-        
-        $costos = Costo::where('zona', '=', $this -> zonas -> zona)
+        Log::info("Precio");
+        $precio = Precio::where('zona', '=', $this -> zonas -> zona)
                     ->where('peso', '=', ceil($peso))
                     ->get();
+        Log::debug($precio);
 
-        foreach ($costos as $key => $value) {
+        foreach ($precio as $key => $value) {
             // code...
             Log::debug($value);
             $value -> tipo = ($value -> tipo == 1 ? 'Sobre' : 'Mi Embalaje');
@@ -106,9 +120,9 @@ class Cotizaciones extends Model
 
         $this -> base( $cp_origen, $cp_destino, $peso );
 
-        $precio = Costo::where('zona', '=', $this -> zonas -> zona)
+        $precio = Precio::where('zona', '=', $this -> zonas -> zona)
                     ->where('peso', '=', ceil($peso) )
-                    ->where('mensajeria', '=', $mensajeria )
+                    ->where('id_mensajeria', '=', $mensajeria )
                     ->first();
        
         $precio -> precio = $precio -> precio * $pieza;

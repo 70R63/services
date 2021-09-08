@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use Log;
+use \Exception;
+use Redirect;
+
 use App\Models\Cliente\Cliente;
 
 class ClienteController extends Controller
@@ -31,7 +35,8 @@ class ClienteController extends Controller
      */
     public function create()
     {
-        //
+        return view('cliente.crear'
+            );
     }
 
     /**
@@ -42,7 +47,31 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            Log::info("Cliente ".__FUNCTION__);
+            Log::info($request);
+            $item = new Cliente();
+            $item -> fill($request->all());
+            
+            throw new Exception("Error Processing Request", 1);
+            
+            $item -> save();
+
+        } catch (Exception $e) {
+            Log::info("Cliente ".__FUNCTION__);
+            Log::debug($e);
+            $notices = array("La cotizacion no incluye iva ni seguros");
+            $request->session()->flash('notices',$notices);
+
+            return Redirect::back()
+                ->withErrors(array("test"))
+                ->withInput();
+            
+        }
+ 
+        return redirect()
+                ->route('cliente.index')
+                ->with('status', 'Usuario Creado con exito!');
     }
 
     /**
@@ -64,7 +93,17 @@ class ClienteController extends Controller
      */
     public function edit($id)
     {
-        //
+        try {
+            $cliente = Cliente::findOrFail($id);
+               
+            Log::debug($cliente);
+            return view('cliente.editar'
+            , compact('cliente') 
+        );
+
+        } catch (Exception $e) {
+                
+        }
     }
 
     /**
@@ -76,7 +115,23 @@ class ClienteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            Log::info(__FUNCTION__.' '.$id);
+        
+            $item = Cliente::findOrFail($id);
+            $item -> fill($request->all());
+            
+            $item -> save();
+
+            $tmp = sprintf("Actualizacion correcta del Cliente con '%s'", $item->razon_social);
+            $notices = array($tmp);
+
+            return \Redirect::route('cliente.index') -> withSuccess ($notices);
+        } catch (Exception $e) {
+             Log::info(__FUNCTION__.' '.$id);
+             Log::debug($e);
+                    
+        }
     }
 
     /**

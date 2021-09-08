@@ -7,8 +7,20 @@ $(function() {
       lengthChange: false,
       buttons: [ 'excel', 'pdf', 'colvis' ]
    } );
+
    tableCotizacion.buttons().container()
    .appendTo( '#exportCotizaciones_wrapper .col-md-6:eq(0)' );
+
+   //Data table configPrecio
+   var tableConfigPrecio = $('#configPrecio').DataTable( {
+      lengthChange: false,
+      buttons: [ 'excel', 'pdf' ]
+      ,"paging":   false
+   } );
+
+   tableConfigPrecio.buttons().container()
+   .appendTo( '#configPrecio_wrapper .col-md-6:eq(0)' );
+
 
 
 	$('#example1').DataTable({

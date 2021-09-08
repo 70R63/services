@@ -10,6 +10,9 @@
 		<li class="nav-sub-item">
 			<a class="nav-sub-link" href="{{ url('configuracion') }}">Dashboard</a>
 		</li>
+		<li class="nav-sub-item">
+			<a class="nav-sub-link" href="{{ route('precio.index') }}">Precio</a>
+		</li>
 		
 	</ul>
 </li>

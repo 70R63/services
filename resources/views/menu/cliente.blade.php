@@ -10,6 +10,8 @@
 		<li class="nav-sub-item">
 			<a class="nav-sub-link" href="{{ route('cliente.index') }}">Dashboard</a>
 		</li>
-		
+		<li class="nav-sub-item">
+			<a class="nav-sub-link" href="{{ route('cliente.create') }}">Crear</a>
+		</li>
 	</ul>
 </li>

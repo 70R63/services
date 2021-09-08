@@ -17,10 +17,7 @@
 			<a class="nav-sub-link" href="{{ url('envios/cotizaciones') }}" >Cotizar</a>
 		</li>
 		<li class="nav-sub-item">
-			<a class="nav-sub-link" href="#">Rastrear</a>
-		</li>
-		<li class="nav-sub-item">
-			<a class="nav-sub-link" href="#">Programar</a>
+			<a class="nav-sub-link" href="{{ route('envios.guia.index') }}">Guias</a>
 		</li>
 		<li class="nav-sub-item">
 			<a class="nav-link with-sub" href="perfil">
