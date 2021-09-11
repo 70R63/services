@@ -13,7 +13,9 @@
 			<tr>
 				<td>{{ $item['nombre'] }}</td>
 				<td>{{ $item['clave'] }}</td>
-				<td>{{ $item['estatus'] }}</td>
+				<td>
+					<span class="badge {{config('css.'.$item['estatus'])}} badge-pill">Completed</span>
+				</td>
 				<td></td>
 				
 			</tr>

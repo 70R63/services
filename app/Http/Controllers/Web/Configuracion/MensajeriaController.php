@@ -24,14 +24,12 @@ class MensajeriaController extends Controller
         try {
             Log::info(__CLASS__." ".__FUNCTION__);    
             $tabla = Mensajeria::select('*')
-            
             ->get();
-           
-            //$tabla = array();
-
-            
         } catch (Exception $e) {
-                
+            $tabla = array();
+            return view('configuracion.mensajeria.index' 
+                    ,compact("tabla")
+                );
         }
 
         return view('configuracion.mensajeria.index' 
@@ -62,6 +60,7 @@ class MensajeriaController extends Controller
 
             $mensajeria = new Mensajeria();
             $mensajeria->fill($request->all());
+            $mensajeria->clave = 1+ Mensajeria::max('clave');
             $mensajeria->save();
 
             $msj = sprintf("Se agrego de forma correcta, la Mensajeria");
