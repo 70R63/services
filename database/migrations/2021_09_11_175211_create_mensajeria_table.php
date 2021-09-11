@@ -17,6 +17,7 @@ class CreateMensajeriaTable extends Migration
             $table->id();
             $table->timestamps();
             $table->boolean('estatus')->default(1);
+            $table->tinyInteger('id_empresa')->default(1);
 
             $table->tinyInteger('clave')->default(1);
             $table->string('nombre', 100);

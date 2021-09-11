@@ -40,6 +40,7 @@ Route::group(array('domain' => env('APP_URL')), function() {
     Route::post('precio/masivo', 'Web\Configuracion\PrecioController@storeMasivo')->name('precio.store.masivo');
     Route::resource('grupo','Web\Configuracion\GrupoController');
     Route::resource('zona','Web\Configuracion\ZonaController');
+    Route::resource('mensajeria','Web\Configuracion\MensajeriaController');
     //FIN CONFIGURACION
 
     //USUARIO
