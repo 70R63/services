@@ -21,7 +21,7 @@
 				<tr>
 					<td><a href="{{ route('creacion', ['mensajeria'=>'fedex']) }} "><i class="si si-cursor"></i></a></td>
 					<td>FEDEX</td>
-					<td>{{ $item['costo'] -> tipo }}</td>
+					<td>{{ $item['costo'] -> tipo_envio }}</td>
 					<td>{{ $item['costo'] -> precio }}</td>
 					<td>{{ $item['origen']['entidad_federativa'] }}</td>
 					<td>{{ $item['destino']['entidad_federativa'] }}</td>

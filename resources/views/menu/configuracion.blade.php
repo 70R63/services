@@ -13,6 +13,12 @@
 		<li class="nav-sub-item">
 			<a class="nav-sub-link" href="{{ route('precio.index') }}">Precio</a>
 		</li>
+		<li class="nav-sub-item">
+			<a class="nav-sub-link" href="{{ route('grupo.index') }}">Grupos Postales</a>
+		</li>
+		<li class="nav-sub-item">
+			<a class="nav-sub-link" href="{{ route('zona.index') }}">Zonas de Envio</a>
+		</li>
 		
 	</ul>
 </li>

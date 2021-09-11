@@ -48,30 +48,30 @@ class ClienteController extends Controller
     public function store(Request $request)
     {
         try {
-            Log::info("Cliente ".__FUNCTION__);
+            Log::info(__CLASS__." ".__FUNCTION__);
             Log::info($request);
             $item = new Cliente();
             $item -> fill($request->all());
             
-            throw new Exception("Error Processing Request", 1);
+            //throw new Exception("Error Processing Request", 1);
             
             $item -> save();
 
         } catch (Exception $e) {
             Log::info("Cliente ".__FUNCTION__);
             Log::debug($e);
-            $notices = array("La cotizacion no incluye iva ni seguros");
-            $request->session()->flash('notices',$notices);
+            //$notices = array("La cotizacion no incluye iva ni seguros");
+            //$request->session()->flash('notices',$notices);
 
             return Redirect::back()
-                ->withErrors(array("test"))
+                ->withErrors(array($e->getMessage()))
                 ->withInput();
             
         }
  
         return redirect()
                 ->route('cliente.index')
-                ->with('status', 'Usuario Creado con exito!');
+                ->with('success', array('Usuario Creado con exito!'));
     }
 
     /**

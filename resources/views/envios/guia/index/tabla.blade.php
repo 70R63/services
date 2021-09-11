@@ -8,8 +8,8 @@
 			<tr>
 				<th>ID</th>
 				<th>GUIA</th>
-				<th></th>
-				<th></th>
+				<th>FECHA</th>
+				<th>ESTATUS</th>
 				<th></th>
 				<th></th>
 				<th></th>

@@ -74,20 +74,30 @@ class Cotizaciones extends Model
                 -> where('grupo_destino', '=', $this -> destino -> grupo)
                 ->first('zona');
         Log::debug($this -> zonas);
-
+        Log::info($this -> zonas);
+        if ( is_null($this -> zonas) or count($this -> zonas) == 0 ) {
+            Log::info("No hay zona de envio o es is_null");
+            $tmp = sprintf("Sin cobertura favor de contactar a su ejente de ventas");
+            throw new ModelNotFoundException($tmp);
+        }
         Log::info("Precio");
         $precio = Precio::where('zona', '=', $this -> zonas -> zona)
                     ->where('peso', '=', ceil($peso))
                     ->get();
         Log::debug($precio);
 
+        if ( is_null($precio) or count($precio) == 0 ) {
+            Log::info("El precio es null");
+            $tmp = sprintf("Sin cobertura en la Zona '%s' o Peso '%s' kg",$this -> zonas -> zona, $peso );
+            throw new ModelNotFoundException($tmp);
+        }
+
         foreach ($precio as $key => $value) {
-            // code...
-            Log::debug($value);
-            $value -> tipo = ($value -> tipo == 1 ? 'Sobre' : 'Mi Embalaje');
+            $value -> tipo_envio = ($value -> tipo_envio == 1 ? 'Sobre' : 'Mi Embalaje');
             $this -> cotizacion[]= array('costo' => $value, 'destino' => $this -> destino, 'origen' => $this -> origen) ;
 
         }  
+        Log::debug($this -> cotizacion);
     }
     //Fin cotizacion
 

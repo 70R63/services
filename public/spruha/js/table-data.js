@@ -1,7 +1,20 @@
 $(function() {
 	'use strict'
 	
-	
+	//Data tabla general
+   var exportGeneral = $('#exportGeneral').DataTable( {
+      lengthChange: false,
+      buttons: [ 
+               { extend: 'excel', footer: true }
+               ,{ extend: 'pdf', footer: true } 
+               ]
+      ,"paging":   false
+   } );
+
+   exportGeneral.buttons().container()
+   .appendTo( '#exportGeneral_wrapper .col-md-6:eq(0)' );
+   //Data tabla general
+
    //Data table exportCotizaciones
    var tableCotizacion = $('#exportCotizaciones').DataTable( {
       lengthChange: false,
@@ -20,6 +33,17 @@ $(function() {
 
    tableConfigPrecio.buttons().container()
    .appendTo( '#configPrecio_wrapper .col-md-6:eq(0)' );
+
+   //Data table grupoTabla
+   var grupoTabla = $('#grupoTabla').DataTable( {
+      lengthChange: false,
+      buttons: [ 'excel', 'pdf' ]
+      ,"paging":   false
+   } );
+
+   grupoTabla.buttons().container()
+   .appendTo( '#grupoTabla_wrapper .col-md-6:eq(0)' );
+    //Fin Data table grupoTabla
 
 
 
