@@ -14,9 +14,13 @@
 				<td>{{ $item['nombre'] }}</td>
 				<td>{{ $item['clave'] }}</td>
 				<td>
-					<span class="badge {{config('css.'.$item['estatus'])}} badge-pill">Completed</span>
+					<span class="badge {{config('css.'.$item['estatus'])}} badge-pill tx-14 ">{{$item['desc']}}</span>
 				</td>
-				<td></td>
+				<td>
+					<a href="{{route('mensajeria.edit',$item['clave']) }}" class="remove-list text-info tx-20 edit-button" >
+						<i class="si si-note"></i>
+					</a>
+				</td>
 				
 			</tr>
 			@endforeach

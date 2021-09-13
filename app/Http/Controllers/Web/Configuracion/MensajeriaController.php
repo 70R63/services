@@ -8,8 +8,10 @@ use Illuminate\Http\Request;
 //USO GENERAL
 use Log;
 use Redirect;
+use Exception;
 
 //USO DE NEGOCIO
+use App\Models\Configuracion\Estatus;
 use App\Models\Configuracion\Mensajeria;
 
 class MensajeriaController extends Controller
@@ -23,18 +25,23 @@ class MensajeriaController extends Controller
     {
         try {
             Log::info(__CLASS__." ".__FUNCTION__);    
-            $tabla = Mensajeria::select('*')
-            ->get();
-        } catch (Exception $e) {
-            $tabla = array();
+            $tabla = Mensajeria::select('nombre','mensajeria.clave','mensajeria.estatus', 'estatus.clave as desc')
+                    ->join('estatus', 'mensajeria.estatus', '=', 'estatus.estatus')
+                ->get();
+
             return view('configuracion.mensajeria.index' 
                     ,compact("tabla")
                 );
+        } catch (Exception $e) {
+            Log::info(__CLASS__." ".__FUNCTION__);
+            Log::info($e);
+            $tabla = array();
+            return view('configuracion.mensajeria.index' 
+                    ,compact("tabla")
+                )->with('notices',array($e->getMessage() ));
         }
 
-        return view('configuracion.mensajeria.index' 
-                    ,compact("tabla")
-                );
+        
     }
 
     /**
@@ -104,7 +111,27 @@ class MensajeriaController extends Controller
      */
     public function edit($id)
     {
-        //
+        try {
+            Log::info(__CLASS__." ".__FUNCTION__);    
+            $mensajeria = Mensajeria::where('clave', '=',$id)
+            ->first();
+            Log::debug("edit ".$mensajeria);
+
+            $estatus = Estatus::pluck('clave','estatus');
+            //dd($estatus);
+
+
+            return view('configuracion.mensajeria.editar' 
+                    ,compact("mensajeria", "estatus")
+                );
+        } catch (Exception $e) {
+            $tabla = array();
+            return view('configuracion.mensajeria.index' 
+                    ,compact("tabla")
+                )->with('notices',array($e->getMessage() ));
+        }
+
+        
     }
 
     /**
@@ -116,7 +143,22 @@ class MensajeriaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Log::debug(__CLASS__." ".__FUNCTION__);
+        try {
+
+            $item = Mensajeria::findOrFail($id);
+            $item -> fill($request->all());
+            $item -> save();
+            $tmp = sprintf("Actualizacion correcta de la Mensajeria '%s'", $item->nombre);
+            $notices = array($tmp);
+            return \Redirect::route('mensajeria.index') -> withSuccess ($notices);
+ 
+        } catch (Exception $e) {
+            return redirect()
+                    ->back()
+                    ->withErrors(array($e->getMessage()));
+        }
+
     }
 
     /**

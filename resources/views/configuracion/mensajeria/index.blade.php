@@ -69,5 +69,7 @@
 	</div>
 </div>
 <!-- End Basic modal -->
+
+
    
 @endsection
