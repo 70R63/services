@@ -7,9 +7,12 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 /* Inico de configuracion personalizada*/
-
-use Spatie\DataTransferObject\DataTransferObjectError;
+//USO GENERAL
 use Log;
+use Redirect;
+use Exception;
+use Spatie\DataTransferObject\DataTransferObjectError;
+
 
 
 use App\Http\DTO\Estafeta\Tracking\ExecuteQuery;
@@ -96,6 +99,7 @@ class EnviosController extends Controller
      */
     public function store(Request $request)
     {
+        Log::info(__CLASS__." ".__FUNCTION__);   
         try {        
             
             
@@ -212,19 +216,20 @@ class EnviosController extends Controller
      */
     public function guia_creada(Request $request)
     {
+        Log::info(__CLASS__." ".__FUNCTION__);
         Log::debug($request->all());
         $leyenda = "llegue";
         return view('envios/guia', compact('leyenda') );
     }
 
 
-    public function creacion(Request $request)
+    public function creacion($id)
     {
-        Log::debug(__FUNCTION__);
-        Log::info( $request->all() );
-        Log::info( $request->get('mensajeria') );
+        Log::info(__CLASS__." ".__FUNCTION__);
+        //Log::info( $request->all() );
+        //Log::info( $request->get('mensajeria') );
 
-        return view('envios/creacion');
+        return view('envios/creacion', compact("id"));
     }
 
     /**
@@ -237,7 +242,8 @@ class EnviosController extends Controller
      */
     public function precio(Request $request)
     {
-        Log::info($request->all());
+        Log::info(__CLASS__." ".__FUNCTION__);
+        Log::debug($request->all());
         $envio = new Cotizaciones();
 
         $precio = $envio -> precio($request);

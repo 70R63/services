@@ -28,16 +28,22 @@ class Cotizaciones extends Model
      * @param peso valor de Kg que se redondeara a su valor siguiente enero
      * @return array
      */
-    private function base($cp_origen, $cp_destino, $peso ){
+    private function base($cp_origen, $cp_destino ){
+        Log::info(__CLASS__." ".__FUNCTION__);
         $this -> origen = EnvioGrupo::whereRaw('(? between cp_inicial and cp_final)', [$cp_origen])
                ->first();
 
         $this -> destino = EnvioGrupo::whereRaw('(? between cp_inicial and cp_final)', [$cp_destino])
                ->first(); 
 
-        $this -> zonas = EnvioZona::where('grupo_origen', '=', $this -> origen -> grupo)
+        if ($this -> origen -> grupo === $this -> destino -> grupo){
+            $this->zonas = new EnvioZona();
+            $this->zonas->zona = 1;
+        } else{
+            $this -> zonas = EnvioZona::where('grupo_origen', '=', $this -> origen -> grupo)
                 -> where('grupo_destino', '=', $this -> destino -> grupo)
                 ->first('zona');
+        }
     }
 
     /**
@@ -49,8 +55,7 @@ class Cotizaciones extends Model
      * @return array
      */
     public function cotizacion($cp_origen, $cp_destino, $peso ){
-
-        Log::info(__FUNCTION__);
+        Log::info(__CLASS__." ".__FUNCTION__);
         $this -> origen = EnvioGrupo::whereRaw('(? between cp_inicial and cp_final)', [$cp_origen])
                ->first();
 
@@ -108,38 +113,78 @@ class Cotizaciones extends Model
      * @return array
      */
     public function precio( $request ){
-        Log::info(__FUNCTION__);
+        Log::info(__CLASS__." ".__FUNCTION__);
         Log::debug( $request->all() );
         
         $cp_origen  = $request->get('cp');
         $cp_destino = $request->get('cp_d');
-        $pieza   = $request->get('pieza');
+        $piezas   = 1; //$request->get('pieza');
         $mensajeria = 1;//;$request->get('');
-        $peso = 1;//       = ($request->get('embalaje') == 'sobre' ? 1 : 2 );
+        $tipoEnvio  = $request->get('tipo_envio');
 
-        if ( $request->get('embalaje') != 'sobre' ){
-            $bascula   = ceil($request->get('bascula'));
-            $dimensional   = ceil($request->get('dimensional'));
-             Log::info($bascula);
-             Log::info($dimensional);     
+        $pesoMax = 0;
+        if ( $tipoEnvio ==  1 ){
+            Log::info("Calculo para sobre");
+            $piezas    = $request->get('pieza');
+            $pesoMax =  1;  
+        } elseif ( $tipoEnvio == 2) {
+            Log::info("Calculo para piezas");
+            $piezas    = $request->get('pieza');
+            $pesoBascula = $request->get('peso');
+            $dimensional = $request->get('dimensional');
+            Log::info("Peso Bascula ".$pesoBascula);
+            Log::info("Peso Dimensional ".$dimensional);
+            $pesoMax = max($pesoBascula,$dimensional);
+            Log::info("Peso que se usara para el calculo, peso = ".$pesoMax);
+        } else {
+            
+            $pesoArray = $request->get('peso');
+            $altoArray = $request->get('alto');
+            $anchoArray = $request->get('ancho');
+            $largoArray = $request->get('largo');
 
-            $peso = max($bascula,$dimensional);  
-        } 
+            $piezas = count($pesoArray);
+            $pesoBascula = 0;
+            $dimensional = 0;
+            Log::info("Calculo para Multipiezas - Cantidad ".$piezas);
+            for ($i=0; $i < $piezas; $i++) { 
+                $pesoBascula += $pesoArray[$i] ;
+
+                $dimensional += ($altoArray[$i]*$anchoArray[$i]*$largoArray[$i])/5000;
+            }
+            Log::info("Peso Bascula ".$pesoBascula);
+            Log::info("Peso Dimensional ".$dimensional);
+            $pesoMax = max($pesoBascula,$dimensional);
+            Log::info("Peso que se usara para el calculo, peso = ".$pesoMax);
+
+        }
+        $pesoMaxEntero = ceil($pesoMax);
         Log::info("Validar el peso");
-        Log::info($peso);
-
-        $this -> base( $cp_origen, $cp_destino, $peso );
+        $this -> base( $cp_origen, $cp_destino, $pesoMaxEntero );
 
         $precio = Precio::where('zona', '=', $this -> zonas -> zona)
-                    ->where('peso', '=', ceil($peso) )
+                    ->where('peso', '=', $pesoMaxEntero )
                     ->where('id_mensajeria', '=', $mensajeria )
                     ->first();
        
-        $precio -> precio = $precio -> precio * $pieza;
+        $precio -> precio = $precio -> precio * $piezas;
+        $precio->piezas = $piezas;
         
         Log::info($precio);
         return $precio;
     }
 
     //fin precio
+
+
+    /**
+     * Calcula el precio del envio.
+     * 
+     * @param mensajeria, 
+     * @return array
+     */
+    public function precioTmp( $request ){
+
+    }
+    //FIN Calculo multiPieza
 }

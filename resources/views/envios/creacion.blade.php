@@ -1,7 +1,7 @@
 @extends('app')
 @section('content')
 
-{!! Form::open([ 'route' => 'envios.store', 'method' => 'POST' , 'class'=>'parsley-style-1', 'id'=>'enviosForm' ]) !!}
+{!! Form::open([ 'route' => 'envios.store', 'method' => 'POST' , 'class'=>'', 'id'=>'enviosForm' ]) !!}
 	<!-- Row Forma -->
 	<div class="row row-sm">
 		<div class="col-sm-12 col-md-3"> 
@@ -31,14 +31,25 @@
 		</div>
 		<div class="col-sm-12 col-md-6">
 			<div class="card custom-card">
-				<div class="card-header border-bottom-0 custom-card-header">
-					<h6 class="main-content-label mb-0">Paquete</h6>
-				</div>
-				<div class="card-body">
-					<div class="border">
-						@include('envios.paquete.forma')
-					</div>
-				</div>
+				{!! Form::text('tipo_envio', $id,
+					['class' 		=> 'form-control'
+					,'style'		=>	'display:none;'
+					])
+				!!}
+				@switch($id)
+				    @case(1)
+				        @include('envios.paquete.sobre')
+				        @break
+
+				    @case(2)
+				        @include('envios.paquete.pieza')
+				        @break
+
+					@case(3)
+				        @include('envios.paquete.multipieza')
+				        @break
+				@endswitch
+				
 			</div>
 		</div>
 	</div>
@@ -66,5 +77,7 @@
 	<!-- End Basic modal -->
 
 {!! Form::close() !!}
+
+@include('envios.paquete.pesodimension')
 
 @endsection

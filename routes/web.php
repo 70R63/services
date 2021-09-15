@@ -20,7 +20,8 @@ Route::group(array('domain' => env('APP_URL')), function() {
 
     Route::get('envios/guias/creada', 'Web\Dev\EnviosController@guia_creada')->name('envios.creacion');
     Route::post('envios/guias/salvacion', 'Web\Dev\EnviosController@storeAs')->name('envios.salvacion');
-    Route::get('/envios/creacion', 'Web\Dev\EnviosController@creacion')->name('creacion');
+    Route::get('/envios/creacion/{tipo}', 'Web\Dev\EnviosController@creacion')->name('creacion');
+    #Route::get('/envios/creacion/{tipo}', 'Web\Dev\EnviosController@creacion')->name('creacion.singular');
     
     
     
@@ -33,6 +34,9 @@ Route::group(array('domain' => env('APP_URL')), function() {
         Route::resource('guia', 'Web\Envios\GuiaController');
       });
     });
+
+    Route::resource('envio','Web\Envios\EnvioController');
+    //FIN ENVIOS
 
     //CONFIGURACION
     Route::resource('configuracion','Web\ConfiguracionController');

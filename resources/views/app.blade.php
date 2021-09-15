@@ -254,12 +254,14 @@
 				});
 			});
 		</script>	
-		
+		<!-- Fin Internal salvado temporal de los envios -->
+
 		<!-- Personalizacion de UlalaExpress -->
 		<script type="text/javascript">
 			var costoSeguroGlobal = 0;
 			// Calculo de peso Bascula
 			function calculo(argument) {
+				console.log("test")
 				var pieza = $("#pieza").val()
 				var peso = $("#peso").val()
 				var alto = $("#alto").val()
@@ -280,6 +282,7 @@
 			}
 
 			$(function(){
+				console.log("validar");
 				$("#peso").on("change keyup paste", function (){
 					calculo();
 				});
@@ -342,13 +345,13 @@
     			$('#enviosForm').submit();
 			});
 
-			
+			// Envio a Validar Precio al Cliente antes de solicitar la Guia
 			$("#preSubmit").click(function() {
 				var form = $('#enviosForm').parsley().refresh();
 
 				if ( form.validate() ){
-					console.log($('#enviosForm').serialize())
-
+					//console.log($('#enviosForm').serialize())
+					console.log($('.tipo_envio').val() )
 					$.ajax({
 	                    /* Usar el route  */
 	                    url: "{{route('api.envios.precio')}}",
@@ -361,13 +364,10 @@
 	                    }).done(function( data) {
 						  	console.log("done");
 						  	
-						  	//$('div.flash-message-ajax').append(data.nombre);
-						  	//alert("Salvado Exitoso");
-						  	
 						  	$("#spanPrecio").text( data.precio );
 						  	$("#spanServicio").text( $("#servicio option:selected").text() );
 							$("#spanEmbalaje").text( $("#embalaje option:selected").text() );
-							$("#spanPieza").text( $("#pieza").val() );
+							$("#spanPieza").text( data.piezas );
 							$("#spanSeguro").text("$"+costoSeguroGlobal);
 							$("#modalEnviar").modal("show");
 
@@ -390,10 +390,24 @@
 		</script>
 		<!-- Fin Personalizacion de UlalaExpress -->
 
-		<!-- Modals -->
+		<!-- PAQUETE MULTIPIEZA -->
 		<script type="text/javascript">
+			$("#addRow").click(function () {
+				console.log('AddRow')
+		        var html = $("#clone").clone()
+				$('#multiPieza').append(html);
+				$("#clone").show()
+				console.log($(".clone").length)
+		    });
+			
+		    // remove row
+		    $(document).on('click', '#removeRow', function () {
+		        $(this).closest('#clone').remove();
+		         console.log($(".clone").length)
+		    });
+		   
 		</script>
-		<!-- Fin Modals -->
+		<!-- FIN PAQUETE MULTIPIEZA -->
 
 		
 	</body>
