@@ -118,46 +118,40 @@ class Cotizaciones extends Model
         
         $cp_origen  = $request->get('cp');
         $cp_destino = $request->get('cp_d');
-        $piezas   = 1; //$request->get('pieza');
+        $piezas     = $request->get('pieza');
         $mensajeria = 1;//;$request->get('');
         $tipoEnvio  = $request->get('tipo_envio');
 
-        $pesoMax = 0;
+        $alto = $request->get('alto');
+        $ancho = $request->get('ancho');
+        $largo = $request->get('largo');
+        $peso = $request->get('peso');
+
+        $pesoBascula = 0;
+        $dimensional = 0;
+
         if ( $tipoEnvio ==  1 ){
             Log::info("Calculo para sobre");
-            $piezas    = $request->get('pieza');
-            $pesoMax =  1;  
+            $pesoBascula =  1;  
         } elseif ( $tipoEnvio == 2) {
             Log::info("Calculo para piezas");
-            $piezas    = $request->get('pieza');
-            $pesoBascula = $request->get('peso');
-            $dimensional = $request->get('dimensional');
-            Log::info("Peso Bascula ".$pesoBascula);
-            Log::info("Peso Dimensional ".$dimensional);
-            $pesoMax = max($pesoBascula,$dimensional);
-            Log::info("Peso que se usara para el calculo, peso = ".$pesoMax);
+            $dimensional = ($alto*$ancho*$largo)/5000; 
+            $pesoBascula = $peso;
+                        
         } else {
-            
-            $pesoArray = $request->get('peso');
-            $altoArray = $request->get('alto');
-            $anchoArray = $request->get('ancho');
-            $largoArray = $request->get('largo');
-
-            $piezas = count($pesoArray);
-            $pesoBascula = 0;
-            $dimensional = 0;
+            $piezas = count($peso);
             Log::info("Calculo para Multipiezas - Cantidad ".$piezas);
             for ($i=0; $i < $piezas; $i++) { 
-                $pesoBascula += $pesoArray[$i] ;
-
-                $dimensional += ($altoArray[$i]*$anchoArray[$i]*$largoArray[$i])/5000;
+                $pesoBascula += $peso[$i] ;
+                $dimensional += ($alto[$i]*$ancho[$i]*$largo[$i])/5000;
             }
-            Log::info("Peso Bascula ".$pesoBascula);
-            Log::info("Peso Dimensional ".$dimensional);
-            $pesoMax = max($pesoBascula,$dimensional);
-            Log::info("Peso que se usara para el calculo, peso = ".$pesoMax);
-
         }
+
+        Log::info("Peso Bascula ".$pesoBascula);
+        Log::info("Peso Dimensional ".$dimensional);
+
+        $pesoMax = max($pesoBascula,$dimensional);
+        Log::info("Peso que se usara para el calculo, peso = ".$pesoMax);
         $pesoMaxEntero = ceil($pesoMax);
         Log::info("Validar el peso");
         $this -> base( $cp_origen, $cp_destino, $pesoMaxEntero );
@@ -169,7 +163,8 @@ class Cotizaciones extends Model
        
         $precio -> precio = $precio -> precio * $piezas;
         $precio->piezas = $piezas;
-        
+        $precio->tipoEnvio = $tipoEnvio;
+
         Log::info($precio);
         return $precio;
     }

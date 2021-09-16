@@ -1,7 +1,7 @@
 @extends('app')
 @section('content')
 
-{!! Form::open([ 'route' => 'envios.store', 'method' => 'POST' , 'class'=>'', 'id'=>'enviosForm' ]) !!}
+{!! Form::open([ 'route' => 'envios.store', 'method' => 'POST' , 'class'=>'parsley-style-1', 'id'=>'enviosForm' ]) !!}
 	<!-- Row Forma -->
 	<div class="row row-sm">
 		<div class="col-sm-12 col-md-3"> 
@@ -63,7 +63,7 @@
 				<div>
 				<a class="btn btn-success" data-toggle="modal" id="preSubmit" href="">		Enviar
 				</a>
-				<a href="{{ url()->previous() }}" class="btn btn-danger" >Cancelar</a>
+				<a href="{{ route('envio.index') }}" class="btn btn-danger" >Cancelar</a>
 				</div>
 				<a id="guardar" href="" class="btn btn-primary" >Guardar</a>	
 				

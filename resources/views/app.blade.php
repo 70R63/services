@@ -302,7 +302,7 @@
 			});
 
 			$(function(){
-				$("#embalaje").on("change", function (){
+				$("#embalaje1").on("change", function (){
 					var embalaje = $(this).val()
 					
 					if (embalaje == 'sobre') {
@@ -335,6 +335,7 @@
 					}
 				  });
 			});
+			// fin Seguro de envio
 
 			$("#valorEnvio").on("change keyup paste ", function (){
 				calculoSeguro();
@@ -345,7 +346,7 @@
     			$('#enviosForm').submit();
 			});
 
-			// Envio a Validar Precio al Cliente antes de solicitar la Guia
+			// Validar Precio al Cliente antes de solicitar la Guia
 			$("#preSubmit").click(function() {
 				var form = $('#enviosForm').parsley().refresh();
 
@@ -366,7 +367,7 @@
 						  	
 						  	$("#spanPrecio").text( data.precio );
 						  	$("#spanServicio").text( $("#servicio option:selected").text() );
-							$("#spanEmbalaje").text( $("#embalaje option:selected").text() );
+							$("#spanEmbalaje").text( data.tipoEnvio );
 							$("#spanPieza").text( data.piezas );
 							$("#spanSeguro").text("$"+costoSeguroGlobal);
 							$("#modalEnviar").modal("show");
@@ -387,6 +388,7 @@
 					return false;
 				}
 			});
+			// Fin Validar Precio al Cliente antes de solicitar la Guia
 		</script>
 		<!-- Fin Personalizacion de UlalaExpress -->
 
@@ -405,8 +407,7 @@
 		        $(this).closest('#clone').remove();
 		         console.log($(".clone").length)
 		    });
-		   
-		</script>
+		 </script>
 		<!-- FIN PAQUETE MULTIPIEZA -->
 
 		

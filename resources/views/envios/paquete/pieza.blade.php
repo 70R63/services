@@ -66,7 +66,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text" id="basic-addon1">Dimensiones <span class="tx-danger">*</span></span>
 					</div>
-					{!! Form::text('Largo', null,
+					{!! Form::text('largo', null,
 						['class' 		=> 'form-control'
 						,'id'			=> 'largo'
 						,'placeholder'	=> 'Largo '
@@ -74,7 +74,7 @@
 						])
 					!!}
 
-					{!! Form::text('Ancho', null,
+					{!! Form::text('ancho', null,
 						['class' 		=> 'form-control'
 						,'id'			=> 'ancho'
 						,'placeholder'	=> 'Ancho  '
@@ -82,7 +82,7 @@
 						])
 					!!}
 
-					{!! Form::text('Alto', null,
+					{!! Form::text('alto', null,
 						['class' 		=> 'form-control'
 						,'id'			=> 'alto'
 						,'placeholder'	=> 'Alto '

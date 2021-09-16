@@ -99,14 +99,15 @@ class EnviosController extends Controller
      */
     public function store(Request $request)
     {
-        Log::info(__CLASS__." ".__FUNCTION__);   
-        try {        
-            
-            
+        Log::info(__CLASS__." ".__FUNCTION__);
+        $tipo = $request->get('tipo_envio');   
+        try {
+            Log::info($request);
             $solicitud = new Solicitud();
             $solicitud -> procesarDatos($request -> all());
             $solicitud -> cargarDTO();
             $solicitud -> enviar();
+            
             
             $parameters=Array(
                 'idGuia'=>$solicitud -> idGuia,
@@ -114,9 +115,9 @@ class EnviosController extends Controller
                 'destinatario' => $solicitud -> destinatarioResumen,
             );
             
-            #dd($solicitud);
+            //Log::info($solicitud);
             if(!$solicitud->estatus)
-                return \Redirect::route('creacion')
+                return \Redirect::route('creacion', ['tipo'=>$tipo])
                     ->with('notices',array($solicitud -> mensaje_error))
                     ->withInput();    
             
@@ -125,8 +126,8 @@ class EnviosController extends Controller
                 ->withSuccess(array("La solicitud fue exitosa"));
             
         } catch (Exception $e) {
-            
-            return \Redirect::route('creacion')
+            Log::info(__CLASS__." ".__FUNCTION__);
+            return \Redirect::route('creacion', ['tipo'=>$tipo])
                     ->withErrors(array($solicitud -> mensaje_error))
                     ->withInput();
         }
@@ -141,6 +142,7 @@ class EnviosController extends Controller
      */
     public function storeAs(Request $request)
     {
+        Log::info(__CLASS__." ".__FUNCTION__);
         try {        
             
             Log::debug(print_r($request->all(),true));

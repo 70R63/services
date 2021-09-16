@@ -66,6 +66,7 @@ final class Solicitud
      */
     public function procesarDatos(array $datos) : void
     {
+        Log::info(__CLASS__." ".__FUNCTION__);
     	$this -> remitente = new OriginInfo ([
     		"address1" 		=> $datos['calle']
     		,"address2"		=>	$datos['numero']
@@ -115,6 +116,7 @@ final class Solicitud
      */
     public function cargarDTO() : void
     {
+        Log::info(__CLASS__." ".__FUNCTION__);
         $this -> labelDTO = new Label([
             "labelDescriptionList" => $this -> labelDescriptionList
         ]);
@@ -129,6 +131,7 @@ final class Solicitud
      */
     public function enviar() : void
     {
+        Log::info(__CLASS__." ".__FUNCTION__);
         try {
             $response = $this -> clienteSOAP -> createLabel($this -> labelDTO);
             
@@ -151,7 +154,7 @@ final class Solicitud
                 Storage::disk('public')->put($namePDF, $response->labelPDF);             
 
             }
-
+            Log::info(__CLASS__." ".__FUNCTION__."Armando Resultado");
             $this -> remitenteResumen = array(
                 "nombre" => "Nombre Resumen"
                 ,"compania" =>  "compania"
@@ -164,9 +167,9 @@ final class Solicitud
 
             $this -> estatus = true;        
         } catch (Exception $e) {
+            Log::info(__CLASS__." ".__FUNCTION__);
             Log::debug($e->getMessage());
             $this -> mensaje_error($response);
-            #   throw new Exception("Error en Solicitud",1);
             
         }
 
@@ -179,19 +182,20 @@ final class Solicitud
      */
 
     private function mensaje_error($response){
-        Log::debug(__FUNCTION__);
+        Log::info(__CLASS__." ".__FUNCTION__);
 
         Log::debug(print_r($response -> labelResultList,true));
         $msj = ",";
         foreach ($response -> labelResultList as $key => $value) {
             $msj = sprintf("%s %s ",$msj, $value-> resultSpanishDescription);
         }
+        Log::info("Contruyendo Response");        
         $this -> mensaje_error = sprintf("COD%s - %s - BROKER %s",
             $response->globalResult->resultCode
             , $response->globalResult->resultSpanishDescription
             , $msj
         );
-    
+        Log::info("Fin ".__CLASS__." ".__FUNCTION__);
     }
 
 }
