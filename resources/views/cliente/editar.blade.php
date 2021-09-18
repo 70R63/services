@@ -25,8 +25,8 @@
 	<div class="row row-sm">
 		<div class="col-lg-12 col-md-6">
 			<div class="form-group row justify-content-around">		
-				<input class="btn btn-success" type="submit" value="Cliente">
-				
+				<input class="btn btn-success" type="submit" value="Guardar">
+				<a href="{{ route('cliente.index') }}" class="btn btn-info" >Regresar</a>
 			</div>	
 		</div>
 	</div>

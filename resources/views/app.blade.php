@@ -372,11 +372,11 @@
 							$("#spanSeguro").text("$"+costoSeguroGlobal);
 							$("#modalEnviar").modal("show");
 
-						}).fail( function( jqXHR, textStatus, errorThrown ) {
-						    console.log( "error" );
-						    console.log(textStatus);
-						    alert("Consulte con su proveedor"+ textStatus);
-						    console.log(jqXHR);
+						}).fail( function( data,jqXHR, textStatus, errorThrown ) {
+						    console.log( "fail" );
+						    
+						    alert( data.responseJSON.message);
+
 						}).always(function() {
 							console.log( "complete" );
 						});

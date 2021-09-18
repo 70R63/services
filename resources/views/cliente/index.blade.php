@@ -10,6 +10,11 @@
 					<h6 class="main-content-label mb-0">C L I E N T E S </h6>
 					
 				</div>
+				<div class="col-sm-12 col-md-2">
+					<a class="btn btn-success" href="{{ route('cliente.create') }}" type="button">
+						<i class="fe fe-users mr-2"></i> Nuevo
+					</a>
+				</div>
 			</div>
 
 			<div class="card-body">

@@ -34,7 +34,13 @@ class Cotizaciones extends Model
                ->first();
 
         $this -> destino = EnvioGrupo::whereRaw('(? between cp_inicial and cp_final)', [$cp_destino])
-               ->first(); 
+               ->first();
+
+        Log::info($this -> origen);
+        if ( is_null($this->origen) or is_null($this->destino) ) {
+            $tmp = sprintf("Validar con su proveedor la disponibilidad de envio en '%s' y '%s'",$cp_origen, $cp_destino );
+            throw new ModelNotFoundException($tmp);
+        } 
 
         if ($this -> origen -> grupo === $this -> destino -> grupo){
             $this->zonas = new EnvioZona();

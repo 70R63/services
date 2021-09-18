@@ -4,7 +4,7 @@
 {!! Form::open([ 'route' => 'envios.store', 'method' => 'POST' , 'class'=>'parsley-style-1', 'id'=>'enviosForm' ]) !!}
 	<!-- Row Forma -->
 	<div class="row row-sm">
-		<div class="col-sm-12 col-md-3"> 
+		<div class="col-sm-12 col-md-4"> 
 			<div class="card custom-card">
 				<div class="card-header border-bottom-0 custom-card-header">
 					<h6 class="main-content-label mb-0">Remitente</h6>
@@ -17,7 +17,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-sm-12 col-md-3">
+		<div class="col-sm-12 col-md-4">
 			<div class="card custom-card">
 				<div class="card-header border-bottom-0 custom-card-header">
 					<h6 class="main-content-label mb-0">Destinatario</h6>
@@ -29,7 +29,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-sm-12 col-md-6">
+		<div class="col-sm-12 col-md-4">
 			<div class="card custom-card">
 				{!! Form::text('tipo_envio', $id,
 					['class' 		=> 'form-control'
@@ -57,7 +57,7 @@
 
 	<!-- Inicio Row Botones-->
 	<div class="row row-sm">
-		<div class="col-lg-12 col-md-6">
+		<div class="col-lg-12 col-md-4">
 			<div class="form-group row justify-content-around">		
 				<div></div>						
 				<div>

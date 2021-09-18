@@ -40,7 +40,15 @@
 			</div>
 			<div class="handle-counter" id="handleCounterMax100">
 				<text class="counter-minus btn btn-light">-</text>
-				<input type="text" value="1" class="form-control" name="descuento" id="descuento"required="">
+				
+				{!! Form::text('descuento'
+				, null
+				,['class' 		=> 'form-control'
+					,'id'		=> 'descuento'
+					,'required'	=>	'true'
+				])
+			!!}
+
 				<text class="counter-plus btn btn-light">+</text>
 			</div>
 		</div>
@@ -49,12 +57,13 @@
 			<div class="input-group-prepend">
 				<span class="input-group-text" id="basic-addon1">TIPO DE LICENCIA <span class="tx-danger">*</span></span>
 			</div>
+
 			{!! Form::select('LICENCIA'
 				, array(
 			    	'1' 	=> 'ESTANDAR'
 			    	,'2' 	=> 'ESTANDAR+'
 			    	,'3'	=>	'EMPRESARIAL')
-					,null
+				,$cliente['licencia'] ?? '1'
 				,['class' 		=> 'form-control'
 					,'placeholder'	=> 'Seleccionar'
 					,'required'	=> 'true'
