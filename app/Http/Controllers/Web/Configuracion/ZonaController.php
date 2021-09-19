@@ -26,7 +26,7 @@ class ZonaController extends Controller
                     ->join('mensajeria','envios_zona.id_mensajeria', '=', 'clave')
                     ->get();
 
-             $mensajeria = Mensajeria::where('estatus',1)
+            $mensajeria = Mensajeria::where('estatus',1)
                             ->pluck('nombre','clave');
             
         } catch (Exception $e) {

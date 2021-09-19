@@ -6,7 +6,6 @@
 	<table id="exportCotizaciones" class="table table-striped table-bordered text-nowrap" >
 		<thead>
 			<tr>
-				<th>CREAR</th>
 				<th>PAQUETERIA</th>
 				<th>EMBALAJE</th>
 				<th>PRECIO</th>
@@ -19,8 +18,7 @@
 		<tbody>
 			@foreach( $cotizacion  as $item)
 				<tr>
-					<td><a href="{{ route('creacion', ['mensajeria'=>'fedex']) }} "><i class="si si-cursor"></i></a></td>
-					<td>FEDEX</td>
+					<td>{{ $item['costo'] -> mensajeria }}</td>
 					<td>{{ $item['costo'] -> tipo_envio }}</td>
 					<td>{{ $item['costo'] -> precio }}</td>
 					<td>{{ $item['origen']['entidad_federativa'] }}</td>

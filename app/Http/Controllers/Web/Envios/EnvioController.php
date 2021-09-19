@@ -27,11 +27,7 @@ class EnvioController extends Controller
         $tabla = array();
         try {
             Log::info(__CLASS__." ".__FUNCTION__);   
-            /* 
-            $tabla = Mensajeria::select('nombre','mensajeria.clave','mensajeria.estatus', 'estatus.clave as desc')
-                    ->join('estatus', 'mensajeria.estatus', '=', 'estatus.estatus')
-                ->get();
-            */
+            
             
             return view(self::INDEX
                     ,compact("tabla")

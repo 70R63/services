@@ -13,8 +13,6 @@ use Redirect;
 use Exception;
 use Spatie\DataTransferObject\DataTransferObjectError;
 
-
-
 use App\Http\DTO\Estafeta\Tracking\ExecuteQuery;
 use App\Http\DTO\Estafeta\Tracking\SearchType;
 use App\Http\DTO\Estafeta\Tracking\SearchConfiguration;
@@ -22,6 +20,7 @@ use App\Http\DTO\Estafeta\Tracking\SearchConfiguration;
 //Modelos
 use App\Models\Envios\Solicitud;
 use App\Models\Envios\Cotizaciones;
+use App\Models\Configuracion\Mensajeria;
 
 class EnviosController extends Controller
 {
@@ -228,10 +227,10 @@ class EnviosController extends Controller
     public function creacion($id)
     {
         Log::info(__CLASS__." ".__FUNCTION__);
-        //Log::info( $request->all() );
-        //Log::info( $request->get('mensajeria') );
+        $mensajeria = Mensajeria::where('estatus',1)
+                            ->pluck('nombre','clave');
 
-        return view('envios/creacion', compact("id"));
+        return view('envios/creacion', compact('id', 'mensajeria'));
     }
 
     /**

@@ -21,9 +21,6 @@ class CotizacionesController extends Controller
      */
     public function index(Request $request)
     {
-        //dd($request);
-        //$notices = array("La cotizacion no incluye iva ni seguros");
-        //$request->session()->flash('notices',$notices);
         $cotizacion  = array();
 
 
@@ -53,11 +50,6 @@ class CotizacionesController extends Controller
         } catch (ModelNotFoundException $e) {
             Log::info(__FUNCTION__);
             Log::info("ModelNotFoundException");
-
-
-
-            //$request->session()->flash('notices',array("Notices"));
-            //$request->session()->flash('success',array("success"));
 
             return Redirect::back()
                 ->with('notices',array($e->getMessage() ))

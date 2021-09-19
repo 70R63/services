@@ -87,13 +87,16 @@ class Cotizaciones extends Model
                 ->first('zona');
         Log::debug($this -> zonas);
         Log::info($this -> zonas);
-        if ( is_null($this -> zonas) or count($this -> zonas) == 0 ) {
+
+        if ( is_null($this -> zonas) ) {
             Log::info("No hay zona de envio o es is_null");
-            $tmp = sprintf("Sin cobertura favor de contactar a su ejente de ventas");
+            $tmp = sprintf("Sin cobertura favor de contactar a su ejecutivo de ventas");
             throw new ModelNotFoundException($tmp);
         }
         Log::info("Precio");
-        $precio = Precio::where('zona', '=', $this -> zonas -> zona)
+        $precio = Precio::select('configuracion_precio.*','b.nombre AS mensajeria')
+                    ->join('mensajeria AS b', 'id_mensajeria', '=', 'b.clave' )
+                    ->where('zona', '=', $this -> zonas -> zona)
                     ->where('peso', '=', ceil($peso))
                     ->get();
         Log::debug($precio);
@@ -122,11 +125,11 @@ class Cotizaciones extends Model
     public function precio( $request ){
         Log::info(__CLASS__." ".__FUNCTION__);
         Log::debug( $request->all() );
-        
+
         $cp_origen  = $request->get('cp');
         $cp_destino = $request->get('cp_d');
         $piezas     = $request->get('pieza');
-        $mensajeria = 1;//;$request->get('');
+        $idMensajeria = 1;//;$request->get('');
         $tipoEnvio  = $request->get('tipo_envio');
 
         $alto = $request->get('alto');
@@ -142,9 +145,10 @@ class Cotizaciones extends Model
             $pesoBascula =  1;  
         } elseif ( $tipoEnvio == 2) {
             Log::info("Calculo para piezas");
-            $dimensional = ($alto*$ancho*$largo)/5000; 
-            $pesoBascula = $peso;
-                        
+            $i= 0;
+            $pesoBascula += $peso[$i] ;
+            $dimensional += ($alto[$i]*$ancho[$i]*$largo[$i])/5000;
+                      
         } else {
             $piezas = count($peso);
             Log::info("Calculo para Multipiezas - Cantidad ".$piezas);
@@ -165,7 +169,7 @@ class Cotizaciones extends Model
 
         $precio = Precio::where('zona', '=', $this -> zonas -> zona)
                     ->where('peso', '=', $pesoMaxEntero )
-                    ->where('id_mensajeria', '=', $mensajeria )
+                    ->where('id_mensajeria', '=', $idMensajeria )
                     ->first();
        
         $precio -> precio = $precio -> precio * $piezas;
