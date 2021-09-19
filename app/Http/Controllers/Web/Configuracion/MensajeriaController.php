@@ -23,8 +23,9 @@ class MensajeriaController extends Controller
      */
     public function index()
     {
+        Log::info(__CLASS__." ".__FUNCTION__);
         try {
-            Log::info(__CLASS__." ".__FUNCTION__);    
+               
             $tabla = Mensajeria::select('nombre','mensajeria.clave','mensajeria.estatus', 'estatus.clave as desc')
                     ->join('estatus', 'mensajeria.estatus', '=', 'estatus.estatus')
                 ->get();
@@ -118,9 +119,7 @@ class MensajeriaController extends Controller
             Log::debug("edit ".$mensajeria);
 
             $estatus = Estatus::pluck('clave','estatus');
-            //dd($estatus);
-
-
+ 
             return view('configuracion.mensajeria.editar' 
                     ,compact("mensajeria", "estatus")
                 );

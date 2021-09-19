@@ -9,6 +9,7 @@ use Log;
 use Redirect;
 
 use App\Models\Configuracion\Zona;
+use App\Models\Configuracion\Mensajeria;
 
 class ZonaController extends Controller
 {
@@ -21,19 +22,19 @@ class ZonaController extends Controller
     {
         try {
             Log::info(__CLASS__." ".__FUNCTION__);    
-            $zona = Zona::select('*')
-            ->join('mensajeria','envios_zona.id_mensajeria', '=', 'clave')
-            ->get();
-           
-            $tabla = array();
+            $tabla = Zona::select('*','mensajeria.nombre AS mensajeria')
+                    ->join('mensajeria','envios_zona.id_mensajeria', '=', 'clave')
+                    ->get();
 
+             $mensajeria = Mensajeria::where('estatus',1)
+                            ->pluck('nombre','clave');
             
         } catch (Exception $e) {
                 
         }
 
         return view('configuracion.zona.index' 
-                    ,compact("zona")
+                    ,compact('tabla', 'mensajeria')
                 );
     }
 
@@ -55,9 +56,18 @@ class ZonaController extends Controller
      */
     public function store(Request $request)
     {
+        Log::info(__CLASS__." ".__FUNCTION__);
         try {
+
+            $idMensajeria = $request->get('id_mensajeria');
+            $idEmpresa  = 1;//Cambiar por valor dinamico
+            
             $file = $request->file('zonaCSV');
             $handle = fopen($file->getRealPath(), "r");
+
+            Zona::where('id_empresa',$idEmpresa)
+                ->where('id_mensajeria',$idMensajeria)
+                ->delete();
             
             fgetcsv($handle, 200, ",");
             while ( ($data = fgetcsv($handle, 200, ",")) !==FALSE) {
@@ -67,6 +77,8 @@ class ZonaController extends Controller
                 $zona->grupo_origen = $data[0];
                 $zona->grupo_destino = $data[1];
                 $zona->zona = $data[2];
+                $zona->id_empresa = $idEmpresa;
+                $zona->id_mensajeria = $idMensajeria;
                 
                 $zona->save();
 

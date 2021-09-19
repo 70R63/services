@@ -7,8 +7,11 @@ use Illuminate\Http\Request;
 
 use Log;
 use File;
+use Exception;
+
 
 use App\Models\Configuracion\Precio;
+use App\Models\Configuracion\Mensajeria;
 
 class PrecioController extends Controller
 {
@@ -19,19 +22,29 @@ class PrecioController extends Controller
      */
     public function index()
     {
-        Log::info(__FUNCTION__);    
-        $precios = Precio::all();
+        Log::info(__CLASS__." ".__FUNCTION__);
+        try {
+            $precios = Precio::select('*', 'mensajeria.nombre','tipo_envio.nombre AS tipoEnvio')
+                    ->join('mensajeria', 'id_mensajeria', '=', 'mensajeria.clave')
+                    ->join('tipo_envio', 'tipo_envio', '=', 'tipo_envio.clave')
+                    ->get();
+           
+            $estatus = Mensajeria::where('estatus',1)
+                                ->pluck('nombre','clave');
 
-        $tabla = array();
-        foreach ($precios as $key => $precio) {
-            Log::info($precio->tipo_envio);
-            $tabla[$precio->tipo_envio][$precio->peso][] = 
-            array('zona'=>$precio->zona ,'precio'=>$precio->precio);
+            $tabla = array();
+            foreach ($precios as $key => $precio) {
+                $tabla[$precio->nombre][$precio->tipoEnvio][str_pad($precio->peso,2,'0',STR_PAD_LEFT)][] = 
+                array('zona'=>$precio->zona ,'precio'=>$precio->precio);
+            }
+            
+            return view('configuracion.precio.index' 
+                    ,compact('tabla','estatus')
+                );    
+        } catch (Exception $e) {
+            Log::debug($e->getMessage());
         }
         
-        return view('configuracion.precio.index' 
-                ,compact("tabla")
-            );
     }
 
     /**
@@ -127,22 +140,26 @@ class PrecioController extends Controller
      */
     public function storeMasivo(Request $request)
     {
+        $idMensajeria = $request->get('id_mensajeria');
+        $idEmpresa  = 1;//Cambiar por valor dinamico
         $file = $request->file('precioCSV');
         $handle = fopen($file->getRealPath(), "r");
-        //dd( $handle );
+        
+        Precio::where('id_empresa',$idEmpresa)
+                ->where('id_mensajeria',$idMensajeria)
+                ->delete();
         
         fgetcsv($handle, 200, ",");
         while ( ($data = fgetcsv($handle, 200, ",")) !==FALSE) {
 
-            //array_push($array, $all_data);
             Log::info($data);
-            
             for ($i=1; $i < 9; $i++) { 
                 $precio = new Precio();
                 $precio->tipo_envio = $data[0];
                 $precio->peso = $data[1];
                 $precio->precio = $data[$i+1];
                 $precio->zona = $i;
+                $precio->id_mensajeria = $idMensajeria;
                 $precio->save();
             }
         };

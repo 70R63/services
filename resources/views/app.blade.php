@@ -72,9 +72,10 @@
 						<li class="nav-item ">
 							<a class="nav-link" href="{{ url('/inicio') }}"><span class="shape1"></span><span class="shape2"></span><i class="ti-home sidemenu-icon"></i><span class="sidemenu-label">DASHBOARD</span></a>
 						</li>
-						@include('menu.envio')
-						@include('menu.facturacion')
 						@include('menu.configuracion')
+						@include('menu.envio')
+						<!-- @include('menu.facturacion') -->
+						
 						@include('menu.usuario')
 						@include('menu.cliente') 
 					</ul>

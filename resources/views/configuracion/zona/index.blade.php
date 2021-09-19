@@ -39,6 +39,21 @@
 			</div>
 			<div class="modal-body">
 				<h6></h6>
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="basic-addon1">Mensajeria <span class="tx-danger">*</span></span>
+					</div>
+				
+					{!! Form::select('id_mensajeria', $mensajeria
+						,null
+						,['class' 		=> 'form-control'
+							,'placeholder'	=> 'Seleccionar'
+							,'required'	=> ''
+							,'id'		=> 'id_mensajeria'
+						]);
+					!!}
+				</div>
+
 				<div class="form-group">
 					<label for="files">Cargar el archivo en formato CSV:</label>
 				  	<input type="file" id="zonaCSV" name="zonaCSV"  class="form-control" accept=".csv" required />
@@ -46,7 +61,6 @@
 			</div>
 			<div class="modal-footer">
 				<button class="btn ripple btn-primary" type="submit">Enviar</button>
-				<button class="btn ripple btn-secondary" data-dismiss="modal" type="button">Close</button>
 			</div>
 		{!! Form::close() !!}
 		</div>

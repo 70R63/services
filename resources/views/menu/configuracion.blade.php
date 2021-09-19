@@ -11,6 +11,12 @@
 			<a class="nav-sub-link" href="{{ url('configuracion') }}">Dashboard</a>
 		</li>
 		<li class="nav-sub-item">
+			<a class="nav-sub-link" href="{{ route('tipoenvio.index') }}">Tipo Envio</a>
+		</li>
+		<li class="nav-sub-item">
+			<a class="nav-sub-link" href="{{ route('mensajeria.index') }}">Mensajeria</a>
+		</li>	
+		<li class="nav-sub-item">
 			<a class="nav-sub-link" href="{{ route('precio.index') }}">Precio</a>
 		</li>
 		<li class="nav-sub-item">
@@ -19,9 +25,5 @@
 		<li class="nav-sub-item">
 			<a class="nav-sub-link" href="{{ route('zona.index') }}">Zonas de Envio</a>
 		</li>
-		<li class="nav-sub-item">
-			<a class="nav-sub-link" href="{{ route('mensajeria.index') }}">Mensajeria</a>
-		</li>
-		
 	</ul>
 </li>

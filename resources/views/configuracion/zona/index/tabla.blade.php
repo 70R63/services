@@ -9,13 +9,12 @@
 			</tr>
 		</thead>
 		<tbody>
-			@foreach( $zona as $key => $item)
+			@foreach( $tabla as $key => $item)
 			<tr>
-				<td>{{ $item['nombre'] }}</td>
-				<td>{{ $item['grupo_origen'] }}</td>
-				<td>{{ $item['grupo_destino'] }}</td>
-				<td>{{ $item['zona'] }}</td>
-				
+				<td>{{ $item['mensajeria'] }}</td>
+				<td>Origen_{{ $item['grupo_origen'] }}</td>
+				<td>Destino_{{ $item['grupo_destino'] }}</td>
+				<td>Zona_{{ $item['zona'] }}</td>
 			</tr>
 			@endforeach
 		</tbody>

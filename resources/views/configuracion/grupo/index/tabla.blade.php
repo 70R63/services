@@ -12,9 +12,9 @@
 		</thead>
 		<tbody>
 
-			@foreach( $grupo as $key => $item)
+			@foreach( $tabla as $key => $item)
 			<tr>
-				<td></td>
+				<td>{{ $item['mensajeria'] }}</td>
 				<td>{{ $item['entidad_federativa'] }}</td>
 				<td>{{ $item['cp_inicial'] }}</td>
 				<td>{{ $item['cp_final'] }}</td>

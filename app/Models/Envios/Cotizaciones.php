@@ -37,6 +37,7 @@ class Cotizaciones extends Model
                ->first();
 
         Log::info($this -> origen);
+        
         if ( is_null($this->origen) or is_null($this->destino) ) {
             $tmp = sprintf("Validar con su proveedor la disponibilidad de envio en '%s' y '%s'",$cp_origen, $cp_destino );
             throw new ModelNotFoundException($tmp);

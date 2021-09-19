@@ -35,10 +35,24 @@
 		, 'method' => 'POST' , 'class'=>'parsley-style-1', 'id'=>'grupoForm', 'enctype' => 'multipart/form-data' ]) !!}
 
 			<div class="modal-header">
-				<h6 class="modal-title">upload csv</h6><button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
+				<h6 class="modal-title">Matriz de Grupo Postal</h6><button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">
 				<h6></h6>
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="basic-addon1">Mensajeria <span class="tx-danger">*</span></span>
+					</div>
+				
+					{!! Form::select('id_mensajeria', $mensajeria
+						,null
+						,['class' 		=> 'form-control'
+							,'placeholder'	=> 'Seleccionar'
+							,'required'	=> ''
+							,'id'		=> 'id_mensajeria'
+						]);
+					!!}
+				</div>
 				<div class="form-group">
 					<label for="files">Cargar el archivo en formato CSV:</label>
 				  	<input type="file" id="grupoCSV" name="grupoCSV"  class="form-control" accept=".csv" required />
@@ -46,7 +60,6 @@
 			</div>
 			<div class="modal-footer">
 				<button class="btn ripple btn-primary" type="submit">Enviar</button>
-				<button class="btn ripple btn-secondary" data-dismiss="modal" type="button">Close</button>
 			</div>
 		{!! Form::close() !!}
 		</div>

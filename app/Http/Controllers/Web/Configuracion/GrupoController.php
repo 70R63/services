@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Log;
 
 use App\Models\Configuracion\Grupo;
+use App\Models\Configuracion\Mensajeria;
 
 class GrupoController extends Controller
 {
@@ -20,8 +21,12 @@ class GrupoController extends Controller
     {
         try {
             Log::info(__CLASS__." ".__FUNCTION__);    
-            $grupo = Grupo::all();
-            $tabla = array();
+            $tabla = Grupo::select('*','mensajeria.nombre AS mensajeria')
+                            ->join('mensajeria', 'id_mensajeria', '=', 'mensajeria.clave')
+                            ->get();
+           
+            $mensajeria = Mensajeria::where('estatus',1)
+                            ->pluck('nombre','clave');
 
             
         } catch (Exception $e) {
@@ -29,7 +34,7 @@ class GrupoController extends Controller
         }
 
         return view('configuracion.grupo.index' 
-                    ,compact("grupo")
+                    ,compact('tabla', 'mensajeria')
                 );
     }
 
@@ -51,21 +56,30 @@ class GrupoController extends Controller
      */
     public function store(Request $request)
     {
+        Log::info(__CLASS__." ".__FUNCTION__);
         try {
-            //dd($request);
+            $idMensajeria = $request->get('id_mensajeria');
+            $idEmpresa  = 1;//Cambiar por valor dinamico
+           
             $file = $request->file('grupoCSV');
             $handle = fopen($file->getRealPath(), "r");
+
+            Grupo::where('id_empresa',$idEmpresa)
+                ->where('id_mensajeria',$idMensajeria)
+                ->delete();
             
             fgetcsv($handle, 200, ",");
             while ( ($data = fgetcsv($handle, 200, ",")) !==FALSE) {
                 Log::info(count($data));
 
                 $grupo = new Grupo();
-                //$grupo->fill($data);
                 $grupo->cp_inicial = $data[0];
                 $grupo->cp_final = $data[1];
                 $grupo->grupo = $data[2];
                 $grupo->entidad_federativa = $data[3];
+                $grupo->id_empresa = $idEmpresa;
+                $grupo->id_mensajeria = $idMensajeria;
+
                 $grupo->save();
 
             };
