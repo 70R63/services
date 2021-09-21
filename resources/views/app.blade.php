@@ -230,7 +230,7 @@
 			$(function(){
 				$("#guardar").click(function (e) { 
 					e.preventDefault();
-					var forma = $( "#selectForm" ).serialize();
+					var forma = $( "#enviosForm" ).serialize();
 					$.ajax({
 	                    /* Usar el route  */
 	                    url: "{{route('envios.salvacion')}}",
@@ -238,15 +238,23 @@
 	                    /* send the csrf-token and the input to the controller */
 	                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
 	                    data: forma,
-	                    dataType: 'JSON',
+	                   
 	                    /* remind that 'data' is the response of the AjaxController */
-	                    }).done(function( data) {
+	                    }).done(function( data ) {
 						  	console.log("done");
-						  	$('div.flash-message-ajax').append(data.nombre);
-						  	alert("Salvado Exitoso");
+						  	console.log(data.pieza)
+						  	$("#spanClave").text( data.clave );
+						  	$("#spanMensajeria").text( data.mensajeria );
+						  	$("#spanRemitente").text( data.remitente );
+						  	$("#spanDestinatario").text( data.destinatario );
+						  	$("#spanPiezat").text( data.pieza );
+
+						  	$("#guardarExito").modal("show");
 
 						}).fail( function( jqXHR, textStatus, errorThrown ) {
 						    console.log( "error" );
+						    console.log(errorThrown);
+						    console.log(textStatus);
 						    alert("No se puede guardar intente otra vez o Consulte con su proveedor");
 						    console.log(jqXHR);
 						}).always(function() {
@@ -352,7 +360,6 @@
 				var form = $('#enviosForm').parsley().refresh();
 
 				if ( form.validate() ){
-					//console.log($('#enviosForm').serialize())
 					console.log($('.tipo_envio').val() )
 					$.ajax({
 	                    /* Usar el route  */
@@ -368,8 +375,9 @@
 						  	
 						  	$("#spanPrecio").text( data.precio );
 						  	$("#spanServicio").text( $("#servicio option:selected").text() );
-							$("#spanEmbalaje").text( data.tipoEnvio );
+							$("#spanEmbalaje").text( data.nombre );
 							$("#spanPieza").text( data.piezas );
+							$("#spanPeso").text( data.pesoMax );
 							$("#spanSeguro").text("$"+costoSeguroGlobal);
 							$("#modalEnviar").modal("show");
 

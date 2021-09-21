@@ -22,8 +22,11 @@ use App\Models\Envios\Solicitud;
 use App\Models\Envios\Cotizaciones;
 use App\Models\Configuracion\Mensajeria;
 
+
 class EnviosController extends Controller
 {
+    const INDEX = 'envios.envio.index';
+
     /**
      * Display a listing of the resource.
      *
@@ -31,6 +34,7 @@ class EnviosController extends Controller
      */
     public function index(Request $request)
     {
+        Log::info(__CLASS__." ".__FUNCTION__); 
         $data = $request->all();
 
         try{
@@ -71,6 +75,7 @@ class EnviosController extends Controller
      */
     public function seguimiento( Request $request )
     {
+        Log::info(__CLASS__." ".__FUNCTION__); 
         try{
             /* Se inicializa el WS para DEV*/
             $wsdl = config('soap.estafeta_tracking_dev');
@@ -110,15 +115,17 @@ class EnviosController extends Controller
             
             $parameters=Array(
                 'idGuia'=>$solicitud -> idGuia,
-                'remitente' => $solicitud -> remitenteResumen,
-                'destinatario' => $solicitud -> destinatarioResumen,
+                'remitente' => $solicitud->remitenteResumen,
+                'destinatario' => $solicitud->destinatarioResumen,
             );
             
-            //Log::info($solicitud);
-            if(!$solicitud->estatus)
+            
+            if(!$solicitud->estatus){
+                Log::info(__CLASS__." ".__FUNCTION__." Estatus Error");
                 return \Redirect::route('creacion', ['tipo'=>$tipo])
                     ->with('notices',array($solicitud -> mensaje_error))
                     ->withInput();    
+            }
             
             return \Redirect::route('envios.creacion')
                 ->with($parameters)
@@ -144,17 +151,27 @@ class EnviosController extends Controller
         Log::info(__CLASS__." ".__FUNCTION__);
         try {        
             
-            Log::debug(print_r($request->all(),true));
-            $solicitud = new Solicitud();
-            $solicitud -> procesarDatos($request -> all());
-            $solicitud -> cargarDTO();
-            $solicitud -> enviar();
-            
-            return response()->json( $request -> all());
+            Log::debug($request->all());
+            $pieza = $request->get('pieza');
+            $remitente = $request->get('nombre');
+            $destinatario =  $request->get('nombre_d');
+            $mensajeria =  $request->get('id_mensajeria');
+
+            return response()->json([
+                'clave'         => '200'
+                ,'pieza'        => $pieza
+                ,'mensajeria'   => $mensajeria
+                ,'remitente'    => $remitente
+                ,'destinatario' => $destinatario
+                ,'estatus'  => 'exitoso'
+                ]);
             
            
         } catch (Exception $e) {
-            dd($e);
+           return response()->json([
+                'clave' => "500"
+                ,'estatus'  => 'fallo'
+                ]);
         }
 
     }
@@ -218,6 +235,7 @@ class EnviosController extends Controller
     public function guia_creada(Request $request)
     {
         Log::info(__CLASS__." ".__FUNCTION__);
+
         Log::debug($request->all());
         $leyenda = "llegue";
         return view('envios/guia', compact('leyenda') );
@@ -245,9 +263,11 @@ class EnviosController extends Controller
     {
         Log::info(__CLASS__." ".__FUNCTION__);
         Log::debug($request->all());
-        $envio = new Cotizaciones();
+        Log::info($request->all());
+        
+        $cotizacion = new Cotizaciones();
 
-        $precio = $envio -> precio($request);
+        $precio = $cotizacion -> precio($request);
         
         return $precio;
     }

@@ -97,16 +97,11 @@ final class Solicitud
     		]
     	);
 
-
     	$this -> labelDescriptionList = new LabelDescriptionList([
     		"originInfo"	=>	$this -> remitente
     		,"destinationInfo"=>$this -> destinatario
     		,"DRAlternativeInfo"=> new DrAlternativeInfo()
     	]);
-
-
-
-
     }
 
     /**
@@ -155,16 +150,8 @@ final class Solicitud
 
             }
             Log::info(__CLASS__." ".__FUNCTION__."Armando Resultado");
-            $this -> remitenteResumen = array(
-                "nombre" => "Nombre Resumen"
-                ,"compania" =>  "compania"
-            );
-
-            $this -> destinatarioResumen = array(
-                "nombre" => "Nombre Destinatario Resumen"
-                ,"compania" =>  "compania Destinatario"
-            );
-
+            $this -> remitenteResumen = $this->remitente;
+            $this -> destinatarioResumen = $this->destinatario;
             $this -> estatus = true;        
         } catch (Exception $e) {
             Log::info(__CLASS__." ".__FUNCTION__);

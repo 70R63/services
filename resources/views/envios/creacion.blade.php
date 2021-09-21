@@ -76,6 +76,10 @@
 	@include('envios.modals.submit')
 	<!-- End Basic modal -->
 
+	<!-- Modal Guardar Temporal -->
+	@include('envios.envio.modal.guardarExito')
+	<!-- End Modal Guardar Temporal -->
+
 {!! Form::close() !!}
 
 @include('envios.paquete.pesodimension')

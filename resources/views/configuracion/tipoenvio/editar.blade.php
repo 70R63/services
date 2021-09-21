@@ -16,7 +16,7 @@
           
 			<div class="card-body">
 
-				{!! Form::model($tipoEnvio, [ 'route' => ['tipoenvio.update',$tipoEnvio ], 'method' => 'PUT', 'class' => 'form-horizontal' ,'role' => 'form']) 
+				{!! Form::model($tipoEnvio, [ 'route' => ['tipo.update',$tipoEnvio ], 'method' => 'PUT', 'class' => 'form-horizontal' ,'role' => 'form']) 
 					 !!}
 					@include('configuracion.tipoenvio.campos.forma')
 				

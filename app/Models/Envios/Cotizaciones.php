@@ -124,12 +124,11 @@ class Cotizaciones extends Model
      */
     public function precio( $request ){
         Log::info(__CLASS__." ".__FUNCTION__);
-        Log::debug( $request->all() );
 
         $cp_origen  = $request->get('cp');
         $cp_destino = $request->get('cp_d');
         $piezas     = $request->get('pieza');
-        $idMensajeria = 1;//;$request->get('');
+        $idMensajeria = $request->get('id_mensajeria');
         $tipoEnvio  = $request->get('tipo_envio');
 
         $alto = $request->get('alto');
@@ -170,27 +169,17 @@ class Cotizaciones extends Model
         $precio = Precio::where('zona', '=', $this -> zonas -> zona)
                     ->where('peso', '=', $pesoMaxEntero )
                     ->where('id_mensajeria', '=', $idMensajeria )
+                    ->join('mensajeria', 'id_mensajeria', '=', 'mensajeria.clave')
+                    ->join('tipo_envio', 'tipo_envio', '=', 'tipo_envio.clave')
                     ->first();
        
         $precio -> precio = $precio -> precio * $piezas;
         $precio->piezas = $piezas;
-        $precio->tipoEnvio = $tipoEnvio;
+        $precio->pesoMax = $pesoMax;
 
         Log::info($precio);
         return $precio;
     }
 
     //fin precio
-
-
-    /**
-     * Calcula el precio del envio.
-     * 
-     * @param mensajeria, 
-     * @return array
-     */
-    public function precioTmp( $request ){
-
-    }
-    //FIN Calculo multiPieza
 }

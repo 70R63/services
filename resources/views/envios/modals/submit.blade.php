@@ -18,6 +18,7 @@
 						<ul>
 							<li><b>Servicio:</b> <span id="spanServicio"> </span></li>
 							<li><b>Embalaje:</b> <span id="spanEmbalaje"> </span></li>
+							<li><b>Peso :</b> <span id="spanPeso"> </span></li>
 							<li><b>Piezas:</b> <span id="spanPieza"> </span></li>
 							<li><b>Seguro:</b> <span id="spanSeguro"> </span></li>
 							
@@ -25,9 +26,7 @@
 					</div>
 					<!-- BUTTON BOX-->
 					<div class="pricingTable2-sign-up d-flex flex-row justify-content-around bg-light">
-
 						<a href="#" class="btn btn-block btn-primary" id="envioAceptar">Aceptar</a>
-						<a href="#" class="btn btn-block btn-secondary " data-dismiss="modal">Cancelar</a>
 					</div>
 					<!-- BUTTON BOX-->
 				</div>

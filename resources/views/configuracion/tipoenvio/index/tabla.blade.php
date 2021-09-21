@@ -19,7 +19,7 @@
 					<span class="badge {{config('css.'.$item['estatus'])}} badge-pill tx-14 ">{{$item['desc']}}</span>
 				</td>
 				<td>
-					<a href="{{route('tipoenvio.edit',$item['clave']) }}" class="remove-list text-info tx-20 edit-button" >
+					<a href="{{route('tipo.edit',$item['clave']) }}" class="remove-list text-info tx-20 edit-button" >
 						<i class="si si-note"></i>
 					</a>
 				</td>

@@ -2,8 +2,12 @@
 	<table id="exportGeneral" class="table table-striped table-bordered text-nowrap" >
 		<thead>
 			<tr>
-				<th>NOMBRE</th>
 				<th>CLAVE</th>
+				<th>MENSAJERIA</th>
+				<th>REMITENTE</th>
+				<th>DESTINATARIO</th>
+				<th>TIPO DE ENVIO</th>
+				<th>PIEZAS</th>
 				<th>ESTATUS</th>
 				<th>ACCIONES</th>
 			</tr>
