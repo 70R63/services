@@ -14,6 +14,30 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get('/', 'HomeController@index')->name('homeApi');
+
+
+Route::group(array('domain' => env('APP_URL')), function() {
+    Route::middleware(['throttle:100,1'])->group(function () {
+       
+        Route::name('logistic.')->prefix('logistic')->group(function () {
+            Route::post('estafeta', 'Logistic\EstafetaController@index')->name('index');
+            Route::post('seguimiento', 'Logistic\EstafetaController@seguimiento')
+                    ->name('seguimiento');
+        });
+        Route::name('api.')->group(function () {
+            //RECURSO PARA ENVIOS
+            Route::name('envios.')->prefix('envios')->group(function () {
+                Route::get('precio', 'Web\Dev\EnviosController@precio')
+                        ->name('precio');
+                    
+            });
+            //Fin de envios.
+        });
+        //fin de api.    
+    });
+    //Fin Middileware
+}); 
+//Fin Domain
+
+

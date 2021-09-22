@@ -1,0 +1,185 @@
+<?php
+
+namespace App\Models\Envios;
+
+use Illuminate\Database\Eloquent\Model;
+
+use Log;
+use Illuminate\Database\Eloquent\ModelNotFoundException;  
+
+use App\Models\Envios\EnvioGrupo;
+use App\Models\Envios\EnvioZona;
+use App\Models\Configuracion\Precio;
+
+class Cotizaciones extends Model
+{
+    public $origen = array();
+    public $destino = array();
+    public $zona = 1 ;
+    public $cotizacion = array();
+    public $precio = array();
+
+
+    /**
+     * Base para el calculo de las cotizaciones y precios.
+     * 
+     * @param cp_origen Codigo postal de Origen
+     * @param cp_destino Codigo postal de Destino
+     * @param peso valor de Kg que se redondeara a su valor siguiente enero
+     * @return array
+     */
+    private function base($cp_origen, $cp_destino ){
+        Log::info(__CLASS__." ".__FUNCTION__);
+        $this -> origen = EnvioGrupo::whereRaw('(? between cp_inicial and cp_final)', [$cp_origen])
+               ->first();
+
+        $this -> destino = EnvioGrupo::whereRaw('(? between cp_inicial and cp_final)', [$cp_destino])
+               ->first();
+
+        Log::info($this -> origen);
+        
+        if ( is_null($this->origen) or is_null($this->destino) ) {
+            $tmp = sprintf("Validar con su proveedor la disponibilidad de envio en '%s' y '%s'",$cp_origen, $cp_destino );
+            throw new ModelNotFoundException($tmp);
+        } 
+
+        if ($this -> origen -> grupo === $this -> destino -> grupo){
+            $this->zonas = new EnvioZona();
+            $this->zonas->zona = 1;
+        } else{
+            $this -> zonas = EnvioZona::where('grupo_origen', '=', $this -> origen -> grupo)
+                -> where('grupo_destino', '=', $this -> destino -> grupo)
+                ->first('zona');
+        }
+    }
+
+    /**
+     * Calcula la tabla de catizaciones.
+     * 
+     * @param cp_origen Codigo postal de Origen
+     * @param cp_destino Codigo postal de Destino
+     * @param peso valor de Kg que se redondeara a su valor siguiente enero
+     * @return array
+     */
+    public function cotizacion($cp_origen, $cp_destino, $peso ){
+        Log::info(__CLASS__." ".__FUNCTION__);
+        $this -> origen = EnvioGrupo::whereRaw('(? between cp_inicial and cp_final)', [$cp_origen])
+               ->first();
+
+        $this -> destino = EnvioGrupo::whereRaw('(? between cp_inicial and cp_final)', [$cp_destino])
+               ->first(); 
+
+        Log::info(is_null( $this -> origen ));
+
+        if ( is_null($this->origen) or is_null($this->destino) ) {
+            $tmp = sprintf("No se puede cotizar con los CP '%s' y '%s'",$cp_origen, $cp_destino );
+            throw new ModelNotFoundException($tmp);
+        }
+        Log::info("Origen - Destino");
+        Log::info($this -> origen->count()." ". $this -> destino->count() );
+        
+        Log::debug($this -> origen);
+        Log::debug($this -> destino);
+
+        Log::info("EnvioZona");
+        $this -> zonas = EnvioZona::where('grupo_origen', '=', $this -> origen -> grupo)
+                -> where('grupo_destino', '=', $this -> destino -> grupo)
+                ->first('zona');
+        Log::debug($this -> zonas);
+        Log::info($this -> zonas);
+
+        if ( is_null($this -> zonas) ) {
+            Log::info("No hay zona de envio o es is_null");
+            $tmp = sprintf("Sin cobertura favor de contactar a su ejecutivo de ventas");
+            throw new ModelNotFoundException($tmp);
+        }
+        Log::info("Precio");
+        $precio = Precio::select('configuracion_precio.*','b.nombre AS mensajeria')
+                    ->join('mensajeria AS b', 'id_mensajeria', '=', 'b.clave' )
+                    ->where('zona', '=', $this -> zonas -> zona)
+                    ->where('peso', '=', ceil($peso))
+                    ->get();
+        Log::debug($precio);
+
+        if ( is_null($precio) or count($precio) == 0 ) {
+            Log::info("El precio es null");
+            $tmp = sprintf("Sin cobertura en la Zona '%s' o Peso '%s' kg",$this -> zonas -> zona, $peso );
+            throw new ModelNotFoundException($tmp);
+        }
+
+        foreach ($precio as $key => $value) {
+            $value -> tipo_envio = ($value -> tipo_envio == 1 ? 'Sobre' : 'Mi Embalaje');
+            $this -> cotizacion[]= array('costo' => $value, 'destino' => $this -> destino, 'origen' => $this -> origen) ;
+
+        }  
+        Log::debug($this -> cotizacion);
+    }
+    //Fin cotizacion
+
+    /**
+     * Calcula el precio del envio.
+     * 
+     * @param mensajeria, 
+     * @return array
+     */
+    public function precio( $request ){
+        Log::info(__CLASS__." ".__FUNCTION__);
+
+        $cp_origen  = $request->get('cp');
+        $cp_destino = $request->get('cp_d');
+        $piezas     = $request->get('pieza');
+        $idMensajeria = $request->get('id_mensajeria');
+        $tipoEnvio  = $request->get('tipo_envio');
+
+        $alto = $request->get('alto');
+        $ancho = $request->get('ancho');
+        $largo = $request->get('largo');
+        $peso = $request->get('peso');
+
+        $pesoBascula = 0;
+        $dimensional = 0;
+
+        if ( $tipoEnvio ==  1 ){
+            Log::info("Calculo para sobre");
+            $pesoBascula =  1;  
+        } elseif ( $tipoEnvio == 2) {
+            Log::info("Calculo para piezas");
+            $i= 0;
+            $pesoBascula += $peso[$i] ;
+            $dimensional += ($alto[$i]*$ancho[$i]*$largo[$i])/5000;
+                      
+        } else {
+            $piezas = count($peso);
+            Log::info("Calculo para Multipiezas - Cantidad ".$piezas);
+            for ($i=0; $i < $piezas; $i++) { 
+                $pesoBascula += $peso[$i] ;
+                $dimensional += ($alto[$i]*$ancho[$i]*$largo[$i])/5000;
+            }
+        }
+
+        Log::info("Peso Bascula ".$pesoBascula);
+        Log::info("Peso Dimensional ".$dimensional);
+
+        $pesoMax = max($pesoBascula,$dimensional);
+        Log::info("Peso que se usara para el calculo, peso = ".$pesoMax);
+        $pesoMaxEntero = ceil($pesoMax);
+        Log::info("Validar el peso");
+        $this -> base( $cp_origen, $cp_destino, $pesoMaxEntero );
+
+        $precio = Precio::where('zona', '=', $this -> zonas -> zona)
+                    ->where('peso', '=', $pesoMaxEntero )
+                    ->where('id_mensajeria', '=', $idMensajeria )
+                    ->join('mensajeria', 'id_mensajeria', '=', 'mensajeria.clave')
+                    ->join('tipo_envio', 'tipo_envio', '=', 'tipo_envio.clave')
+                    ->first();
+       
+        $precio -> precio = $precio -> precio * $piezas;
+        $precio->piezas = $piezas;
+        $precio->pesoMax = $pesoMax;
+
+        Log::info($precio);
+        return $precio;
+    }
+
+    //fin precio
+}
