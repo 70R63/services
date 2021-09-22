@@ -1,7 +1,7 @@
 
 <div class="dropdown main-profile-menu">
 	<a class="d-flex" href="">
-		<span class="main-img-user" ><img alt="avatar" src="{{  url('public/img/users/1.png')}}"></span>
+		<span class="main-img-user" ><img alt="avatar" src="{{  url('img/users/1.png')}}"></span>
 	</a>
 	<div class="dropdown-menu">
 		<div class="header-navheading">
