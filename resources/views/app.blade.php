@@ -8,7 +8,7 @@
 		<meta charset="utf-8">
 		<meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
 		<!-- Favicon -->
-		<link rel="icon" href="{{ url('public/spruha/img/brand/favicon.ico') }}" type="image/x-icon"/>
+		<link rel="icon" href="{{ url('spruha/img/brand/favicon.ico') }}" type="image/x-icon"/>
 
 		<!-- CSRF Token -->
 	    <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -17,35 +17,35 @@
 		<title>{{ config('app.name', 'Laravel') }} - Plataforma de envios</title>
 
 		<!-- Bootstrap css-->
-		<link href="{{ url('public/spruha/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet"/ type="text/css">
+		<link href="{{ url('spruha/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet"/ type="text/css">
 
 		<!-- Icons css-->
-		<link href="{{ url('public/spruha/plugins/web-fonts/icons.css') }}"  rel="stylesheet"/>
-		<link href="{{ url('public/spruha/plugins/web-fonts/font-awesome/font-awesome.min.css') }}"  rel="stylesheet">
-		<link href="{{ url('public/spruha/plugins/web-fonts/plugin.css') }}"  rel="stylesheet"/>
+		<link href="{{ url('spruha/plugins/web-fonts/icons.css') }}"  rel="stylesheet"/>
+		<link href="{{ url('spruha/plugins/web-fonts/font-awesome/font-awesome.min.css') }}"  rel="stylesheet">
+		<link href="{{ url('spruha/plugins/web-fonts/plugin.css') }}"  rel="stylesheet"/>
 
 		<!-- Style css-->
-		<link href="{{ url('public/spruha/css/style.css') }}"  rel="stylesheet">
-		<link href="{{ url('public/spruha/css/skins.css') }}"  rel="stylesheet">
-		<link href="{{ url('public/spruha/css/dark-style.css') }}"  rel="stylesheet">
-		<link href="{{ url('public/spruha/css/colors/default.css') }}"  rel="stylesheet">
+		<link href="{{ url('spruha/css/style.css') }}"  rel="stylesheet">
+		<link href="{{ url('spruha/css/skins.css') }}"  rel="stylesheet">
+		<link href="{{ url('spruha/css/dark-style.css') }}"  rel="stylesheet">
+		<link href="{{ url('spruha/css/colors/default.css') }}"  rel="stylesheet">
 
 		<!-- Color css-->
-		<link id="theme" rel="stylesheet" type="text/css" media="all" href="{{ url('public/spruha/css/colors/color.css') }}">
+		<link id="theme" rel="stylesheet" type="text/css" media="all" href="{{ url('spruha/css/colors/color.css') }}">
 
 		<!-- Select2 css-->
-		<link href="{{ url('public/spruha/plugins/select2/css/select2.min.css') }}"  rel="stylesheet">
+		<link href="{{ url('spruha/plugins/select2/css/select2.min.css') }}"  rel="stylesheet">
 
 		<!-- Mutipleselect css-->
-		<link rel="stylesheet" href="{{ url('public/spruha/plugins/multipleselect/multiple-select.css') }}">
+		<link rel="stylesheet" href="{{ url('spruha/plugins/multipleselect/multiple-select.css') }}">
 
 		<!-- Sidemenu css-->
-		<link href="{{ url('public/spruha/css/sidemenu/sidemenu.css') }}"  rel="stylesheet">
+		<link href="{{ url('spruha/css/sidemenu/sidemenu.css') }}"  rel="stylesheet">
 
 		<!-- Internal DataTables css-->
-		<link href="{{ url('public/spruha/plugins/datatable/dataTables.bootstrap4.min.css') }}" rel="stylesheet" />
-		<link href="{{ url('public/spruha/plugins/datatable/responsivebootstrap4.min.css') }}" rel="stylesheet" />
-		<link href="{{ url('public/spruha/plugins/datatable/fileexport/buttons.bootstrap4.min.css') }}" rel="stylesheet" />
+		<link href="{{ url('spruha/plugins/datatable/dataTables.bootstrap4.min.css') }}" rel="stylesheet" />
+		<link href="{{ url('spruha/plugins/datatable/responsivebootstrap4.min.css') }}" rel="stylesheet" />
+		<link href="{{ url('spruha/plugins/datatable/fileexport/buttons.bootstrap4.min.css') }}" rel="stylesheet" />
 
 
 	</head>
@@ -59,10 +59,10 @@
 
 				<div class="sidemenu-logo">
 					<a class="main-logo" href="index.html">
-						<img src="{{ url('public/spruha/img/brand/ulalaLogoBco-134x50.png') }}" class="header-brand-img desktop-logo" alt="logo">
-						<img src="{{ url('public/spruha/img/brand/logoUlala-50x56.png') }}" class="header-brand-img icon-logo" alt="logo">
-						<img src="{{ url('public/spruha/img/brand/ulalaBco.png') }}" class="header-brand-img desktop-logo theme-logo" alt="logo">
-						<img src="{{ url('public/spruha/img/brand/ulalaBco.png') }}" class="header-brand-img icon-logo theme-logo" alt="logo">
+						<img src="{{ url('spruha/img/brand/ulalaLogoBco-134x50.png') }}" class="header-brand-img desktop-logo" alt="logo">
+						<img src="{{ url('spruha/img/brand/logoUlala-50x56.png') }}" class="header-brand-img icon-logo" alt="logo">
+						<img src="{{ url('spruha/img/brand/ulalaBco.png') }}" class="header-brand-img desktop-logo theme-logo" alt="logo">
+						<img src="{{ url('spruha/img/brand/ulalaBco.png') }}" class="header-brand-img icon-logo theme-logo" alt="logo">
 					</a>
 				</div>
 
@@ -154,74 +154,74 @@
 
 
 		<!-- Jquery js-->
-		<script src="{{ url('public/spruha/plugins/jquery/jquery.min.js') }}"></script>
+		<script src="{{ url('spruha/plugins/jquery/jquery.min.js') }}"></script>
 
 		<!-- Bootstrap js-->
-		<script src="{{ url('public/spruha/plugins/bootstrap/js/popper.min.js') }}"></script>
-		<script src="{{ url('public/spruha/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
+		<script src="{{ url('spruha/plugins/bootstrap/js/popper.min.js') }}"></script>
+		<script src="{{ url('spruha/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
 
 		<!-- Internal Chart.Bundle js-->
-		<script src="{{ url('public/spruha/plugins/chart.js/Chart.bundle.min.js') }}"></script>
+		<script src="{{ url('spruha/plugins/chart.js/Chart.bundle.min.js') }}"></script>
 
 		<!-- Peity js-->
-		<script src="{{ url('public/spruha/plugins/peity/jquery.peity.min.js') }}"></script>
+		<script src="{{ url('spruha/plugins/peity/jquery.peity.min.js') }}"></script>
 
 		<!-- Perfect-scrollbar js -->
-		<script src="{{ url('public/spruha/plugins/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
+		<script src="{{ url('spruha/plugins/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
 
 		<!-- Sidemenu js -->
-		<script src="{{ url('public/spruha/plugins/sidemenu/sidemenu.js') }}"></script>
+		<script src="{{ url('spruha/plugins/sidemenu/sidemenu.js') }}"></script>
 
 		<!-- Sidebar js -->
-		<script src="{{ url('public/spruha/plugins/sidebar/sidebar.js') }}"></script>
+		<script src="{{ url('spruha/plugins/sidebar/sidebar.js') }}"></script>
 
 		<!-- Internal HandleCounter js -->
-		<script src="{{ url('public/spruha/js/handleCounter.js') }}"></script>
+		<script src="{{ url('spruha/js/handleCounter.js') }}"></script>
 
 		<!-- Select2 js-->
-		<script src="{{ url('public/spruha/plugins/select2/js/select2.min.js') }}"></script>
+		<script src="{{ url('spruha/plugins/select2/js/select2.min.js') }}"></script>
 
 		<!-- Internal Morris js -->
-		<script src="{{ url('public/spruha/plugins/raphael/raphael.min.js') }}"></script>
-		<script src="{{ url('public/spruha/plugins/morris.js/morris.min.js') }}"></script>
+		<script src="{{ url('spruha/plugins/raphael/raphael.min.js') }}"></script>
+		<script src="{{ url('spruha/plugins/morris.js/morris.min.js') }}"></script>
 
 		<!-- Sticky js -->
-		<script src="{{ url('public/spruha/js/sticky.js') }}"></script>
+		<script src="{{ url('spruha/js/sticky.js') }}"></script>
 		
 		<!-- Internal Jquery-steps js-->
-		<script src="{{ url('public/spruha/plugins/jquery-steps/jquery.steps.min.js') }}"></script>
+		<script src="{{ url('spruha/plugins/jquery-steps/jquery.steps.min.js') }}"></script>
 
 		<!-- Internal Accordion-Wizard-Form js-->
-		<script src="{{ url('public/spruha/plugins/accordion-Wizard-Form/jquery.accordion-wizard.min.js') }}"></script>
+		<script src="{{ url('spruha/plugins/accordion-Wizard-Form/jquery.accordion-wizard.min.js') }}"></script>
 
 		<!-- Internal Form-wizard js-->
-		<script src="{{ url('public/spruha/js/form-wizard.js') }}"></script>
+		<script src="{{ url('spruha/js/form-wizard.js') }}"></script>
 
 		<!-- Internal Dashboard js
-		<script src="{{ url('public/spruha/js/index.js') }}"></script>
+		<script src="{{ url('spruha/js/index.js') }}"></script>
 -->
 		<!-- Custom js -->
-		<script src="{{ url('public/spruha/js/custom.js') }}"></script>
+		<script src="{{ url('spruha/js/custom.js') }}"></script>
 
 		<!-- Internal Parsley js-->
-		<script src="{{ url('public/spruha/plugins/parsleyjs/parsley.min.js') }}"></script>
+		<script src="{{ url('spruha/plugins/parsleyjs/parsley.min.js') }}"></script>
 
 		<!-- Internal Form-validation js-->
-		<script src="{{ url('public/spruha/js/form-validation.js') }}"></script>
+		<script src="{{ url('spruha/js/form-validation.js') }}"></script>
 		
 		<!-- Internal Data Table js -->
-		<script src="{{ url('public/spruha/plugins/datatable/jquery.dataTables.min.js') }}"></script>
-		<script src="{{ url('public/spruha/plugins/datatable/dataTables.bootstrap4.min.js') }}"></script>
-		<script src="{{ url('public/spruha/plugins/datatable/dataTables.responsive.min.js') }}"></script>
-		<script src="{{ url('public/spruha/plugins/datatable/fileexport/dataTables.buttons.min.js') }}"></script>
-		<script src="{{ url('public/spruha/plugins/datatable/fileexport/buttons.bootstrap4.min.js') }}"></script>
-		<script src="{{ url('public/spruha/plugins/datatable/fileexport/jszip.min.js') }}"></script>
-		<script src="{{ url('public/spruha/plugins/datatable/fileexport/pdfmake.min.js') }}"></script>
-		<script src="{{ url('public/spruha/plugins/datatable/fileexport/vfs_fonts.js') }}"></script>
-		<script src="{{ url('public/spruha/plugins/datatable/fileexport/buttons.html5.min.js') }}"></script>
-		<script src="{{ url('public/spruha/plugins/datatable/fileexport/buttons.print.min.js') }}"></script>
-		<script src="{{ url('public/spruha/plugins/datatable/fileexport/buttons.colVis.min.js') }}"></script>
-		<script src="{{ url('public/spruha/js/table-data.js') }}"></script>
+		<script src="{{ url('spruha/plugins/datatable/jquery.dataTables.min.js') }}"></script>
+		<script src="{{ url('spruha/plugins/datatable/dataTables.bootstrap4.min.js') }}"></script>
+		<script src="{{ url('spruha/plugins/datatable/dataTables.responsive.min.js') }}"></script>
+		<script src="{{ url('spruha/plugins/datatable/fileexport/dataTables.buttons.min.js') }}"></script>
+		<script src="{{ url('spruha/plugins/datatable/fileexport/buttons.bootstrap4.min.js') }}"></script>
+		<script src="{{ url('spruha/plugins/datatable/fileexport/jszip.min.js') }}"></script>
+		<script src="{{ url('spruha/plugins/datatable/fileexport/pdfmake.min.js') }}"></script>
+		<script src="{{ url('spruha/plugins/datatable/fileexport/vfs_fonts.js') }}"></script>
+		<script src="{{ url('spruha/plugins/datatable/fileexport/buttons.html5.min.js') }}"></script>
+		<script src="{{ url('spruha/plugins/datatable/fileexport/buttons.print.min.js') }}"></script>
+		<script src="{{ url('spruha/plugins/datatable/fileexport/buttons.colVis.min.js') }}"></script>
+		<script src="{{ url('spruha/js/table-data.js') }}"></script>
 
 
 

@@ -24,7 +24,7 @@
         <meta charset="utf-8">
         <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
         <!-- Favicon -->
-        <link rel="icon" href="{{ url('public/spruha/img/brand/favicon.ico') }}" type="image/x-icon"/>
+        <link rel="icon" href="{{ url('spruha/img/brand/favicon.ico') }}" type="image/x-icon"/>
 
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -33,30 +33,30 @@
         <title>{{ config('app.name', 'Laravel') }} - Plataforma de envios</title>
 
         <!-- Bootstrap css-->
-        <link href="{{ url('public/spruha/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet"/ type="text/css">
+        <link href="{{ url('spruha/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet"/ type="text/css">
 
         <!-- Icons css-->
-        <link href="{{ url('public/spruha/plugins/web-fonts/icons.css') }}"  rel="stylesheet"/>
-        <link href="{{ url('public/spruha/plugins/web-fonts/font-awesome/font-awesome.min.css') }}"  rel="stylesheet">
-        <link href="{{ url('public/spruha/plugins/web-fonts/plugin.css') }}"  rel="stylesheet"/>
+        <link href="{{ url('spruha/plugins/web-fonts/icons.css') }}"  rel="stylesheet"/>
+        <link href="{{ url('spruha/plugins/web-fonts/font-awesome/font-awesome.min.css') }}"  rel="stylesheet">
+        <link href="{{ url('spruha/plugins/web-fonts/plugin.css') }}"  rel="stylesheet"/>
 
         <!-- Style css-->
-        <link href="{{ url('public/spruha/css/style.css') }}"  rel="stylesheet">
-        <link href="{{ url('public/spruha/css/skins.css') }}"  rel="stylesheet">
-        <link href="{{ url('public/spruha/css/dark-style.css') }}"  rel="stylesheet">
-        <link href="{{ url('public/spruha/css/colors/default.css') }}"  rel="stylesheet">
+        <link href="{{ url('spruha/css/style.css') }}"  rel="stylesheet">
+        <link href="{{ url('spruha/css/skins.css') }}"  rel="stylesheet">
+        <link href="{{ url('spruha/css/dark-style.css') }}"  rel="stylesheet">
+        <link href="{{ url('spruha/css/colors/default.css') }}"  rel="stylesheet">
 
         <!-- Color css-->
-        <link id="theme" rel="stylesheet" type="text/css" media="all" href="{{ url('public/spruha/css/colors/color.css') }}">
+        <link id="theme" rel="stylesheet" type="text/css" media="all" href="{{ url('spruha/css/colors/color.css') }}">
 
         <!-- Select2 css-->
-        <link href="{{ url('public/spruha/plugins/select2/css/select2.min.css') }}"  rel="stylesheet">
+        <link href="{{ url('spruha/plugins/select2/css/select2.min.css') }}"  rel="stylesheet">
 
         <!-- Mutipleselect css-->
-        <link rel="stylesheet" href="{{ url('public/spruha/plugins/multipleselect/multiple-select.css') }}">
+        <link rel="stylesheet" href="{{ url('spruha/plugins/multipleselect/multiple-select.css') }}">
 
         <!-- Sidemenu css-->
-        <link href="{{ url('public/spruha/css/sidemenu/sidemenu.css') }}"  rel="stylesheet">
+        <link href="{{ url('spruha/css/sidemenu/sidemenu.css') }}"  rel="stylesheet">
 <!-- ---------- -->
 </head>
 <body>
@@ -78,7 +78,7 @@
         </nav>
         <div class="container mt-5" >
             <div class="row justify-content-center">
-                <img src="{{ url('public/spruha/img/brand/ulalaPurpureLogo-134x49.png') }}" class="header-brand-img desktop-logo" alt="logo"> {{ config('app.env', 'Ambiente') }}
+                <img src="{{ url('spruha/img/brand/ulalaPurpureLogo-134x49.png') }}" class="header-brand-img desktop-logo" alt="logo"> {{ config('app.env', 'Ambiente') }}
             </div>
         </div>
         <main class="py-4">
