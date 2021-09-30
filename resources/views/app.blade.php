@@ -47,6 +47,7 @@
 		<link href="{{ url('spruha/plugins/datatable/responsivebootstrap4.min.css') }}" rel="stylesheet" />
 		<link href="{{ url('spruha/plugins/datatable/fileexport/buttons.bootstrap4.min.css') }}" rel="stylesheet" />
 
+		@yield('css_rol_page')
 
 	</head>
 
@@ -77,6 +78,7 @@
 						<!-- @include('menu.facturacion') -->
 						
 						@include('menu.usuario')
+						@include('menu.roles')
 						@include('menu.cliente') 
 					</ul>
 				</div>
@@ -418,6 +420,10 @@
 		    });
 		 </script>
 		<!-- FIN PAQUETE MULTIPIEZA -->
+
+{{--INTEGRACION DE ROLES Y USUARIOS--}}	
+@yield('js_user_page')
+@yield('js_rol_page')
 
 		
 	</body>

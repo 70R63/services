@@ -46,12 +46,16 @@ Route::group(array('domain' => env('APP_URL')), function() {
     //FIN CONFIGURACION
 
     //USUARIO
-    Route::resource('usuario','Web\UsuarioController');
+    Route::resource('users','Roles\UsersController'); 
     //FIN USUARIO
 
     //CLIENTE
     Route::resource('cliente','Web\ClienteController');
     //FIN CLIENTE
+
+    //ROLES
+    Route::resource('roles','Roles\RolesController'); 
+    //FIN ROLES
 
   });
   //Fin del route->middleware->aut
@@ -59,6 +63,8 @@ Route::group(array('domain' => env('APP_URL')), function() {
   Auth::routes();
   Auth::routes([
     'register' => false // Register Routes...
-  ]);         
+  ]);
+
+ // Route::resource('users','Roles\UsersController');         
 });
 //Fin del route->group->domain 

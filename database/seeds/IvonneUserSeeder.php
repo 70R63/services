@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Models\User;
 
-class AdminTest extends Seeder
+class IvonneUserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,9 +13,9 @@ class AdminTest extends Seeder
     public function run()
     {
          User::create([
-            'name' => 'TestUser',
-            'email' => 'testuser@gmail.com',
-            'password' => bcrypt('123456789'),
+            'name' => 'Ivonne Rodríguez',
+            'email' => 'irodriguez@gmail.com',
+            'password' => bcrypt('Aq1zsw2x.'),
         ]);
     }
 }

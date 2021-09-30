@@ -8,8 +8,7 @@
 	</a>
 	<ul class="nav-sub">
 		<li class="nav-sub-item">
-			<a class="nav-sub-link" href="{{ route('usuario.index') }}">Dashboard</a>
-		</li>
-		
+			<a class="nav-sub-link" href="{{ route('users.index') }}">Usuarios</a>
+		</li>	
 	</ul>
 </li>
