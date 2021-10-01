@@ -61,11 +61,15 @@
         </select> 
     </div>
     
-    <div id="permissions_box" >
-       {{-- <label for="roles">Select Permissions</label>
-        <div id="permissions_ckeckbox_list">
-        </div> --}}
-    </div>     
+    <div class="form-group mb-3">
+        <div id="permissions_box" >
+           <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Permisos del rol<span class="tx-danger">*</span></span>
+            </div>
+            <div id="permissions_ckeckbox_list">
+            </div> 
+        </div>   
+    </div>  
 
     <div class="form-group pt-2">
         <input class="btn btn-success" type="submit" value="Crear">
@@ -84,29 +88,31 @@
                 var role = $(this).find(':selected');    
                 var role_id = role.data('role-id');
                 var role_slug = role.data('role-slug');
+              //  console.log(role_id);
                 permissions_ckeckbox_list.empty();
+
                 $.ajax({
                     url: "/users/create",
                     method: 'get',
                     dataType: 'json',
-                    data: {
+                    data: { 
                         role_id: role_id,
                         role_slug: role_slug,
                     }
                 }).done(function(data) {
                     
                     console.log(data);
-                    
+                   
                     permissions_box.show();                        
                     // permissions_ckeckbox_list.empty();
-                    $.each(data, function(index, element){
+                     $.each(data, function(index, element){
                         $(permissions_ckeckbox_list).append(       
                             '<div class="custom-control custom-checkbox">'+                         
                                 '<input class="custom-control-input" type="checkbox" name="permissions[]" id="'+ element.slug +'" value="'+ element.id +'">' +
                                 '<label class="custom-control-label" for="'+ element.slug +'">'+ element.name +'</label>'+
                             '</div>'
                         );
-                    });
+                    }); 
                 });
             });
         });

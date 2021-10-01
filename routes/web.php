@@ -14,7 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(array('domain' => env('APP_URL')), function() {
-  Route::middleware([ 'auth' ])->group(function () {            
+  Route::get('/', 'Auth\LoginController@showLoginForm');       
+  Route::middleware([ 'auth' ])->group(function () {    
+
     Route::get('/inicio', 'HomeController@inicio')->name('inicio');      	
     Route::get('/home', 'HomeController@index')->name('home');
 

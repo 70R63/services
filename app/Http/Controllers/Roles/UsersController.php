@@ -18,8 +18,15 @@ class UsersController extends Controller
         return view('usuario.index',['users' => $users]);
     }
 
-    public function create()
+    public function create(Request $request)
     {
+        if($request->ajax()){
+            $roles = Roles::where('id', $request->role_id)->first();
+            $permissions = $roles->permisos;
+
+            return $permissions;  
+        }
+
         $roles = Roles::all();
         return view('usuario.crear',['roles'=>$roles]);
     }
