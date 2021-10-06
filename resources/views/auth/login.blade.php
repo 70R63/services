@@ -2,67 +2,68 @@
 
 @section('content')
 
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-5">
-            <div class="card">
-                <div class="card-header">{{ __('Ingresar') }}</div>
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail') }}</label>
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+<!-- Page -->
+<div class="page main-signin-wrapper">
+   <!-- Row -->
+   <div class="row signpages text-center">
+      <div class="col-md-12">
+         <div class="card">
+            <div class="row row-sm">
+               <div class="col-lg-6 col-xl-5 d-none d-lg-block text-center bg-primary details">
+                  <div class="mt-5 pt-4 p-2 pos-absolute">
+                     <img  src="{{ url('spruha/img/brand/ulalaPurpureLogo-134x49.png') }}" class="header-brand-img mb-4" alt="logo">{{ config('app.env', 'Ambiente') }}
+                     <div class="clearfix"></div>
+                     <img src="{{ url('spruha/img/svgs/user.svg') }}" class="ht-100 mb-0" alt="user">
+                     <h5 class="mt-4 text-white">Create Your Account</h5>
+                     <span class="tx-white-6 tx-13 mb-5 mt-xl-0">Signup to create, discover and connect with the global community</span>
+                  </div>
+               </div>
+               <div class="col-lg-6 col-xl-7 col-xs-12 col-sm-12 login_form ">
+                  <div class="container-fluid">
+                     <div class="row row-sm">
+                        <div class="card-body mt-2 mb-2">
+                           <img src="../../assets/img/brand/logo.png" class=" d-lg-none header-brand-img text-left float-left mb-4" alt="logo">
+                           <div class="clearfix"></div>
+                           <form method="POST" action="{{ route('login') }}">
+                           	@csrf
+                              <h5 class="text-left mb-2">Bienvenid@</h5>
+                              <p class="mb-4 text-muted tx-13 ml-0 text-left">Inicie sesión para crear y descubrir una nueva experiencia</p>
+                              <div class="form-group text-left">
+                                 <label>Email</label>
+                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Ingresa tu email">
+                                 @error('email')
+                                 <span class="invalid-feedback" role="alert">
+                                 <strong>{{ $message }}</strong>
+                                 </span>
+                                 @enderror
+                              </div>
+                              <div class="form-group text-left">
+                                 <label>Contraseña</label>
+                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Ingresa tu password">
+                                 @error('password')
+                                 <span class="invalid-feedback" role="alert">
+                                 <strong>{{ $message }}</strong>
+                                 </span>
+                                 @enderror
+                              </div>
+                              <button type="submit" class="btn ripple btn-main-primary btn-block">Ingresar</button>
+                           </form>
+                           <div class="text-left mt-5 ml-0">
+                           	@if (Route::has('password.request'))
+                              <div class="mb-1"><a href="{{ route('password.request') }}">¿Olvidaste tu contraseña?</a></div>
+                            @endif
+                              <!-- <div>Don't have an account? <a href="#">Register Here</a></div> -->
+                           </div>
                         </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Contraseña') }}</label>
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Recordarme') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0 ">
-                            <div class="col-md-8 offset-md-5">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Ingresar') }}
-                                </button>
-                            </div>
-                            <div class="col-md-8 offset-md-4">
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('¿Olvidaste tu Password?') }}
-                                    </a>
-                                @endif
-                            </div>
-                        </div>
-                    </form>
-                </div>
+                     </div>
+                  </div>
+               </div>
             </div>
-        </div>
-    </div>
+         </div>
+      </div>
+   </div>
+   <!-- End Row -->
 </div>
-@endsection
+		<!-- End Page -->
+
+		@endsection

@@ -14,7 +14,6 @@ class UsersController extends Controller
     public function index()
     {
         $users = User::orderBy('id','asc')->get();
-
         return view('usuario.index',['users' => $users]);
     }
 
@@ -22,9 +21,9 @@ class UsersController extends Controller
     {
         if($request->ajax()){
             $roles = Roles::where('id', $request->role_id)->first();
-            $permissions = $roles->permisos;
+            $permisos = $roles->permisos;
 
-            return $permissions;  
+            return $permisos;  
         }
 
         $roles = Roles::all();
@@ -33,20 +32,32 @@ class UsersController extends Controller
 
  
     public function store(Request $request)
-    {
-
+    {    
         $request->validate([
             'name' => 'required|max:40',
             'email' => 'required|unique:users|email|max:50',
             'password' => 'required|between:8,12|confirmed',
             'password_confirmation' => 'required'
         ]);
+      //  dd($request);
 
         $user = new User;
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->save();
+
+        if($request->role != null){
+            $user->roles()->attach($request->role);
+            $user->save();
+        }
+
+        if($request->permisos != null){            
+            foreach ($request->permisos as $permiso) {
+                $user->permisos()->attach($permiso);
+                $user->save();
+            }
+        }
 
         return \Redirect::route('users.index');
 
@@ -59,7 +70,28 @@ class UsersController extends Controller
 
     public function edit(User $user)
     {
-         return view('usuario.editar',['users' => $user]);
+
+        $roles = Roles::get();
+        $userRole = $user->roles->first();
+        //dump($userRole->name);
+
+
+        if($userRole != null){
+            $rolePermisos = $userRole->allRolesPermisos;
+        }else{
+            $rolePermisos = null;
+        }
+        $userPermisos = $user->permisos;
+
+
+        return view('usuario.editar', [
+            'users'=>$user,
+            'roles'=>$roles,
+            'userRole'=>$userRole,
+            'rolPermisos'=>$rolePermisos,
+            'usersPermisos'=>$userPermisos
+            ]);
+   
     }
 
     public function update(Request $request, User $user)
@@ -78,11 +110,29 @@ class UsersController extends Controller
             $user->password = Hash::make($request->password);
         }
         $user->save();
+
+        $user->roles()->detach();
+        $user->permisos()->detach();
+
+        if($request->role != null){
+            $user->roles()->attach($request->role);
+            $user->save();
+        }
+
+        if($request->permisos != null){            
+            foreach ($request->permisos as $permiso) {
+                $user->permisos()->attach($permiso);
+                $user->save();
+            }
+        }
+
         return \Redirect::route('users.index');
     }
 
     public function destroy(User $user)
     {
+        $user->roles()->detach();
+        $user->permisos()->detach();
         $user->delete();
         return \Redirect::route('users.index');
     }

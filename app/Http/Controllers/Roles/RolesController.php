@@ -60,15 +60,13 @@ class RolesController extends Controller
     public function show($id)
     { 
         try {
-          //  Log::info(__CLASS__." ".__FUNCTION__);    
+            Log::info(__CLASS__." ".__FUNCTION__);    
             $roles = Roles::where('id', '=',$id)
             ->first();
-           // Log::debug("show ".$roles);
+            Log::debug("show ".$roles);
 
-         //   $estatus = Estatus::pluck('nombre','slug');
             return view('roles.mostrar',['roles'=>$roles]); 
-  /*                  ,compact("roles")
-                );*/
+
         } catch (Exception $e) {
             $roles = array();
             return view('roles.mostrar'
@@ -81,9 +79,9 @@ class RolesController extends Controller
     {
 
        try {
-          //  Log::info(__CLASS__." ".__FUNCTION__);    
+            Log::info(__CLASS__." ".__FUNCTION__);    
             $roles = Roles::where('id', '=',$id)->first();
-           // Log::debug("show ".$roles);
+            Log::debug("show ".$roles);
             return view('roles.editar',['roles'=>$roles]); 
 
         } catch (Exception $e) {

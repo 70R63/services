@@ -10,8 +10,5 @@
 		<li class="nav-sub-item">
 			<a class="nav-sub-link" href="{{ route('roles.index') }}">Dashboard</a>
 		</li>	
-		<li class="nav-sub-item">
-			<a class="nav-sub-link" href="{{ route('roles.create') }}">Crear Usuario</a>
-		</li>	
 	</ul>
 </li>

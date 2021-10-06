@@ -76,11 +76,11 @@
                   </div>
             </div>
         </nav>
-        <div class="container mt-5" >
+        <!--<div class="container mt-5" >
             <div class="row justify-content-center">
                 <img src="{{ url('spruha/img/brand/ulalaPurpureLogo-134x49.png') }}" class="header-brand-img desktop-logo" alt="logo"> {{ config('app.env', 'Ambiente') }}
             </div>
-        </div>
+        </div> -->
         <main class="py-4">
             @yield('content')
         </main>

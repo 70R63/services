@@ -73,13 +73,18 @@
 						<li class="nav-item ">
 							<a class="nav-link" href="{{ url('/inicio') }}"><span class="shape1"></span><span class="shape2"></span><i class="ti-home sidemenu-icon"></i><span class="sidemenu-label">DASHBOARD</span></a>
 						</li>
-						@include('menu.configuracion')
-						@include('menu.envio')
+						@canany(['isAdmin','isSysAdmin'])
+							@include('menu.configuracion')						
 						<!-- @include('menu.facturacion') -->
-						
-						@include('menu.usuario')
-						@include('menu.roles')
-						@include('menu.cliente') 
+							@include('menu.cliente')							
+							@include('menu.roles')					
+						@endcanany
+s
+						@canany(['isAdmin','isSysAdmin','isCliente'])
+							@include('menu.usuario')
+						@endcanany
+						@include('menu.envio')
+						 
 					</ul>
 				</div>
 			</div>

@@ -37,28 +37,30 @@ Route::group(array('domain' => env('APP_URL')), function() {
     Route::resource('envio','Web\Envios\EnvioController');
     //FIN ENVIOS
 
-    //CONFIGURACION
-    Route::resource('configuracion','Web\ConfiguracionController');
-    Route::resource('precio','Web\Configuracion\PrecioController');
-    Route::post('precio/masivo', 'Web\Configuracion\PrecioController@storeMasivo')->name('precio.store.masivo');
-    Route::resource('grupo','Web\Configuracion\GrupoController');
-    Route::resource('zona','Web\Configuracion\ZonaController');
-    Route::resource('mensajeria','Web\Configuracion\MensajeriaController');
-    Route::resource('tipo','Web\Configuracion\TipoEnvioController');
-    //FIN CONFIGURACION
+    Route::middleware(['roles:sysadmin,admin'])->group(function(){
+      
+          //CONFIGURACION
+          Route::resource('configuracion','Web\ConfiguracionController');
+          Route::resource('precio','Web\Configuracion\PrecioController');
+          Route::post('precio/masivo', 'Web\Configuracion\PrecioController@storeMasivo')->name('precio.store.masivo');
+          Route::resource('grupo','Web\Configuracion\GrupoController');
+          Route::resource('zona','Web\Configuracion\ZonaController');
+          Route::resource('mensajeria','Web\Configuracion\MensajeriaController');
+          Route::resource('tipo','Web\Configuracion\TipoEnvioController');
+          //FIN CONFIGURACION
+
+          //ROLES
+          Route::resource('roles','Roles\RolesController')->middleware('roles:sysadmin,admin'); 
+          //FIN ROLES
+
+          //CLIENTE
+          Route::resource('cliente','Web\ClienteController');
+          //FIN CLIENTE
+    });//FIN DEL route->middleware->roles
 
     //USUARIO
-    Route::resource('users','Roles\UsersController'); 
+    Route::resource('users','Roles\UsersController')->middleware('roles:sysadmin,admin,cliente'); 
     //FIN USUARIO
-
-    //CLIENTE
-    Route::resource('cliente','Web\ClienteController');
-    //FIN CLIENTE
-
-    //ROLES
-    Route::resource('roles','Roles\RolesController'); 
-    //FIN ROLES
-
   });
   //Fin del route->middleware->aut
 

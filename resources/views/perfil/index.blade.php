@@ -6,7 +6,7 @@
 	<div class="dropdown-menu">
 		<div class="header-navheading">
 			<h6 class="main-notification-title">{{ Auth::user()->name }}</h6>
-			<p class="main-notification-text">Web Designer</p>
+			<p class="main-notification-text">{{Auth::user()->roles->isNotEmpty() ? Auth::user()->roles->first()->name : ""}}</p>
 		</div>
 		<a class="dropdown-item border-top" href="profile.html">
 			<i class="fe fe-user"></i> My Profile
