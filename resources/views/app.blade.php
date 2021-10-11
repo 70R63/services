@@ -79,7 +79,6 @@
 							@include('menu.cliente')							
 							@include('menu.roles')					
 						@endcanany
-s
 						@canany(['isAdmin','isSysAdmin','isCliente'])
 							@include('menu.usuario')
 						@endcanany

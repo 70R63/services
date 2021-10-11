@@ -21,6 +21,8 @@
                                 @enderror
                             </div>
                         </div>
+
+
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Constraseña') }}</label>
                             <div class="col-md-6">
@@ -32,6 +34,8 @@
                                 @enderror
                             </div>
                         </div>
+
+
                         <div class="form-group row">
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirmar contraseña') }}</label>
                             <div class="col-md-6">
