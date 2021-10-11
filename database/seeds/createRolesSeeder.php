@@ -6,7 +6,7 @@ use App\Models\Roles\Roles;
 use App\Models\Roles\Permisos;
 use Illuminate\Support\Facades\Hash;
 
-class rolAdminSeeder extends Seeder
+class createRolesSeeder extends Seeder
 {
     /**
      * Run the database seeds.
