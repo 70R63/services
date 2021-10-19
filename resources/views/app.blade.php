@@ -47,6 +47,7 @@
 		<link href="{{ url('spruha/plugins/datatable/responsivebootstrap4.min.css') }}" rel="stylesheet" />
 		<link href="{{ url('spruha/plugins/datatable/fileexport/buttons.bootstrap4.min.css') }}" rel="stylesheet" />
 
+
 		@yield('css_rol_page')
 
 	</head>
@@ -229,7 +230,8 @@
 		<script src="{{ url('spruha/plugins/datatable/fileexport/buttons.colVis.min.js') }}"></script>
 		<script src="{{ url('spruha/js/table-data.js') }}"></script>
 
-
+		<script src="{{url('spruha/plugins/darggable/jquery-ui-darggable.min.js') }}"></script>
+		<script src="{{url('spruha/plugins/darggable/darggable.js') }}"></script>
 
 		<!-- Internal salvado temporal de los envios -->
 		<script type="text/javascript">

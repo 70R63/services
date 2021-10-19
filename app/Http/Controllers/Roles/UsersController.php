@@ -32,7 +32,7 @@ class UsersController extends Controller
 
  
     public function store(Request $request)
-    {    
+    {   
         $request->validate([
             'name' => 'required|max:40',
             'email' => 'required|unique:users|email|max:50',
@@ -96,7 +96,6 @@ class UsersController extends Controller
 
     public function update(Request $request, User $user)
     {  
-        
         $request->validate([
             'name' => 'required|max:40',
             'email' => 'required|email|max:50',

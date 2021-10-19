@@ -45,6 +45,7 @@
                   <select class="form-control" name="role" id="role">
                      <option value="">Seleccionar Rol...</option>
                      @foreach ($roles as $role)
+                     @if(!\Auth::user()->hasRol('sysadmin') && $role->slug=="sysadmin")) @continue; @endif 
                         <option data-role-id="{{$role->id}}" data-role-slug="{{$role->slug}}" value="{{$role->id}}">{{$role->name}}</option>
                      @endforeach
                   </select>
@@ -52,10 +53,11 @@
                <div class="form-group mb-3">
                   <div id="permissions_box" >
                      <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1">Permisos del rol<span class="tx-danger">*</span></span>
+                        <span class="input-group-text" id="basic-addon1">Permisos del rol</span>
+                        <div class="form-control" id="permissions_ckeckbox_list">
+                        </div>
                      </div>
-                     <div id="permissions_ckeckbox_list">
-                     </div>
+                     
                   </div>
                </div>
                <div class="form-group pt-2">
@@ -96,11 +98,9 @@
                         permissions_box.show();                        
                         // permissions_ckeckbox_list.empty();
                          $.each(data, function(index, element){
-                            $(permissions_ckeckbox_list).append(       
-                                '<div class="custom-control custom-checkbox">'+                         
-                                    '<input class="custom-control-input" type="checkbox" name="permisos[]" id="'+ element.slug +'" value="'+ element.id +'">' +
-                                    '<label class="custom-control-label" for="'+ element.slug +'">'+ element.name +'</label>'+
-                                '</div>'
+                            $(permissions_ckeckbox_list).append(                                                           
+                              '<input class="custom-control-input" type="checkbox" checked="" name="permisos[]"  id="'+ element.slug +'" value="'+ element.id +'">' +
+                              '<span class="tag tag-primary mt-1 mb-1">' + element.slug + '</span> '                             
                             );
                         }); 
                     });

@@ -27,11 +27,26 @@
             </div>
             <div class="input-group mb-3">
                <div class="input-group-prepend">
-                  <span class="input-group-text" id="basic-addon1">Agregar permisos<span class="tx-danger">*</span></span>  
+                  <span class="input-group-text" id="basic-addon1">Intercambiar permisos<span class="tx-danger">*</span></span>  
                </div>
-               <input type="text" data-role="tagsinput" name="roles_permisos" class="form-control" id="roles_permisos"  value="@foreach ($roles->permisos as $permiso)
-                  {{$permiso->name. ','}}
-                  @endforeach">  
+            <div class="selectgroup selectgroup-pills" id="roles_permisos" name="roles_permisos">
+                     <label class="selectgroup-item ">
+                        <input type="checkbox" name="roles_permisos[]" value="crear" class="selectgroup-input">
+                        <span class="selectgroup-button">Crear</span>
+                     </label>
+                     <label class="selectgroup-item">
+                        <input type="checkbox" name="roles_permisos[]" value="editar" class="selectgroup-input">
+                        <span class="selectgroup-button">Editar</span>
+                     </label>
+                     <label class="selectgroup-item">
+                        <input type="checkbox" name="roles_permisos[]" value="leer" class="selectgroup-input">
+                        <span class="selectgroup-button">Leer</span>
+                     </label>
+                     <label class="selectgroup-item">
+                        <input type="checkbox" name="roles_permisos[]" value="borrar" class="selectgroup-input">
+                        <span class="selectgroup-button">Borrar</span>
+                     </label>
+                  </div>
             </div>
             <div class="form-group pt-2">
                <input class="btn btn-success" type="submit" value="Enviar">

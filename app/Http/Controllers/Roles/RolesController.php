@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Roles;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\ModelNotFoundException;  
 use App\Models\Roles\Roles;
 use App\Models\Roles\Permisos;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 //USO GENERAL
@@ -29,30 +30,47 @@ class RolesController extends Controller
 
     public function store(Request $request)
     {
+        //dd($request);
+        try {
         $request->validate([
-            'rol_name' => 'required|max:20',
-            'rol_slug' => 'required|max:20',
+            'name' => 'required|unique:roles|max:20',
+            'slug' => 'required|max:20',
+            'roles_permisos' => 'required',
         ]);
 
         $rol = new Roles;
-        $rol->name = $request->rol_name;
-        $rol->slug = $request->rol_slug;
+        $rol->name = $request->name;
+        $rol->slug = $request->slug;
         $rol->save();
 
-        $listaDePermisos = explode(",", $request->roles_permisos);
-
-        foreach($listaDePermisos as $item){
+        foreach($request->roles_permisos as $item){
             $items = new Permisos();
-            $items->name = $item;
+            $items->name = ucfirst($item);
             $items->slug = strtolower(str_replace("", "-", $item));
             $items->save();
             $rol->permisos()->attach($items->id);
-            $rol->save();
-            
+            $rol->save();           
         }
 
         $tmp = sprintf("El rol '%s' se creo correctamente", $rol->name);
         $notices = array($tmp);
+
+        } catch (ModelNotFoundException $e) {
+            Log::info(__FUNCTION__);
+            Log::info("ModelNotFoundException");
+
+            return Redirect::back()
+                ->with('notices',array($e->getMessage() ))
+                ->withInput();
+
+
+        } catch (Exception $e) {
+            return Redirect::back()
+                ->withErrors(array($e->getMessage() ))
+                ->withInput();
+
+            
+        }
 
         return \Redirect::route('roles.index') -> withSuccess ($notices);
     }
@@ -93,7 +111,6 @@ class RolesController extends Controller
 
     public function update(Request $request, Roles $role)
     {
-
        $request->validate([
             'name' => 'required|max:20',
             'slug' => 'required|max:20',
@@ -106,10 +123,8 @@ class RolesController extends Controller
 
             $role->permisos()->delete();
             $role->permisos()->detach();
-
-            $listOfPermissions = explode(',', $request->roles_permisos);
-            
-            foreach ($listOfPermissions as $permission) {
+          
+            foreach ($request->roles_permisos as $permission) {
                 $permissions = new Permisos();
                 $permissions->name = $permission;
                 $permissions->slug = strtolower(str_replace(" ", "-", $permission));
