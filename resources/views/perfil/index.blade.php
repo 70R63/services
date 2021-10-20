@@ -8,7 +8,7 @@
 			<h6 class="main-notification-title">{{ Auth::user()->name }}</h6>
 			<p class="main-notification-text">{{Auth::user()->roles->isNotEmpty() ? Auth::user()->roles->first()->name : ""}}</p>
 		</div>
-		<a class="dropdown-item border-top" href="profile.html">
+		<a class="dropdown-item border-top" href="{{route('profile.index')}}">
 			<i class="fe fe-user"></i> My Profile
 		</a>
 		<a class="dropdown-item" href="profile.html">

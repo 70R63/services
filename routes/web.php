@@ -61,6 +61,8 @@ Route::group(array('domain' => env('APP_URL')), function() {
     //USUARIO
     Route::resource('users','Roles\UsersController')->middleware('roles:sysadmin,admin,cliente'); 
     //FIN USUARIO
+
+    Route::resource('profile','userProfileController');
   });
   //Fin del route->middleware->aut
 

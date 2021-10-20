@@ -7,6 +7,14 @@ use App\Models\User;
 use App\Models\Roles\Roles;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
+
+//USO GENERAL
+use Log;
+use Redirect;
+use Exception;
+
 
 class UsersController extends Controller
 {
@@ -33,33 +41,54 @@ class UsersController extends Controller
  
     public function store(Request $request)
     {   
-        $request->validate([
-            'name' => 'required|max:40',
-            'email' => 'required|unique:users|email|max:50',
-            'password' => 'required|between:8,12|confirmed',
-            'password_confirmation' => 'required'
-        ]);
-      //  dd($request);
+        try {
+            $request->validate([
+                'name' => 'required|max:40',
+                'email' => 'required|unique:users|email|max:50',
+                'password' => 'required|between:8,12|confirmed',
+                'password_confirmation' => 'required'
+            ]);
+              //  dd($request);
 
-        $user = new User;
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = Hash::make($request->password);
-        $user->save();
-
-        if($request->role != null){
-            $user->roles()->attach($request->role);
-            $user->save();
-        }
-
-        if($request->permisos != null){            
-            foreach ($request->permisos as $permiso) {
-                $user->permisos()->attach($permiso);
+                $user = new User;
+                $user->name = $request->name;
+                $user->email = $request->email;
+                $user->password = Hash::make($request->password);
                 $user->save();
-            }
-        }
 
-        return \Redirect::route('users.index');
+                if($request->role != null){
+                    $user->roles()->attach($request->role);
+                    $user->save();
+                }
+
+                if($request->permisos != null){            
+                    foreach ($request->permisos as $permiso) {
+                        $user->permisos()->attach($permiso);
+                        $user->save();
+                    }
+                }
+                $tmp = sprintf("El usuario '%s' se creó correctamente", $user->name);
+                $notices = array($tmp);
+            } 
+            catch (ModelNotFoundException $e) {
+                Log::info(__CLASS__." ".__FUNCTION__);
+                Log::info("ModelNotFoundException");
+                return Redirect::back()
+                    ->withErrors(array($e->getMessage() ))
+                    ->withInput();
+             } catch (QueryException $e) { 
+                Log::info(__CLASS__." ".__FUNCTION__." QueryException");
+                Log::debug($e->getMessage());
+                    return Redirect::back()
+                        ->withErrors(array($e->getMessage() ))
+                        ->withInput(); 
+                } catch (Exception $e) {
+                    Log::info(__CLASS__." ".__FUNCTION__);
+                    return Redirect::back()
+                        ->with('dangers',array($e->getMessage() ))
+                        ->withInput();               
+            }
+                return \Redirect::route('users.index')-> withSuccess ($notices);;
 
     }
 
@@ -96,36 +125,53 @@ class UsersController extends Controller
 
     public function update(Request $request, User $user)
     {  
-        $request->validate([
-            'name' => 'required|max:40',
-            'email' => 'required|email|max:50',
-            'password' => 'confirmed',
-        ]);
- 
-
-        $user->name = $request->name;
-        $user->email = $request->email;
-        if($request->password != null){
-            $user->password = Hash::make($request->password);
-        }
-        $user->save();
-
-        $user->roles()->detach();
-        $user->permisos()->detach();
-
-        if($request->role != null){
-            $user->roles()->attach($request->role);
-            $user->save();
-        }
-
-        if($request->permisos != null){            
-            foreach ($request->permisos as $permiso) {
-                $user->permisos()->attach($permiso);
+        try {                 
+                $request->validate([
+                    'name' => 'required|max:40',
+                    'email' => 'required|email|max:50',
+                    'password' => 'confirmed',
+                ]);
+                $user->name = $request->name;
+                $user->email = $request->email;
+                if($request->password != null){
+                    $user->password = Hash::make($request->password);
+                }
                 $user->save();
-            }
-        }
+                $user->roles()->detach();
+                $user->permisos()->detach();
 
-        return \Redirect::route('users.index');
+                if($request->role != null){
+                    $user->roles()->attach($request->role);
+                    $user->save();
+                }
+                if($request->permisos != null){            
+                    foreach ($request->permisos as $permiso) {
+                        $user->permisos()->attach($permiso);
+                        $user->save();
+                    }
+                }
+                $tmp = sprintf("El usuario '%s' se actualizó correctamente", $user->name);
+                $notices = array($tmp);
+            } 
+            catch (ModelNotFoundException $e) {
+                Log::info(__CLASS__." ".__FUNCTION__);
+                Log::info("ModelNotFoundException");
+                return Redirect::back()
+                    ->withErrors(array($e->getMessage() ))
+                    ->withInput();
+             } catch (QueryException $e) { 
+                Log::info(__CLASS__." ".__FUNCTION__." QueryException");
+                Log::debug($e->getMessage());
+                    return Redirect::back()
+                        ->withErrors(array($e->getMessage() ))
+                        ->withInput(); 
+                } catch (Exception $e) {
+                    Log::info(__CLASS__." ".__FUNCTION__);
+                    return Redirect::back()
+                        ->with('dangers',array($e->getMessage() ))
+                        ->withInput();               
+            }
+        return \Redirect::route('users.index')-> withSuccess ($notices);
     }
 
     public function destroy(User $user)
@@ -133,6 +179,8 @@ class UsersController extends Controller
         $user->roles()->detach();
         $user->permisos()->detach();
         $user->delete();
-        return \Redirect::route('users.index');
+        $tmp = sprintf("El usuario '%s' se eliminó correctamente", $user->name);
+        $notices = array($tmp);
+        return \Redirect::route('users.index')-> withSuccess ($notices);;
     }
 }

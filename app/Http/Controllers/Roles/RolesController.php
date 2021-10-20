@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Models\Roles\Roles;
 use App\Models\Roles\Permisos;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\QueryException;
 
 //USO GENERAL
 use Log;

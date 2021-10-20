@@ -12,7 +12,7 @@
             </div>
         </div>
         <div class="card-body">
-            <form method="POST" action="/users" enctype="multipart/form-data">
+            <form class="parsley-style-1" method="POST" action="/users" enctype="multipart/form-data" id="crearUsuario">
                {{ csrf_field() }}
                <div class="input-group mb-3">
                   <div class="input-group-prepend">

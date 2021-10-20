@@ -130,7 +130,7 @@
 							<div></div>
 							<div class="d-flex">
 									@include('mensaje.error')
-									@include('mensaje.notificacion')
+									@include('mensaje.danger')
 									@include('mensaje.exitoso')
 							</div>							
 						</div>

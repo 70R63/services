@@ -1,10 +1,10 @@
 @if ($errors->any())
-<div class="alert alert-block alert-danger">
+<div class="alert alert-block alert-warning">
 	<button type="button" class="close" data-dismiss="alert">
 		<i class="ace-icon fa fa-times"></i>
 	</button>
 	<p>
-		Error de sistema favor de contactar al administrador :
+		Favor de validar los datos ingresados :
 	</p>
 	<ul>
 		@foreach($errors->all() as $error)

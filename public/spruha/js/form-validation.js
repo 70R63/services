@@ -11,6 +11,7 @@ $(function() {
 	$('#cotizacionesForm').parsley();
 	$('#clienteForm').parsley();
 	$('#grupoForm').parsley();
+	$('#crearUsuario').parsley();
 	
 
 });
