@@ -103,9 +103,6 @@
 
 	@section('js_user_page')
 
-		<script src="/vendor/chart.js/Chart.min.js"></script>
-		<script src="/js/admin/demo/chart-area-demo.js"></script>
-
 		    <script>
 		        $('#deleteModal').on('show.bs.modal', function (event) {
 		            var button = $(event.relatedTarget) 

@@ -102,9 +102,7 @@ class UsersController extends Controller
 
         $roles = Roles::get();
         $userRole = $user->roles->first();
-        //dump($userRole->name);
-
-
+ 
         if($userRole != null){
             $rolePermisos = $userRole->allRolesPermisos;
         }else{
@@ -112,15 +110,13 @@ class UsersController extends Controller
         }
         $userPermisos = $user->permisos;
 
-
         return view('usuario.editar', [
             'users'=>$user,
             'roles'=>$roles,
             'userRole'=>$userRole,
             'rolPermisos'=>$rolePermisos,
             'usersPermisos'=>$userPermisos
-            ]);
-   
+            ]);  
     }
 
     public function update(Request $request, User $user)

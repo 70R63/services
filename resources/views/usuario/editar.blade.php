@@ -9,7 +9,7 @@
                </div>
             </div>
             <div class="card-body">
-               <form method="POST" action="/users/{{ $users->id }}" enctype="multipart/form-data">
+               <form method="POST" action="/users/{{ $users->id }}" enctype="multipart/form-data" id="editarUsuario">
                   @method('PATCH')
                   @csrf()
                   <div class="input-group mb-3">

@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+
+use DB;
 
 class userProfileController extends Controller
 {
@@ -12,9 +16,17 @@ class userProfileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
-        return view("perfil.profile");
+        $users = Auth::user();
+        return view("perfil.profile",compact('users'));
     }
 
     /**
@@ -69,7 +81,18 @@ class userProfileController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        //dd($user,$request);
+       
+       $this->validate(request(), [
+            'password' => 'required|min:6|confirmed'
+        ]);
+        $request->password = Hash::make(request('password'));
+        $query = DB::table('users')
+            ->where('id', $request->user_id)
+            ->update(['password' => $request->password]);
+        $tmp = sprintf("El usuario '%s' se actualizó correctamente", $request->name);
+        $notices = array($tmp);
+        return \Redirect::route('profile.index')-> withSuccess ($notices);
     }
 
     /**

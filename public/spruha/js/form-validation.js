@@ -12,6 +12,7 @@ $(function() {
 	$('#clienteForm').parsley();
 	$('#grupoForm').parsley();
 	$('#crearUsuario').parsley();
+	$('#editarUsuario').parsley();
 	
 
 });
